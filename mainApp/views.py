@@ -131,41 +131,20 @@ class AttemptStartView(APIView):
         if test is None:
             test = Test.objects.create(theme=theme, name=f"Auto ({theme.name})")
 
-        # Old attempt tekshir
+        # 🔹 Avvalgi tugallanmagan attempt bo‘lsa → tugatib yuboramiz
         active_attempt = TestAttempt.objects.filter(
             test=test, user=request.user, finished_at__isnull=True
         ).order_by("-started_at").first()
 
         if active_attempt:
-            meta = cache.get(_cache_key(active_attempt.id))
-            if meta:
-                expires_at = datetime.datetime.fromisoformat(meta["expires_at"])
-                if _now() < expires_at:
-                    # Resume old attempt
-                    questions = [ans.question for ans in active_attempt.answers.select_related("question")]
-                    ctx = {
-                        'request': request,
-                        'attempt_secret': meta["secret"],
-                        'option_salts': meta["salts"],
-                    }
-                    resp = {
-                        "attempt_id": active_attempt.id,
-                        "theme_id": str(theme.id),
-                        "test_id": str(test.id),
-                        "count": len(questions),
-                        "order": order,
-                        "mode": mode,
-                        "duration": custom_duration or test.default_duration,
-                        "expires_at": expires_at,
-                        "questions": questions,
-                    }
-                    ser = AttemptStartResponseSerializer(resp, context=ctx)
-                    return Response(ser.data, status=200)
-            # expired bo‘lsa finish qilamiz
             active_attempt.finished_at = _now()
-            active_attempt.save(update_fields=["finished_at"])
+            total = active_attempt.answers.count()
+            correct = active_attempt.answers.filter(is_correct=True).count()
+            active_attempt.score = round((correct / total) * 100, 2) if total else 0.0
+            active_attempt.duration = int((active_attempt.finished_at - active_attempt.started_at).total_seconds() // 60)
+            active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
-        # Yangi attempt
+        # 🔹 Yangi attempt yaratamiz
         pool = Question.objects.filter(test__theme=theme).prefetch_related("options").order_by("created")
         total = pool.count()
         if total == 0:
@@ -185,7 +164,7 @@ class AttemptStartView(APIView):
         duration = custom_duration or test.default_duration
         expires_at = _expires(attempt.started_at, duration)
 
-        # Secret + salts
+        # 🔹 Secret + salts
         secret = secrets.token_hex(16)
         option_salts = {str(o.id): secrets.token_hex(8) for q in questions for o in q.options.all()}
         meta = {
