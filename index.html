@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <h1>Quiz Test System</h1>
+
+  <!-- Tugmalar -->
+  <button onclick="startTest()">Start Test</button>
+  <button onclick="resumeTest()">Resume Test</button>
+  <button onclick="finishTest()">Finish Test</button>
+
+  <div id="quiz"></div>
+  <div id="log" style="margin-top:20px;color:green"></div>
+
+  <script>
+    // === Config ===
+    const API_BASE = "http://127.0.0.1:8000";
+    const THEME_ID = "2ae1f753-c6d4-4454-8078-14f8ba655c0e"; // o'zingizning theme_id
+    const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU3NTgyODcwLCJpYXQiOjE3NTc0OTY0NzAsImp0aSI6IjI1OTQ0NjZjMmU4NjQ0N2JiNDU3MjU4ZGViOTE5MjNmIiwidXNlcl9pZCI6ImYzZWFjZjY0LTA1ZWYtNDcwZS04M2Y5LTI0MGQ5Yjc2OWY0OCJ9.5izK8-3_bUFjfrgHGnxCP1rYlIF2upwUwDlH3S58GSA"; // JWT token joylang
+
+    let attemptId = null;
+    let questions = [];
+
+    // === Testni boshlash ===
+    async function startTest() {
+      try {
+        const res = await axios.get(`${API_BASE}/themes/${THEME_ID}/attempts/start`, {
+          params: { count: 5, order: "random", mode: "sequential", duration: 5 },
+          headers: { Authorization: `Bearer ${TOKEN}` }
+        });
+
+        attemptId = res.data.attempt_id;
+        questions = res.data.questions;
+
+        renderQuestions(questions);
+        log("✅ Test boshlandi!");
+      } catch (err) {
+        console.error(err);
+        log("❌ Xatolik: testni boshlashda muammo!");
+      }
+    }
+
+    // === Savollarni ko'rsatish ===
+    function renderQuestions(qs) {
+      const div = document.getElementById("quiz");
+      div.innerHTML = "";
+      qs.forEach((q, qIndex) => {
+        const qDiv = document.createElement("div");
+        qDiv.innerHTML = `<h3>${qIndex+1}. ${q.text}</h3>`;
+        if (q.image_url) {
+          qDiv.innerHTML += `<img src="${q.image_url}" width="150"><br/>`;
+        }
+
+        q.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.textContent = opt.text;
+          btn.onclick = () => submitAnswer(q, opt);
+          qDiv.appendChild(btn);
+          qDiv.appendChild(document.createElement("br"));
+        });
+
+        div.appendChild(qDiv);
+      });
+    }
+
+    // === Javob yuborish ===
+    async function submitAnswer(questionObj, optionObj) {
+      // To'g'ri/noto'g'ri ni aniqlash: tag_true == question.correct_token ?
+      const verdict = (optionObj.tag_true === questionObj.correct_token);
+      const tag = verdict ? optionObj.tag_true : optionObj.tag_false;
+
+      try {
+        const res = await axios.post(`${API_BASE}/attempts/${attemptId}/answer`, {
+          question_id: questionObj.id,
+          option_id: optionObj.id,
+          verdict: verdict,
+          tag: tag
+        }, {
+          headers: { Authorization: `Bearer ${TOKEN}` }
+        });
+
+        log(`Savolga javob yuborildi: ${res.data.is_correct ? "✅ To‘g‘ri" : "❌ Xato"}`);
+      } catch (err) {
+        console.error(err);
+        log("❌ Xatolik: javob yuborishda muammo!");
+      }
+    }
+
+    // === Resume (davom ettirish) ===
+    async function resumeTest() {
+      if (!attemptId) {
+        log("❌ Attempt ID yo‘q. Avval testni boshlang.");
+        return;
+      }
+      try {
+        const res = await axios.get(`${API_BASE}/attempts/${attemptId}/state`, {
+          headers: { Authorization: `Bearer ${TOKEN}` }
+        });
+        log(`▶️ Resume: answered=${res.data.answered}, correct=${res.data.correct}, finished_at=${res.data.finished_at}`);
+      } catch (err) {
+        console.error(err);
+        log("❌ Xatolik: resume qilolmadi!");
+      }
+    }
+
+    // === Finish ===
+    async function finishTest() {
+      if (!attemptId) {
+        log("❌ Attempt ID yo‘q. Avval testni boshlang.");
+        return;
+      }
+      try {
+        const res = await axios.post(`${API_BASE}/attempts/${attemptId}/finish`, {}, {
+          headers: { Authorization: `Bearer ${TOKEN}` }
+        });
+        log(`🏁 Test tugadi: ${res.data.correct}/${res.data.total}, score=${res.data.score}%`);
+      } catch (err) {
+        console.error(err);
+        log("❌ Xatolik: finish qilolmadi!");
+      }
+    }
+
+    // === Log helper ===
+    function log(msg) {
+      document.getElementById("log").innerText = msg;
+    }
+  </script>
+</body>
+</html>

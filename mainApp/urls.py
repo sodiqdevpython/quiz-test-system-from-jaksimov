@@ -5,7 +5,9 @@ from .views import (
     UserListView, UserDetailView,
     CategoryListView,
     SubjectListView, SubjectDetailView,
-    ThemeListView, ThemeDetailView, LogoutView
+    ThemeListView, ThemeDetailView, LogoutView,
+    AttemptStartView, AttemptFinishView,SubmitAnswerView,
+    AttemptStateView
 )
 
 
@@ -32,4 +34,9 @@ urlpatterns = [
     # Theme
     path("themes/", ThemeListView.as_view(), name="theme-list"),
     path("themes/<uuid:pk>/", ThemeDetailView.as_view(), name="theme-detail"),
+
+    path("themes/<uuid:theme_id>/attempts/start", AttemptStartView.as_view(), name="attempt-start"),
+    path("attempts/<uuid:attempt_id>/answer", SubmitAnswerView.as_view(), name="attempt-answer"),
+    path("attempts/<uuid:attempt_id>/state", AttemptStateView.as_view(), name="attempt-state"),
+    path("attempts/<uuid:attempt_id>/finish", AttemptFinishView.as_view(), name="attempt-finish"),
 ]
