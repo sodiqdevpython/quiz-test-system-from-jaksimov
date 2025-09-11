@@ -295,6 +295,30 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -385,12 +409,60 @@
         "documentation": {}
     },
     {
+        "label": "PageNumberPagination",
+        "importPath": "rest_framework.pagination",
+        "description": "rest_framework.pagination",
+        "isExtraImport": true,
+        "detail": "rest_framework.pagination",
+        "documentation": {}
+    },
+    {
         "label": "hmac,",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "hmac.",
         "description": "hmac.",
         "detail": "hmac.",
+        "documentation": {}
+    },
+    {
+        "label": "Count",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Count",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Avg",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "TruncDate",
+        "importPath": "django.db.models.functions",
+        "description": "django.db.models.functions",
+        "isExtraImport": true,
+        "detail": "django.db.models.functions",
+        "documentation": {}
+    },
+    {
+        "label": "TruncDate",
+        "importPath": "django.db.models.functions",
+        "description": "django.db.models.functions",
+        "isExtraImport": true,
+        "detail": "django.db.models.functions",
         "documentation": {}
     },
     {
@@ -463,6 +535,14 @@
         "description": "django.core.cache",
         "isExtraImport": true,
         "detail": "django.core.cache",
+        "documentation": {}
+    },
+    {
+        "label": "ListAPIView",
+        "importPath": "rest_framework.generics",
+        "description": "rest_framework.generics",
+        "isExtraImport": true,
+        "detail": "rest_framework.generics",
         "documentation": {}
     },
     {
@@ -757,7 +837,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [",
+        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -766,7 +846,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -775,7 +855,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",",
+        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -784,7 +864,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",",
+        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -793,7 +873,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\"\n]",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -802,7 +882,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\"\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
+        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -811,16 +891,16 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\"\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },
     {
-        "label": "CORS_ALLOWED_ORIGINS",
+        "label": "CORS_ALLOW_ALL_ORIGINS",
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\"\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish",
+        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -921,6 +1001,15 @@
         "description": "mainApp.migrations.0005_alter_theme_full_html_file",
         "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('mainApp', '0004_alter_theme_full_html_file'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='theme',\n            name='full_html_file',\n            field=ckeditor.fields.RichTextField(blank=True, null=True, verbose_name=\"To'liq matn (HTML)\"),\n        ),",
         "detail": "mainApp.migrations.0005_alter_theme_full_html_file",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "mainApp.migrations.0006_user_average_score_user_total_attempts_and_more",
+        "description": "mainApp.migrations.0006_user_average_score_user_total_attempts_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('mainApp', '0005_alter_theme_full_html_file'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='user',\n            name='average_score',\n            field=models.FloatField(default=0.0),\n        ),",
+        "detail": "mainApp.migrations.0006_user_average_score_user_total_attempts_and_more",
         "documentation": {}
     },
     {
@@ -1117,7 +1206,7 @@
         "kind": 6,
         "importPath": "mainApp.models",
         "description": "mainApp.models",
-        "peekOfCode": "class User(BaseModel, AbstractUser):\n    profile_photo = models.ImageField(upload_to=\"profile_photo\", null=True, blank=True)\n    role = models.CharField(max_length=50, choices=[\n        (\"student\", \"Talaba\"),\n        (\"teacher\", \"O'qituvchi\"),\n        (\"admin\", \"Admin\")\n    ], default=\"student\", verbose_name=\"Rol\")\n    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=\"Guruh\")\n    def __str__(self):\n        return self.username",
+        "peekOfCode": "class User(BaseModel, AbstractUser):\n    profile_photo = models.ImageField(upload_to=\"profile_photo\", null=True, blank=True)\n    role = models.CharField(max_length=50, choices=[\n        (\"student\", \"Talaba\"),\n        (\"teacher\", \"O'qituvchi\"),\n        (\"admin\", \"Admin\")\n    ], default=\"student\", verbose_name=\"Rol\")\n    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=\"Guruh\")\n    total_attempts = models.PositiveIntegerField(default=0)\n    total_correct = models.PositiveIntegerField(default=0)",
         "detail": "mainApp.models",
         "documentation": {}
     },
@@ -1200,6 +1289,15 @@
         "description": "mainApp.models",
         "peekOfCode": "class Answer(BaseModel):\n    attempt = models.ForeignKey(TestAttempt, on_delete=models.CASCADE, related_name=\"answers\", verbose_name=\"Urinish\")\n    question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name=\"Savol\")\n    selected_option = models.ForeignKey(Option, on_delete=models.CASCADE, null=True, blank=True, verbose_name=\"Tanlangan variant\")\n    is_correct = models.BooleanField(default=False, verbose_name=\"To'g'ri javob\")\n    def __str__(self):\n        return f\"Javob: {self.attempt.user.username} - Q{self.question.id}\"\n    class Meta:\n        verbose_name = \"Javob\"\n        verbose_name_plural = \"Javoblar\"",
         "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "StandardResultsSetPagination",
+        "kind": 6,
+        "importPath": "mainApp.pagination",
+        "description": "mainApp.pagination",
+        "peekOfCode": "class StandardResultsSetPagination(PageNumberPagination):\n    page_size = 20\n    page_size_query_param = 'page_size'\n    max_page_size = 100",
+        "detail": "mainApp.pagination",
         "documentation": {}
     },
     {
@@ -1324,7 +1422,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptOptionOutSerializer(serializers.ModelSerializer):\n    image_url = serializers.SerializerMethodField()\n    tag_true = serializers.SerializerMethodField()\n    tag_false = serializers.SerializerMethodField()\n    class Meta:\n        model  = Option\n        fields = ('id', 'text', 'image_url', 'tag_true', 'tag_false')\n    def get_image_url(self, obj):\n        return _abs_url(self.context.get('request'), obj.image)\n    def _make_tag(self, obj, correct_flag):",
+        "peekOfCode": "class AttemptOptionOutSerializer(serializers.ModelSerializer):\n    image_url = serializers.SerializerMethodField()\n    tag_true = serializers.SerializerMethodField()\n    tag_false = serializers.SerializerMethodField()\n    class Meta:\n        model  = Option\n        fields = ('id', 'text', 'image_url', 'tag_true', 'tag_false')\n    def get_image_url(self, obj):\n        return _abs_url(self.context.get('request'), obj.image)\n    def _make_tag(self, obj, correct_flag: int):",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1333,7 +1431,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptQuestionOutSerializer(serializers.ModelSerializer):\n    image_url = serializers.SerializerMethodField()\n    options   = serializers.SerializerMethodField()\n    class Meta:\n        model = Question\n        fields = ('id', 'text', 'image_url', 'options')\n    def get_image_url(self, obj):\n        return _abs_url(self.context.get('request'), obj.image)\n    def get_options(self, obj):\n        options = list(obj.options.all())",
+        "peekOfCode": "class AttemptQuestionOutSerializer(serializers.ModelSerializer):\n    image_url = serializers.SerializerMethodField()\n    options   = serializers.SerializerMethodField()\n    correct_token = serializers.SerializerMethodField()\n    class Meta:\n        model = Question\n        fields = ('id', 'text', 'image_url', 'options', 'correct_token')\n    def get_image_url(self, obj):\n        return _abs_url(self.context.get('request'), obj.image)\n    def get_options(self, obj):",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1369,7 +1467,88 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptFinishResponseSerializer(serializers.Serializer):\n    attempt_id = serializers.UUIDField()\n    correct    = serializers.IntegerField()\n    total      = serializers.IntegerField()\n    score      = serializers.FloatField()",
+        "peekOfCode": "class AttemptFinishResponseSerializer(serializers.Serializer):\n    attempt_id = serializers.UUIDField()\n    correct    = serializers.IntegerField()\n    total      = serializers.IntegerField()\n    score      = serializers.FloatField()\nclass AttemptResultSerializer(serializers.ModelSerializer):\n    user = serializers.CharField(source=\"user.first_name\")\n    correct = serializers.SerializerMethodField()\n    total = serializers.SerializerMethodField()\n    class Meta:",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptResultSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class AttemptResultSerializer(serializers.ModelSerializer):\n    user = serializers.CharField(source=\"user.first_name\")\n    correct = serializers.SerializerMethodField()\n    total = serializers.SerializerMethodField()\n    class Meta:\n        model = TestAttempt\n        fields = (\n            \"id\",\n            \"user\",\n            \"started_at\",",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "GroupSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class GroupSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Group\n        fields = (\"id\", \"name\", \"kurs\")\nclass UserProfileSerializer(serializers.ModelSerializer):\n    group = GroupSerializer()\n    profile_photo_url = serializers.SerializerMethodField()\n    attempts_count = serializers.SerializerMethodField()\n    last_active = serializers.SerializerMethodField()\n    activity = serializers.SerializerMethodField()",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserProfileSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class UserProfileSerializer(serializers.ModelSerializer):\n    group = GroupSerializer()\n    profile_photo_url = serializers.SerializerMethodField()\n    attempts_count = serializers.SerializerMethodField()\n    last_active = serializers.SerializerMethodField()\n    activity = serializers.SerializerMethodField()\n    rank_overall = serializers.SerializerMethodField()\n    rank_in_group = serializers.SerializerMethodField()\n    class Meta:\n        model = User",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserActivityStatSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class UserActivityStatSerializer(serializers.Serializer):\n    date = serializers.DateField()\n    attempts = serializers.IntegerField()\nclass UserRatingSerializer(serializers.ModelSerializer):\n    group = GroupSerializer()\n    class Meta:\n        model = User\n        fields = (\n            \"id\",\n            \"username\",",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserRatingSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class UserRatingSerializer(serializers.ModelSerializer):\n    group = GroupSerializer()\n    class Meta:\n        model = User\n        fields = (\n            \"id\",\n            \"username\",\n            \"first_name\",\n            \"last_name\",\n            \"role\",",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserStatSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserStatSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass ProfilePhotoUpdateSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = User\n        fields = (\"profile_photo\",)\nclass AttemptResultSerializer(serializers.ModelSerializer):",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "ProfilePhotoUpdateSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class ProfilePhotoUpdateSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = User\n        fields = (\"profile_photo\",)\nclass AttemptResultSerializer(serializers.ModelSerializer):\n    user_id = serializers.UUIDField(source=\"user.id\")\n    username = serializers.CharField(source=\"user.username\")\n    correct = serializers.SerializerMethodField()\n    total = serializers.SerializerMethodField()\n    count = serializers.SerializerMethodField()",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "AttemptResultSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class AttemptResultSerializer(serializers.ModelSerializer):\n    user_id = serializers.UUIDField(source=\"user.id\")\n    username = serializers.CharField(source=\"user.username\")\n    correct = serializers.SerializerMethodField()\n    total = serializers.SerializerMethodField()\n    count = serializers.SerializerMethodField()\n    class Meta:\n        model = TestAttempt\n        fields = (\n            \"id\",",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1423,7 +1602,16 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    \"\"\"Mavzu o'chirilganda fan dagi sonni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()",
+        "peekOfCode": "def update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    \"\"\"Mavzu o'chirilganda fan dagi sonni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_save, sender=TestAttempt)\ndef update_user_stats(sender, instance, created, **kwargs):\n    \"\"\"\n    Har safar TestAttempt tugasa (finished_at != None),\n    foydalanuvchi umumiy statistikasi qayta hisoblanadi.",
+        "detail": "mainApp.signals",
+        "documentation": {}
+    },
+    {
+        "label": "update_user_stats",
+        "kind": 2,
+        "importPath": "mainApp.signals",
+        "description": "mainApp.signals",
+        "peekOfCode": "def update_user_stats(sender, instance, created, **kwargs):\n    \"\"\"\n    Har safar TestAttempt tugasa (finished_at != None),\n    foydalanuvchi umumiy statistikasi qayta hisoblanadi.\n    \"\"\"\n    if instance.finished_at:  # faqat tugallanganda\n        user = instance.user\n        # Barcha attemptlarini olib qayta hisoblash\n        attempts = user.attempts.filter(finished_at__isnull=False)\n        total_attempts = attempts.count()",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -1577,6 +1765,87 @@
         "importPath": "mainApp.views",
         "description": "mainApp.views",
         "peekOfCode": "class AttemptFinishView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        total = attempt.answers.count()\n        correct = attempt.answers.filter(is_correct=True).count()\n        score = round((correct / total) * 100, 2) if total else 0.0\n        if not attempt.finished_at:\n            attempt.finished_at = _now()\n            attempt.duration = int((attempt.finished_at - attempt.started_at).total_seconds() // 60)",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "TestAttemptResultsView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class TestAttemptResultsView(APIView):\n    def get(self, request, test_id):\n        test = get_object_or_404(Test, id=test_id)\n        attempts = TestAttempt.objects.filter(test=test).select_related(\"user\")\n        mode = request.query_params.get(\"mode\")\n        order = request.query_params.get(\"order\")\n        if mode in (\"sequential\", \"all_in_one\"):\n            attempts = attempts.filter(mode=mode)\n        if order in (\"random\", \"sequential\"):\n            attempts = attempts.filter(order=order)",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "MyProfileView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class MyProfileView(APIView):\n    \"\"\"\n    GET /me/profile\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request):\n        ser = UserProfileSerializer(request.user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserProfileView(APIView):\n    \"\"\"",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "UserProfileView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class UserProfileView(APIView):\n    \"\"\"\n    GET /users/<uuid:user_id>/profile\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]  # yoki admin-only qilish mumkin\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        ser = UserProfileSerializer(user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserActivityStatsView(APIView):",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "UserActivityStatsView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class UserActivityStatsView(APIView):\n    \"\"\"\n    GET /users/<uuid:user_id>/activity\n    Shu userning har kuni nechta attempt qilganini qaytaradi\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        # Kun bo‘yicha guruhlash\n        stats = (",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "UserRatingListView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        test_id = self.request.query_params.get(\"test_id\")\n        theme_id = self.request.query_params.get(\"theme_id\")\n        qs = User.objects.filter(role=\"student\")",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "SubjectStatsView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class SubjectStatsView(APIView):\n    \"\"\"\n    GET /subjects/<uuid:subject_id>/stats?page=1&page_size=10\n    Fan bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, subject_id):\n        subject = get_object_or_404(Subject, id=subject_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme__subject=subject,",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeStatsView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class ThemeStatsView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/stats?page=1&page_size=10\n    Mavzu bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "ProfilePhotoUpdateView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class ProfilePhotoUpdateView(APIView):\n    \"\"\"\n    POST /me/profile/photo  → profil rasmini yangilash\n    DELETE /me/profile/photo → profil rasmini o‘chirish\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        serializer = ProfilePhotoUpdateSerializer(\n            request.user, data=request.data, partial=True\n        )",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeAttemptsListView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class ThemeAttemptsListView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/attempts?page=1&page_size=10\n    Shu mavzuga tegishli barcha urinishlar (TestAttempt) ro‘yxati\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = (\n            TestAttempt.objects.filter(test__theme=theme, finished_at__isnull=False)",
         "detail": "mainApp.views",
         "documentation": {}
     },

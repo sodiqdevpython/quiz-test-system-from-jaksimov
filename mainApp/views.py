@@ -3,13 +3,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Group, User, Category, Subject, Theme
+from django.db.models import Count, Avg
+from .pagination import StandardResultsSetPagination
 from django.core.cache import cache
+from rest_framework.generics import ListAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (
     GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
     CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,
-    AttemptFinishResponseSerializer
+    AttemptFinishResponseSerializer, AttemptResultSerializer, UserProfileSerializer, UserRatingSerializer, UserStatSerializer,
+    ProfilePhotoUpdateSerializer
 )
+from django.db.models.functions import TruncDate
 from .models import (
     Question, Test, TestAttempt, Answer, Option
 )
@@ -332,4 +337,278 @@ class AttemptFinishView(APIView):
             "score": score,
         }
         return Response(AttemptFinishResponseSerializer(out).data, status=200)
+
+class TestAttemptResultsView(APIView):
+
+    def get(self, request, test_id):
+        test = get_object_or_404(Test, id=test_id)
+
+        attempts = TestAttempt.objects.filter(test=test).select_related("user")
+
+        mode = request.query_params.get("mode")
+        order = request.query_params.get("order")
+
+        if mode in ("sequential", "all_in_one"):
+            attempts = attempts.filter(mode=mode)
+        if order in ("random", "sequential"):
+            attempts = attempts.filter(order=order)
+
+        attempts = attempts.order_by("-score", "-correct", "duration")
+
+        ser = AttemptResultSerializer(attempts, many=True)
+        return Response(ser.data, status=200)
+
+
+class MyProfileView(APIView):
+    """
+    GET /me/profile
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        ser = UserProfileSerializer(request.user, context={"request": request})
+        return Response(ser.data, status=200)
+
+
+class UserProfileView(APIView):
+    """
+    GET /users/<uuid:user_id>/profile
+    """
+    permission_classes = [permissions.IsAuthenticated]  # yoki admin-only qilish mumkin
+
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        ser = UserProfileSerializer(user, context={"request": request})
+        return Response(ser.data, status=200)
+
+
+class UserActivityStatsView(APIView):
+    """
+    GET /users/<uuid:user_id>/activity
+    Shu userning har kuni nechta attempt qilganini qaytaradi
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+
+        # Kun bo‘yicha guruhlash
+        stats = (
+            TestAttempt.objects
+            .filter(user=user)
+            .annotate(day=TruncDate("started_at"))
+            .values("day")
+            .annotate(attempts=Count("id"))
+            .order_by("day")
+        )
+
+        # JSON ko‘rinishga o‘tkazamiz
+        data = [
+            {"date": row["day"], "attempts": row["attempts"]}
+            for row in stats
+        ]
+        return Response(data, status=200)
+
+
+class UserRatingListView(ListAPIView):
+    serializer_class = UserRatingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    search_fields = ["username", "first_name", "last_name", "email"]
+
+    def get_queryset(self):
+        filter_type = self.request.query_params.get("filter", "best_avg")
+        group_id = self.request.query_params.get("group_id")
+        test_id = self.request.query_params.get("test_id")
+        theme_id = self.request.query_params.get("theme_id")
+
+        qs = User.objects.filter(role="student")
+
+        if group_id:
+            qs = qs.filter(group_id=group_id)
+        if test_id:
+            qs = qs.filter(attempts__test_id=test_id)
+        if theme_id:
+            qs = qs.filter(attempts__test__theme_id=theme_id)
+
+        if filter_type == "most_attempts":
+            qs = qs.order_by("-total_attempts")
+        elif filter_type == "least_attempts":
+            qs = qs.order_by("total_attempts")
+        elif filter_type == "worst_avg":
+            qs = qs.order_by("average_score")
+        else:
+            qs = qs.order_by("-average_score")
+
+        return qs.distinct()
+
+
+class SubjectStatsView(APIView):
+    """
+    GET /subjects/<uuid:subject_id>/stats?page=1&page_size=10
+    Fan bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, subject_id):
+        subject = get_object_or_404(Subject, id=subject_id)
+
+        attempts = TestAttempt.objects.filter(
+            test__theme__subject=subject,
+            finished_at__isnull=False
+        )
+
+        # 🔹 Kunlik activity
+        activity = (
+            attempts.annotate(day=TruncDate("started_at"))
+            .values("day")
+            .annotate(count=Count("id"))
+            .order_by("day")
+        )
+
+        # 🔹 Umumiy statistika
+        total_attempts = attempts.count()
+        avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
+        avg_duration = attempts.aggregate(avg=Avg("duration"))["avg"] or 0.0
+        total_questions = Answer.objects.filter(attempt__in=attempts).count()
+        total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
+        total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
+
+        # 🔹 Top foydalanuvchilar
+        top_users_qs = (
+            attempts.values("user__id", "user__username")
+            .annotate(avg_score=Avg("score"), attempts=Count("id"))
+            .order_by("-avg_score")
+        )
+
+        # 🔹 Pagination
+        paginator = StandardResultsSetPagination()
+        page = paginator.paginate_queryset(top_users_qs, request)
+        serializer = UserStatSerializer(page, many=True)
+
+        return paginator.get_paginated_response({
+            "subject": subject.name,
+            "total_attempts": total_attempts,
+            "avg_score": round(avg_score, 2),
+            "avg_duration": round(avg_duration, 2),
+            "total_questions": total_questions,
+            "total_correct": total_correct,
+            "total_wrong": total_wrong,
+            "activity": list(activity),
+            "top_users": serializer.data,
+        })
+
+
+class ThemeStatsView(APIView):
+    """
+    GET /themes/<uuid:theme_id>/stats?page=1&page_size=10
+    Mavzu bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, theme_id):
+        theme = get_object_or_404(Theme, id=theme_id)
+
+        attempts = TestAttempt.objects.filter(
+            test__theme=theme,
+            finished_at__isnull=False
+        )
+
+        # 🔹 Kunlik activity
+        activity = (
+            attempts.annotate(day=TruncDate("started_at"))
+            .values("day")
+            .annotate(count=Count("id"))
+            .order_by("day")
+        )
+
+        # 🔹 Umumiy statistika
+        total_attempts = attempts.count()
+        avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
+        avg_duration = attempts.aggregate(avg=Avg("duration"))["avg"] or 0.0
+        total_questions = Answer.objects.filter(attempt__in=attempts).count()
+        total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
+        total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
+
+        # 🔹 Top foydalanuvchilar
+        top_users_qs = (
+            attempts.values("user__id", "user__username")
+            .annotate(avg_score=Avg("score"), attempts=Count("id"))
+            .order_by("-avg_score")
+        )
+
+        # 🔹 Pagination
+        paginator = StandardResultsSetPagination()
+        page = paginator.paginate_queryset(top_users_qs, request)
+        serializer = UserStatSerializer(page, many=True)
+
+        return paginator.get_paginated_response({
+            "theme": theme.name,
+            "subject": theme.subject.name,
+            "total_attempts": total_attempts,
+            "avg_score": round(avg_score, 2),
+            "avg_duration": round(avg_duration, 2),
+            "total_questions": total_questions,
+            "total_correct": total_correct,
+            "total_wrong": total_wrong,
+            "activity": list(activity),
+            "top_users": serializer.data,
+        })
+
+
+class ProfilePhotoUpdateView(APIView):
+    """
+    POST /me/profile/photo  → profil rasmini yangilash
+    DELETE /me/profile/photo → profil rasmini o‘chirish
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = ProfilePhotoUpdateSerializer(
+            request.user, data=request.data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {
+                "detail": "Profile rasmi yangilandi",
+                "profile_photo_url": request.build_absolute_uri(request.user.profile_photo.url),
+            },
+            status=201,
+        )
+
+    def delete(self, request):
+        user = request.user
+        if user.profile_photo:
+            # faylni ham o‘chirib tashlash (agar saqlangan bo‘lsa)
+            user.profile_photo.delete(save=False)
+            user.profile_photo = None
+            user.save(update_fields=["profile_photo"])
+            return Response({"detail": "Profile rasmi o'chirildi"}, status=200)
+        return Response({"detail": "Profil rasmi mavjud emas"}, status=400)
+
+
+
+class ThemeAttemptsListView(APIView):
+    """
+    GET /themes/<uuid:theme_id>/attempts?page=1&page_size=10
+    Shu mavzuga tegishli barcha urinishlar (TestAttempt) ro‘yxati
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, theme_id):
+        theme = get_object_or_404(Theme, id=theme_id)
+        attempts = (
+            TestAttempt.objects.filter(test__theme=theme, finished_at__isnull=False)
+            .select_related("user")
+            .order_by("-score", "duration")  # eng yaxshi yuqorida
+        )
+
+        paginator = StandardResultsSetPagination()
+        page = paginator.paginate_queryset(attempts, request)
+        serializer = AttemptResultSerializer(page, many=True, context={"request": request})
+
+        return paginator.get_paginated_response(serializer.data)
+
+
 

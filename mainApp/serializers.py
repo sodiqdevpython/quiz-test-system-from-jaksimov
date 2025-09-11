@@ -4,6 +4,9 @@ from .models import (
     Test, Question, Option, TestAttempt, Answer
 )
 import hmac, hashlib, random
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -194,4 +197,189 @@ class AttemptFinishResponseSerializer(serializers.Serializer):
     correct    = serializers.IntegerField()
     total      = serializers.IntegerField()
     score      = serializers.FloatField()
+
+
+class AttemptResultSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source="user.first_name")
+    correct = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TestAttempt
+        fields = (
+            "id",
+            "user",
+            "started_at",
+            "finished_at",
+            "duration",
+            "score",
+            "mode",
+            "order",
+            "count",
+            "correct",
+            "total",
+        )
+
+    def get_correct(self, obj):
+        return obj.answers.filter(is_correct=True).count()
+
+    def get_total(self, obj):
+        return obj.answers.count()
+
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ("id", "name", "kurs")
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    group = GroupSerializer()
+    profile_photo_url = serializers.SerializerMethodField()
+    attempts_count = serializers.SerializerMethodField()
+    last_active = serializers.SerializerMethodField()
+    activity = serializers.SerializerMethodField()
+    
+    rank_overall = serializers.SerializerMethodField()
+    rank_in_group = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "role",
+            "email",
+            "group",
+            "profile_photo_url",
+            "attempts_count",
+            "last_active",
+            "activity",
+            "total_attempts",
+            "total_correct",
+            "total_wrong",
+            "average_score",
+            "rank_overall",
+            "rank_in_group",
+        )
+
+    def get_profile_photo_url(self, obj):
+        if obj.profile_photo:
+            request = self.context.get("request")
+            return request.build_absolute_uri(obj.profile_photo.url) if request else obj.profile_photo.url
+        return None
+
+    def get_attempts_count(self, obj):
+        return obj.attempts.count()
+
+    def get_last_active(self, obj):
+        attempt = obj.attempts.order_by("-started_at").first()
+        return attempt.started_at if attempt else None
+    
+    def get_activity(self, obj):
+        stats = (
+            obj.attempts
+            .annotate(day=TruncDate("started_at"))
+            .values("day")
+            .annotate(attempts=Count("id"))
+            .order_by("day")
+        )
+        return [{"date": row["day"], "attempts": row["attempts"]} for row in stats]
+    
+    def get_rank_overall(self, obj):
+        # umumiy reyting bo‘yicha o‘rin
+        better_users = User.objects.filter(average_score__gt=obj.average_score).count()
+        return better_users + 1  # 1-o‘rin eng yuqori
+    
+    def get_rank_in_group(self, obj):
+        if not obj.group:
+            return None
+        better_users = User.objects.filter(
+            group=obj.group,
+            average_score__gt=obj.average_score
+        ).count()
+        return better_users + 1
+
+
+class UserActivityStatSerializer(serializers.Serializer):
+    date = serializers.DateField()
+    attempts = serializers.IntegerField()
+
+
+class UserRatingSerializer(serializers.ModelSerializer):
+    group = GroupSerializer()
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "role",
+            "group",
+            "total_attempts",
+            "total_correct",
+            "total_wrong",
+            "average_score",
+            "profile_photo"
+        )
+
+
+class UserStatSerializer(serializers.Serializer):
+    user_id = serializers.UUIDField(source="user__id")
+    username = serializers.CharField(source="user__username")
+    attempts = serializers.IntegerField()
+    avg_score = serializers.FloatField()
+
+
+class UserStatSerializer(serializers.Serializer):
+    user_id = serializers.UUIDField(source="user__id")
+    username = serializers.CharField(source="user__username")
+    attempts = serializers.IntegerField()
+    avg_score = serializers.FloatField()
+
+
+class ProfilePhotoUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("profile_photo",)
+
+
+class AttemptResultSerializer(serializers.ModelSerializer):
+    user_id = serializers.UUIDField(source="user.id")
+    username = serializers.CharField(source="user.username")
+    correct = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
+    count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TestAttempt
+        fields = (
+            "id",
+            "user_id",
+            "username",
+            "started_at",
+            "finished_at",
+            "duration",
+            "score",
+            "mode",
+            "count",
+            "correct",
+            "total",
+        )
+
+    def get_correct(self, obj):
+        return obj.answers.filter(is_correct=True).count()
+
+    def get_total(self, obj):
+        return obj.answers.count()
+
+    def get_count(self, obj):
+        return obj.answers.count()
+
+
 

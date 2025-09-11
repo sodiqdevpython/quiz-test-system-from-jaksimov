@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from .models import Question, Theme, TestImportFile
+from .models import Question, Theme, TestImportFile, TestAttempt, Answer
 import os
+from django.db import models
 
 # Global flag ikki marta parse qilishni oldini olish uchun
 _currently_parsing = set()
@@ -196,3 +197,32 @@ def update_subject_theme_count_on_delete(sender, instance, **kwargs):
     subject = instance.subject
     subject.theme_count = subject.themes.count()
     subject.save()
+    
+
+
+@receiver(post_save, sender=TestAttempt)
+def update_user_stats(sender, instance, created, **kwargs):
+    """
+    Har safar TestAttempt tugasa (finished_at != None),
+    foydalanuvchi umumiy statistikasi qayta hisoblanadi.
+    """
+    if instance.finished_at:  # faqat tugallanganda
+        user = instance.user
+
+        # Barcha attemptlarini olib qayta hisoblash
+        attempts = user.attempts.filter(finished_at__isnull=False)
+
+        total_attempts = attempts.count()
+        total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
+        total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
+
+        # O‘rtacha ball = barcha attemptlarning score o‘rtachasi
+        avg_score = attempts.aggregate(avg=models.Avg("score"))["avg"] or 0.0
+
+        # Foydalanuvchini yangilash
+        user.total_attempts = total_attempts
+        user.total_correct = total_correct
+        user.total_wrong = total_wrong
+        user.average_score = round(avg_score, 2)
+        user.save(update_fields=["total_attempts", "total_correct", "total_wrong", "average_score"])
+    

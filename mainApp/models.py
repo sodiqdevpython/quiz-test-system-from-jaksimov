@@ -29,6 +29,11 @@ class User(BaseModel, AbstractUser):
         ("admin", "Admin")
     ], default="student", verbose_name="Rol")
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Guruh")
+    
+    total_attempts = models.PositiveIntegerField(default=0)
+    total_correct = models.PositiveIntegerField(default=0)
+    total_wrong = models.PositiveIntegerField(default=0)
+    average_score = models.FloatField(default=0.0) 
 
     def __str__(self):
         return self.username
