@@ -458,7 +458,39 @@
         "documentation": {}
     },
     {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Count",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "F",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
         "label": "TruncDate",
+        "importPath": "django.db.models.functions",
+        "description": "django.db.models.functions",
+        "isExtraImport": true,
+        "detail": "django.db.models.functions",
+        "documentation": {}
+    },
+    {
+        "label": "RowNumber",
         "importPath": "django.db.models.functions",
         "description": "django.db.models.functions",
         "isExtraImport": true,
@@ -535,6 +567,22 @@
         "description": "rest_framework.response",
         "isExtraImport": true,
         "detail": "rest_framework.response",
+        "documentation": {}
+    },
+    {
+        "label": "Window",
+        "importPath": "django.db.models.expressions",
+        "description": "django.db.models.expressions",
+        "isExtraImport": true,
+        "detail": "django.db.models.expressions",
+        "documentation": {}
+    },
+    {
+        "label": "OrderBy",
+        "importPath": "django.db.models.expressions",
+        "description": "django.db.models.expressions",
+        "isExtraImport": true,
+        "detail": "django.db.models.expressions",
         "documentation": {}
     },
     {
@@ -1529,7 +1577,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()",
+        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    first_name = serializers.CharField(source=\"user__first_name\", allow_null=True)\n    last_name = serializers.CharField(source=\"user__last_name\", allow_null=True)",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1538,7 +1586,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass ProfilePhotoUpdateSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = User\n        fields = (\"profile_photo\",)\nclass AttemptResultSerializer(serializers.ModelSerializer):",
+        "peekOfCode": "class UserStatSerializer(serializers.Serializer):\n    user_id = serializers.UUIDField(source=\"user__id\")\n    username = serializers.CharField(source=\"user__username\")\n    first_name = serializers.CharField(source=\"user__first_name\", allow_null=True)\n    last_name = serializers.CharField(source=\"user__last_name\", allow_null=True)\n    email = serializers.EmailField(source=\"user__email\", allow_null=True)\n    attempts = serializers.IntegerField()\n    avg_score = serializers.FloatField()\n    avg_duration = serializers.FloatField()\n    total_correct = serializers.IntegerField()",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1557,6 +1605,15 @@
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
         "peekOfCode": "class AttemptResultSerializer(serializers.ModelSerializer):\n    user_id = serializers.UUIDField(source=\"user.id\")\n    username = serializers.CharField(source=\"user.username\")\n    correct = serializers.SerializerMethodField()\n    total = serializers.SerializerMethodField()\n    count = serializers.SerializerMethodField()\n    class Meta:\n        model = TestAttempt\n        fields = (\n            \"id\",",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "TopAttemptSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class TopAttemptSerializer(serializers.ModelSerializer):\n    attempt_id = serializers.UUIDField(source=\"id\")\n    user_id = serializers.UUIDField(source=\"user.id\")\n    username = serializers.CharField(source=\"user.username\")\n    first_name = serializers.CharField(source=\"user.first_name\", allow_null=True)\n    last_name = serializers.CharField(source=\"user.last_name\", allow_null=True)\n    correct = serializers.IntegerField(source=\"correct_count\")\n    wrong = serializers.IntegerField(source=\"wrong_count\")\n    total_questions = serializers.IntegerField()\n    duration = serializers.SerializerMethodField()",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -1849,11 +1906,20 @@
         "documentation": {}
     },
     {
-        "label": "ThemeAttemptsListView",
+        "label": "ThemeStatsView",
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ThemeAttemptsListView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/attempts?page=1&page_size=10\n    Shu mavzuga tegishli barcha urinishlar (TestAttempt) ro‘yxati\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = (\n            TestAttempt.objects.filter(test__theme=theme, finished_at__isnull=False)",
+        "peekOfCode": "class ThemeStatsView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/stats\n    Mavzu bo‘yicha umumiy statistika\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeTopUsersView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class ThemeTopUsersView(ListAPIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/top-users?page=1&page_size=10\n    Har bir foydalanuvchining shu mavzudagi ENG YAXSHI attempti bo'yicha top-list (pagination)\n    Reyting: ko'p to'g'ri -> qisqa vaqt -> baland score\n    \"\"\"\n    serializer_class = TopAttemptSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        theme = get_object_or_404(Theme, id=self.kwargs[\"theme_id\"])",
         "detail": "mainApp.views",
         "documentation": {}
     },

@@ -3,13 +3,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
     GroupListView, GroupDetailView,
     UserListView, UserDetailView,
-    CategoryListView,ThemeAttemptsListView,
+    CategoryListView,ThemeTopUsersView,
     SubjectListView, SubjectDetailView,
     ThemeListView, ThemeDetailView, LogoutView,
     AttemptStartView, AttemptFinishView,SubmitAnswerView,
     AttemptStateView, TestAttemptResultsView, MyProfileView,
     UserProfileView, UserActivityStatsView, UserRatingListView,
-    ThemeStatsView, SubjectStatsView, ProfilePhotoUpdateView
+    ThemeStatsView, SubjectStatsView, ProfilePhotoUpdateView,
+    ThemeStatsView
 )
 
 
@@ -50,8 +51,9 @@ urlpatterns = [
     path("ratings", UserRatingListView.as_view(), name="user-ratings"),
     
     path("subjects/<uuid:subject_id>/stats", SubjectStatsView.as_view(), name="subject-stats"),
-    path("themes/<uuid:theme_id>/stats", ThemeStatsView.as_view(), name="theme-stats"),
     
     path("me/profile/photo", ProfilePhotoUpdateView.as_view(), name="profile-photo-update"), #! profil rasmni o'zgartirish uchun
-    path("themes/<uuid:theme_id>/attempts", ThemeAttemptsListView.as_view(), name="theme-attempts"),
+    
+    path("themes/<uuid:theme_id>/stats", ThemeStatsView.as_view(), name="theme-stats"),
+    path("themes/<uuid:theme_id>/top-users", ThemeTopUsersView.as_view(), name="theme-top-users"),
 ]

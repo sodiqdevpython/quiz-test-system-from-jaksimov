@@ -335,13 +335,18 @@ class UserStatSerializer(serializers.Serializer):
     attempts = serializers.IntegerField()
     avg_score = serializers.FloatField()
 
-
 class UserStatSerializer(serializers.Serializer):
     user_id = serializers.UUIDField(source="user__id")
     username = serializers.CharField(source="user__username")
+    first_name = serializers.CharField(source="user__first_name", allow_null=True)
+    last_name = serializers.CharField(source="user__last_name", allow_null=True)
+    email = serializers.EmailField(source="user__email", allow_null=True)
+
     attempts = serializers.IntegerField()
     avg_score = serializers.FloatField()
-
+    avg_duration = serializers.FloatField()
+    total_correct = serializers.IntegerField()
+    total_wrong = serializers.IntegerField()
 
 class ProfilePhotoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -381,5 +386,51 @@ class AttemptResultSerializer(serializers.ModelSerializer):
     def get_count(self, obj):
         return obj.answers.count()
 
+
+
+class TopAttemptSerializer(serializers.ModelSerializer):
+    attempt_id = serializers.UUIDField(source="id")
+    user_id = serializers.UUIDField(source="user.id")
+    username = serializers.CharField(source="user.username")
+    first_name = serializers.CharField(source="user.first_name", allow_null=True)
+    last_name = serializers.CharField(source="user.last_name", allow_null=True)
+
+    correct = serializers.IntegerField(source="correct_count")
+    wrong = serializers.IntegerField(source="wrong_count")
+    total_questions = serializers.IntegerField()
+
+    duration = serializers.SerializerMethodField()
+    accuracy = serializers.SerializerMethodField()
+    started_at = serializers.DateTimeField()
+    finished_at = serializers.DateTimeField()
+
+    class Meta:
+        model = TestAttempt
+        fields = [
+            "attempt_id",
+            "user_id", "username", "first_name", "last_name",
+            "score", "duration","mode",
+            "correct", "wrong", "total_questions", "accuracy",
+            "started_at", "finished_at",
+        ]
+
+    def get_duration(self, obj):
+        if not obj.finished_at or not obj.started_at:
+            return None
+        delta = obj.finished_at - obj.started_at
+        total_seconds = int(delta.total_seconds())
+        minutes, sec = divmod(total_seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+
+        if hours:
+            return f"{hours} soat {minutes} minut {sec} sekund"
+        elif minutes:
+            return f"{minutes} minut {sec} sekund"
+        else:
+            return f"{sec} sekund"
+
+    def get_accuracy(self, obj):
+        tq = getattr(obj, "total_questions", 0) or 0
+        return round((obj.correct_count / tq) * 100, 2) if tq else 0.0
 
 

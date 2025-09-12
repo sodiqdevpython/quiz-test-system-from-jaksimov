@@ -3,16 +3,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, filters
 from .models import Group, User, Category, Subject, Theme
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Q, Count, F
 from .pagination import StandardResultsSetPagination
+from django.db.models.expressions import Window, OrderBy
 from django.core.cache import cache
+from django.db.models.functions import RowNumber
 from rest_framework.generics import ListAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (
     GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
     CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,
     AttemptFinishResponseSerializer, AttemptResultSerializer, UserProfileSerializer, UserRatingSerializer, UserStatSerializer,
-    ProfilePhotoUpdateSerializer
+    ProfilePhotoUpdateSerializer, TopAttemptSerializer
 )
 from django.db.models.functions import TruncDate
 from .models import (
@@ -136,7 +138,6 @@ class AttemptStartView(APIView):
         if test is None:
             test = Test.objects.create(theme=theme, name=f"Auto ({theme.name})")
 
-        # 🔹 Avvalgi tugallanmagan attempt bo‘lsa → tugatib yuboramiz
         active_attempt = TestAttempt.objects.filter(
             test=test, user=request.user, finished_at__isnull=True
         ).order_by("-started_at").first()
@@ -590,27 +591,88 @@ class ProfilePhotoUpdateView(APIView):
         return Response({"detail": "Profil rasmi mavjud emas"}, status=400)
 
 
-
-class ThemeAttemptsListView(APIView):
+class ThemeStatsView(APIView):
     """
-    GET /themes/<uuid:theme_id>/attempts?page=1&page_size=10
-    Shu mavzuga tegishli barcha urinishlar (TestAttempt) ro‘yxati
+    GET /themes/<uuid:theme_id>/stats
+    Mavzu bo‘yicha umumiy statistika
     """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, theme_id):
         theme = get_object_or_404(Theme, id=theme_id)
-        attempts = (
-            TestAttempt.objects.filter(test__theme=theme, finished_at__isnull=False)
-            .select_related("user")
-            .order_by("-score", "duration")  # eng yaxshi yuqorida
+
+        attempts = TestAttempt.objects.filter(
+            test__theme=theme,
+            finished_at__isnull=False
         )
 
-        paginator = StandardResultsSetPagination()
-        page = paginator.paginate_queryset(attempts, request)
-        serializer = AttemptResultSerializer(page, many=True, context={"request": request})
+        activity = (
+            attempts.annotate(day=TruncDate("started_at"))
+            .values("day")
+            .annotate(count=Count("id"))
+            .order_by("day")
+        )
 
-        return paginator.get_paginated_response(serializer.data)
+        total_attempts = attempts.count()
+        avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
+        avg_duration = attempts.aggregate(avg=Avg("duration"))["avg"] or 0.0
+        total_questions = Answer.objects.filter(attempt__in=attempts).count()
+        total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
+        total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
+
+        return Response({
+            "theme": theme.name,
+            "subject": theme.subject.name,
+            "total_attempts": total_attempts,
+            "avg_score": round(avg_score, 2),
+            "avg_duration": round(avg_duration, 2),
+            "total_questions": total_questions,
+            "total_correct": total_correct,
+            "total_wrong": total_wrong,
+            "activity": list(activity),
+        })
 
 
+class ThemeTopUsersView(ListAPIView):
+    """
+    GET /themes/<uuid:theme_id>/top-users?page=1&page_size=10
+    Har bir foydalanuvchining shu mavzudagi ENG YAXSHI attempti bo'yicha top-list (pagination)
+    Reyting: ko'p to'g'ri -> qisqa vaqt -> baland score
+    """
+    serializer_class = TopAttemptSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        theme = get_object_or_404(Theme, id=self.kwargs["theme_id"])
+
+        base = (
+            TestAttempt.objects
+            .filter(test__theme=theme, finished_at__isnull=False)
+            .select_related("user", "test")
+            .annotate(
+                correct_count=Count("answers", filter=Q(answers__is_correct=True)),
+                wrong_count=Count("answers", filter=Q(answers__is_correct=False)),
+                total_questions=Count("answers"),
+            )
+        )
+
+        # Har bir user uchun eng yaxshi bitta attempt (row_number=1)
+        ranked = base.annotate(
+            rn=Window(
+                expression=RowNumber(),
+                partition_by=[F("user_id")],
+                order_by=[
+                    OrderBy(F("correct_count"), descending=True),
+                    OrderBy(F("duration"), descending=False),
+                    OrderBy(F("score"), descending=True),
+                    OrderBy(F("finished_at"), descending=False),
+                ],
+            )
+        )
+
+        # Faqat eng yaxshilar va umumiy reyting tartibi
+        return (
+            ranked.filter(rn=1)
+            .order_by("-correct_count", "duration", "-score", "finished_at")
+        )
 
