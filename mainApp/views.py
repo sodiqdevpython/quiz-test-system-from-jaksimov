@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status, permissions, filters
 from .models import Group, User, Category, Subject, Theme
 from django.db.models import Count, Avg
 from .pagination import StandardResultsSetPagination
@@ -414,6 +414,7 @@ class UserRatingListView(ListAPIView):
     serializer_class = UserRatingSerializer
     permission_classes = [permissions.IsAuthenticated]
     search_fields = ["username", "first_name", "last_name", "email"]
+    filter_backends = [filters.SearchFilter]
 
     def get_queryset(self):
         filter_type = self.request.query_params.get("filter", "best_avg")
@@ -421,7 +422,8 @@ class UserRatingListView(ListAPIView):
         test_id = self.request.query_params.get("test_id")
         theme_id = self.request.query_params.get("theme_id")
 
-        qs = User.objects.filter(role="student")
+        # qs = User.objects.filter(role="student")
+        qs = User.objects.all()
 
         if group_id:
             qs = qs.filter(group_id=group_id)

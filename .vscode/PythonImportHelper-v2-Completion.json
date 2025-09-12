@@ -137,6 +137,14 @@
         "documentation": {}
     },
     {
+        "label": "filters",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "get_schema_view",
         "importPath": "drf_yasg.views",
         "description": "drf_yasg.views",
@@ -1809,7 +1817,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        test_id = self.request.query_params.get(\"test_id\")\n        theme_id = self.request.query_params.get(\"theme_id\")\n        qs = User.objects.filter(role=\"student\")",
+        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    filter_backends = [filters.SearchFilter]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        test_id = self.request.query_params.get(\"test_id\")\n        theme_id = self.request.query_params.get(\"theme_id\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
