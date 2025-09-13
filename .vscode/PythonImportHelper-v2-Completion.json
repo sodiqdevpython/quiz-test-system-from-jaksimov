@@ -1067,7 +1067,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'corsheaders.middleware.CorsMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]",
+        "peekOfCode": "MIDDLEWARE = [\n    'corsheaders.middleware.CorsMiddleware',\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1094,7 +1094,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\"http://*\", \"https://*\"]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}",
+        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1103,7 +1103,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\"http://*\", \"https://*\"]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}\n# Password validation",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases\nDATABASES = {",
         "detail": "config.settings",
         "documentation": {}
     },

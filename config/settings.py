@@ -81,9 +81,9 @@ CACHES = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -110,7 +110,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ["http://*", "https://*"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.ngrok-free.app",   # istalgan ngrok subdomain
+    "http://82.27.177.165",       # server IP
+    "http://localhost:8000",      # local dev
+    "http://127.0.0.1:8000",       # local dev
+    "http://127.0.0.1:5173"
+]
+
 
 
 # Database
@@ -167,6 +174,7 @@ AUTH_USER_MODEL = 'mainApp.User'
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
