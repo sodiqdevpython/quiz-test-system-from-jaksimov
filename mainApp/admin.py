@@ -84,7 +84,7 @@ class SubjectAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']
     list_filter = ['category', 'created']
     search_fields = ['name', 'category__name']
-    filter_horizontal = ['authors']
+    filter_horizontal = ['authors', 'groups']
     inlines = [ThemeInline]
     
     def authors_list(self, obj):

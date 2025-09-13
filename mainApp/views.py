@@ -72,9 +72,25 @@ class CategoryListView(generics.ListAPIView):
 
 # 🔹 Subject
 class SubjectListView(generics.ListAPIView):
-    queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
     search_fields = ["name"]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.role == "admin":
+            return Subject.objects.all()
+
+        elif user.role == "teacher":
+            return Subject.objects.filter(authors=user)
+
+        elif user.role == "student":
+            if user.group:
+                return Subject.objects.filter(groups=user.group)
+            return Subject.objects.none()
+
+        return Subject.objects.none()
 
 
 class SubjectDetailView(generics.RetrieveAPIView):
@@ -656,7 +672,6 @@ class ThemeTopUsersView(ListAPIView):
             )
         )
 
-        # Har bir user uchun eng yaxshi bitta attempt (row_number=1)
         ranked = base.annotate(
             rn=Window(
                 expression=RowNumber(),
@@ -675,4 +690,3 @@ class ThemeTopUsersView(ListAPIView):
             ranked.filter(rn=1)
             .order_by("-correct_count", "duration", "-score", "finished_at")
         )
-

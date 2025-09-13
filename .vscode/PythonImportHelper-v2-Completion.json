@@ -49,6 +49,14 @@
         "documentation": {}
     },
     {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "path",
         "importPath": "django.urls",
         "description": "django.urls",
@@ -58,6 +66,14 @@
     },
     {
         "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
         "importPath": "django.urls",
         "description": "django.urls",
         "isExtraImport": true,
@@ -138,6 +154,22 @@
     },
     {
         "label": "filters",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "serializers",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "generics",
         "importPath": "rest_framework",
         "description": "rest_framework",
         "isExtraImport": true,
@@ -319,6 +351,46 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -409,6 +481,14 @@
         "documentation": {}
     },
     {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
         "label": "BaseModel",
         "importPath": "utils.models",
         "description": "utils.models",
@@ -482,6 +562,54 @@
         "documentation": {}
     },
     {
+        "label": "Avg",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Sum",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Count",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Max",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Min",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
         "label": "TruncDate",
         "importPath": "django.db.models.functions",
         "description": "django.db.models.functions",
@@ -538,6 +666,14 @@
         "documentation": {}
     },
     {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
         "label": "TokenObtainPairView",
         "importPath": "rest_framework_simplejwt.views",
         "description": "rest_framework_simplejwt.views",
@@ -559,6 +695,22 @@
         "description": "rest_framework.views",
         "isExtraImport": true,
         "detail": "rest_framework.views",
+        "documentation": {}
+    },
+    {
+        "label": "APIView",
+        "importPath": "rest_framework.views",
+        "description": "rest_framework.views",
+        "isExtraImport": true,
+        "detail": "rest_framework.views",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "rest_framework.response",
+        "description": "rest_framework.response",
+        "isExtraImport": true,
+        "detail": "rest_framework.response",
         "documentation": {}
     },
     {
@@ -591,6 +743,14 @@
         "description": "django.core.cache",
         "isExtraImport": true,
         "detail": "django.core.cache",
+        "documentation": {}
+    },
+    {
+        "label": "ListAPIView",
+        "importPath": "rest_framework.generics",
+        "description": "rest_framework.generics",
+        "isExtraImport": true,
+        "detail": "rest_framework.generics",
         "documentation": {}
     },
     {
@@ -650,12 +810,116 @@
         "documentation": {}
     },
     {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "random,",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "random.",
         "description": "random.",
         "detail": "random.",
+        "documentation": {}
+    },
+    {
+        "label": "Group",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "TestAttempt",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Group",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Test",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Answer",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Question",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Subject",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Theme",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "method_decorator",
+        "importPath": "django.utils.decorators",
+        "description": "django.utils.decorators",
+        "isExtraImport": true,
+        "detail": "django.utils.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "cache_page",
+        "importPath": "django.views.decorators.cache",
+        "description": "django.views.decorators.cache",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.cache",
         "documentation": {}
     },
     {
@@ -786,6 +1050,15 @@
         "importPath": "config.settings",
         "description": "config.settings",
         "peekOfCode": "REST_FRAMEWORK = {\n    \"DEFAULT_AUTHENTICATION_CLASSES\": [\n        \"rest_framework_simplejwt.authentication.JWTAuthentication\",\n    ],\n    \"DEFAULT_PERMISSION_CLASSES\": [\n        \"rest_framework.permissions.IsAuthenticated\",\n    ],\n    \"DEFAULT_PAGINATION_CLASS\": \"rest_framework.pagination.PageNumberPagination\",\n    \"PAGE_SIZE\": 10,\n    \"DEFAULT_FILTER_BACKENDS\": [",
+        "detail": "config.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CACHES",
+        "kind": 5,
+        "importPath": "config.settings",
+        "description": "config.settings",
+        "peekOfCode": "CACHES = {\n    \"default\": {\n        \"BACKEND\": \"django_redis.cache.RedisCache\",\n        \"LOCATION\": \"redis://redis:6379/1\",\n        \"OPTIONS\": {\n            \"CLIENT_CLASS\": \"django_redis.client.DefaultClient\",\n        }\n    }\n}\nMIDDLEWARE = [",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1001,7 +1274,7 @@
         "kind": 5,
         "importPath": "config.urls",
         "description": "config.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n\tpath('', include('mainApp.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),\n    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')\n]\nif settings.DEBUG:\n\turlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n\tpath('', include('mainApp.urls')),\n    path('statistics/', include('statistic.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),\n    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),\n]\nif settings.DEBUG:",
         "detail": "config.urls",
         "documentation": {}
     },
@@ -1069,6 +1342,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "mainApp.migrations.0007_answer_mainapp_ans_attempt_26846e_idx_and_more",
+        "description": "mainApp.migrations.0007_answer_mainapp_ans_attempt_26846e_idx_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('auth', '0012_alter_user_first_name_max_length'),\n        ('mainApp', '0006_user_average_score_user_total_attempts_and_more'),\n    ]\n    operations = [\n        migrations.AddIndex(\n            model_name='answer',\n            index=models.Index(fields=['attempt'], name='mainApp_ans_attempt_26846e_idx'),\n        ),",
+        "detail": "mainApp.migrations.0007_answer_mainapp_ans_attempt_26846e_idx_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "mainApp.migrations.0008_subject_groups",
+        "description": "mainApp.migrations.0008_subject_groups",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('mainApp', '0007_answer_mainapp_ans_attempt_26846e_idx_and_more'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='subject',\n            name='groups',\n            field=models.ManyToManyField(blank=True, related_name='subjects', to='mainApp.group', verbose_name='Guruhlar'),\n        ),",
+        "detail": "mainApp.migrations.0008_subject_groups",
+        "documentation": {}
+    },
+    {
         "label": "GroupAdmin",
         "kind": 6,
         "importPath": "mainApp.admin",
@@ -1127,7 +1418,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']\n    list_filter = ['category', 'created']\n    search_fields = ['name', 'category__name']\n    filter_horizontal = ['authors']\n    inlines = [ThemeInline]\n    def authors_list(self, obj):\n        return \", \".join([author.username for author in obj.authors.all()[:3]])\n    authors_list.short_description = 'Mualliflar'\n# -----------------------",
+        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']\n    list_filter = ['category', 'created']\n    search_fields = ['name', 'category__name']\n    filter_horizontal = ['authors', 'groups']\n    inlines = [ThemeInline]\n    def authors_list(self, obj):\n        return \", \".join([author.username for author in obj.authors.all()[:3]])\n    authors_list.short_description = 'Mualliflar'\n# -----------------------",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -1271,7 +1562,7 @@
         "kind": 6,
         "importPath": "mainApp.models",
         "description": "mainApp.models",
-        "peekOfCode": "class Category(BaseModel):\n    name = models.CharField(max_length=255, verbose_name=\"Kategoriya nomi\")\n    def __str__(self):\n        return self.name\n    class Meta:\n        verbose_name = \"Kategoriya\"\n        verbose_name_plural = \"Kategoriyalar\"\nclass Subject(BaseModel):\n    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name=\"subjects\", verbose_name=\"Kategoriya\")\n    name = models.CharField(max_length=255, verbose_name=\"Fan nomi\")",
+        "peekOfCode": "class Category(BaseModel):\n    name = models.CharField(max_length=255, verbose_name=\"Kategoriya nomi\")\n    def __str__(self):\n        return self.name\n    class Meta:\n        verbose_name = \"Kategoriya\"\n        verbose_name_plural = \"Kategoriyalar\"\n        indexes = [\n            models.Index(fields=[\"name\"]),\n        ]",
         "detail": "mainApp.models",
         "documentation": {}
     },
@@ -1280,7 +1571,7 @@
         "kind": 6,
         "importPath": "mainApp.models",
         "description": "mainApp.models",
-        "peekOfCode": "class Subject(BaseModel):\n    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name=\"subjects\", verbose_name=\"Kategoriya\")\n    name = models.CharField(max_length=255, verbose_name=\"Fan nomi\")\n    description = models.TextField(verbose_name=\"Umumiy ma'lumot\", null=True, blank=True)\n    authors = models.ManyToManyField('User', blank=True, verbose_name=\"Mualliflar\")\n    theme_count = models.PositiveIntegerField(default=0, verbose_name=\"Mavzular soni\")\n    def __str__(self):\n        return self.name\n    class Meta:\n        verbose_name = \"Fan\"",
+        "peekOfCode": "class Subject(BaseModel):\n    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name=\"subjects\", verbose_name=\"Kategoriya\")\n    name = models.CharField(max_length=255, verbose_name=\"Fan nomi\")\n    description = models.TextField(verbose_name=\"Umumiy ma'lumot\", null=True, blank=True)\n    authors = models.ManyToManyField('User', blank=True, verbose_name=\"Mualliflar\")\n    theme_count = models.PositiveIntegerField(default=0, verbose_name=\"Mavzular soni\")\n    groups = models.ManyToManyField('Group', blank=True, related_name=\"subjects\", verbose_name=\"Guruhlar\")\n    def __str__(self):\n        return self.name\n    class Meta:",
         "detail": "mainApp.models",
         "documentation": {}
     },
@@ -1748,7 +2039,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\n# 🔹 Subject\nclass SubjectListView(generics.ListAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\nclass SubjectDetailView(generics.RetrieveAPIView):",
+        "peekOfCode": "class CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\n# 🔹 Subject\nclass SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -1757,7 +2048,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class SubjectListView(generics.ListAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\nclass SubjectDetailView(generics.RetrieveAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = SubjectSerializer\n# 🔹 Theme\nclass ThemeListView(generics.ListAPIView):\n    queryset = Theme.objects.all()",
+        "peekOfCode": "class SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.role == \"admin\":\n            return Subject.objects.all()\n        elif user.role == \"teacher\":\n            return Subject.objects.filter(authors=user)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -1930,6 +2221,114 @@
         "description": "mainApp.views",
         "peekOfCode": "CACHE_PREFIX = \"attempt_meta:\"\ndef _cache_key(attempt_id):\n    return f\"{CACHE_PREFIX}{attempt_id}\"\ndef _now():\n    return timezone.now()\ndef _expires(started_at, minutes):\n    return started_at + datetime.timedelta(minutes=minutes)\nclass AttemptStartView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):",
         "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "StatisticConfig",
+        "kind": 6,
+        "importPath": "statistic.apps",
+        "description": "statistic.apps",
+        "peekOfCode": "class StatisticConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'statistic'",
+        "detail": "statistic.apps",
+        "documentation": {}
+    },
+    {
+        "label": "UserStatsSerializer",
+        "kind": 6,
+        "importPath": "statistic.serializers",
+        "description": "statistic.serializers",
+        "peekOfCode": "class UserStatsSerializer(serializers.Serializer):\n    total_users = serializers.IntegerField()\n    students_count = serializers.IntegerField()\n    active_users = serializers.IntegerField(required=False)\nclass SubjectStatSerializer(serializers.Serializer):\n    subject_id = serializers.UUIDField()\n    subject_name = serializers.CharField()\n    student_count = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass GroupStatInSubjectSerializer(serializers.ModelSerializer):",
+        "detail": "statistic.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "SubjectStatSerializer",
+        "kind": 6,
+        "importPath": "statistic.serializers",
+        "description": "statistic.serializers",
+        "peekOfCode": "class SubjectStatSerializer(serializers.Serializer):\n    subject_id = serializers.UUIDField()\n    subject_name = serializers.CharField()\n    student_count = serializers.IntegerField()\n    avg_score = serializers.FloatField()\nclass GroupStatInSubjectSerializer(serializers.ModelSerializer):\n    student_count = serializers.IntegerField()\n    avg_score = serializers.FloatField()\n    total_attempts = serializers.IntegerField()\n    class Meta:",
+        "detail": "statistic.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "GroupStatInSubjectSerializer",
+        "kind": 6,
+        "importPath": "statistic.serializers",
+        "description": "statistic.serializers",
+        "peekOfCode": "class GroupStatInSubjectSerializer(serializers.ModelSerializer):\n    student_count = serializers.IntegerField()\n    avg_score = serializers.FloatField()\n    total_attempts = serializers.IntegerField()\n    class Meta:\n        model = Group\n        fields = [\"id\", \"name\", \"kurs\", \"student_count\", \"avg_score\", \"total_attempts\"]\nclass UserStatSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = User",
+        "detail": "statistic.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "UserStatSerializer",
+        "kind": 6,
+        "importPath": "statistic.serializers",
+        "description": "statistic.serializers",
+        "peekOfCode": "class UserStatSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = User\n        fields = [\"id\", \"username\", \"first_name\", \"last_name\", \"group\", \"total_attempts\", \"total_correct\", \"total_wrong\", \"average_score\"]",
+        "detail": "statistic.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "statistic.urls",
+        "description": "statistic.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"users/\", UserFullStatsView.as_view(), name=\"user-full-stats\"),\n    path(\"tests/\", TestStatsView.as_view(), name=\"test-full-stats\"),\n    path(\"subjects/<uuid:subject_id>/stats\", SubjectThemeStatsView.as_view(), name=\"subject-stats\"),\n    path(\"subjects/<uuid:subject_id>/themes/<uuid:theme_id>/stats\", SubjectThemeStatsView.as_view(), name=\"theme-stats\"),\n    path(\"stats/subject/<uuid:pk>/\", SubjectStatView.as_view(), name=\"subject-stat\"),\n    path(\"stats/subject/<uuid:pk>/groups/\", GroupStatInSubjectView.as_view(), name=\"subject-group-stats\"),\n    path(\"stats/subject/<uuid:subject_id>/groups/<uuid:group_id>/users/\", GroupUserStatInSubjectView.as_view(), name=\"subject-group-user-stats\"),\n]",
+        "detail": "statistic.urls",
+        "documentation": {}
+    },
+    {
+        "label": "UserFullStatsView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class UserFullStatsView(APIView):\n    def get(self, request):\n        qs = User.objects.all()\n        total_users = qs.count()\n        students_count = qs.filter(role=\"student\").count()\n        teachers_count = qs.filter(role=\"teacher\").count()\n        admins_count = qs.filter(role=\"admin\").count()\n        groups_count = qs.exclude(group=None).values(\"group\").distinct().count()\n        total_attempts_sum = qs.aggregate(total=Sum(\"total_attempts\"))[\"total\"] or 0\n        avg_attempts_per_user = round(total_attempts_sum / total_users, 2) if total_users > 0 else 0",
+        "detail": "statistic.views",
+        "documentation": {}
+    },
+    {
+        "label": "TestStatsView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class TestStatsView(APIView):\n    def get(self, request):\n        attempts = TestAttempt.objects.all()\n        answers = Answer.objects.all()\n        total_tests = Question.objects.count()\n        total_attempts = attempts.count()\n        avg_score = attempts.aggregate(avg=Avg(\"score\"))[\"avg\"] or 0.0\n        # Javoblar statistikasi\n        total_answers = answers.count()\n        correct_answers = answers.filter(is_correct=True).count()",
+        "detail": "statistic.views",
+        "documentation": {}
+    },
+    {
+        "label": "SubjectThemeStatsView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class SubjectThemeStatsView(ListAPIView):\n    \"\"\"\n    GET /subjects/<subject_id>/stats\n    GET /subjects/<subject_id>/themes/<theme_id>/stats\n    \"\"\"\n    def get_queryset(self):\n        subject_id = self.kwargs.get(\"subject_id\")\n        theme_id = self.kwargs.get(\"theme_id\")\n        subject_attempts = TestAttempt.objects.filter(test__theme__subject_id=subject_id)\n        qs = User.objects.filter(role=\"student\")",
+        "detail": "statistic.views",
+        "documentation": {}
+    },
+    {
+        "label": "SubjectStatView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class SubjectStatView(generics.RetrieveAPIView):\n    serializer_class = SubjectStatSerializer\n    def get_object(self):\n        subject_id = self.kwargs[\"pk\"]\n        subject = Subject.objects.get(id=subject_id)\n        user = self.request.user\n        qs = User.objects.filter(\n            role=\"student\",\n            attempts__test__theme__subject=subject,\n        )",
+        "detail": "statistic.views",
+        "documentation": {}
+    },
+    {
+        "label": "GroupStatInSubjectView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class GroupStatInSubjectView(generics.ListAPIView):\n    serializer_class = GroupStatInSubjectSerializer\n    def get_queryset(self):\n        subject_id = self.kwargs[\"pk\"]\n        user = self.request.user\n        qs = Group.objects.filter(\n            user__role=\"student\",\n            user__attempts__test__theme__subject_id=subject_id,\n        )\n        if user.role == \"student\" and user.group:",
+        "detail": "statistic.views",
+        "documentation": {}
+    },
+    {
+        "label": "GroupUserStatInSubjectView",
+        "kind": 6,
+        "importPath": "statistic.views",
+        "description": "statistic.views",
+        "peekOfCode": "class GroupUserStatInSubjectView(generics.ListAPIView):\n    serializer_class = UserStatSerializer\n    def get_queryset(self):\n        subject_id = self.kwargs[\"subject_id\"]\n        group_id = self.kwargs[\"group_id\"]\n        user = self.request.user\n        qs = User.objects.filter(\n            role=\"student\",\n            group_id=group_id,\n            attempts__test__theme__subject_id=subject_id,",
+        "detail": "statistic.views",
         "documentation": {}
     },
     {

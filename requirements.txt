@@ -1,10 +1,12 @@
 asgiref==3.9.1
+async-timeout==5.0.1
 Django==5.2.5
 django-ckeditor==6.7.3
 django-ckeditor-5==0.2.18
 django-cors-headers==4.7.0
 django-filter==25.1
 django-js-asset==3.1.2
+django-redis==6.0.0
 djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
 drf-yasg==1.21.10
@@ -16,6 +18,7 @@ PyJWT==2.10.1
 python-docx==0.8.11
 pytz==2025.2
 PyYAML==6.0.2
+redis==6.4.0
 sqlparse==0.5.3
 typing_extensions==4.15.0
 tzdata==2025.2

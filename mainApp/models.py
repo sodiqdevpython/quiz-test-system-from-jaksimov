@@ -41,6 +41,12 @@ class User(BaseModel, AbstractUser):
     class Meta:
         verbose_name = "Foydalanuvchi"
         verbose_name_plural = "Foydalanuvchilar"
+        indexes = [
+            models.Index(fields=["role"]),
+            models.Index(fields=["group"]),
+            models.Index(fields=["average_score"]),
+            models.Index(fields=["total_attempts"]),
+        ]
 
 
 # -----------------------
@@ -55,6 +61,9 @@ class Category(BaseModel):
     class Meta:
         verbose_name = "Kategoriya"
         verbose_name_plural = "Kategoriyalar"
+        indexes = [
+            models.Index(fields=["name"]),
+        ]
 
 
 class Subject(BaseModel):
@@ -63,6 +72,7 @@ class Subject(BaseModel):
     description = models.TextField(verbose_name="Umumiy ma'lumot", null=True, blank=True)
     authors = models.ManyToManyField('User', blank=True, verbose_name="Mualliflar")
     theme_count = models.PositiveIntegerField(default=0, verbose_name="Mavzular soni")
+    groups = models.ManyToManyField('Group', blank=True, related_name="subjects", verbose_name="Guruhlar")
 
     def __str__(self):
         return self.name
@@ -70,7 +80,10 @@ class Subject(BaseModel):
     class Meta:
         verbose_name = "Fan"
         verbose_name_plural = "Fanlar"
-
+        indexes = [
+            models.Index(fields=["category"]),
+            models.Index(fields=["name"]),
+        ]
 
 # -----------------------
 # 3) Mavzular
@@ -87,6 +100,10 @@ class Theme(BaseModel):
     class Meta:
         verbose_name = "Mavzu"
         verbose_name_plural = "Mavzular"
+        indexes = [
+            models.Index(fields=["subject"]),
+            models.Index(fields=["name"]),
+        ]
 
 
 class TestImportFile(BaseModel):
@@ -105,6 +122,7 @@ class TestImportFile(BaseModel):
     class Meta:
         verbose_name = "Test Import Fayli"
         verbose_name_plural = "Test Import Fayllari"
+        
 
 # -----------------------
 # 4) Testlar
@@ -121,6 +139,10 @@ class Test(BaseModel):
     class Meta:
         verbose_name = "Test"
         verbose_name_plural = "Testlar"
+        indexes = [
+            models.Index(fields=["theme"]),
+            models.Index(fields=["name"]),
+        ]
 
 
 class Question(BaseModel):
@@ -135,6 +157,9 @@ class Question(BaseModel):
     class Meta:
         verbose_name = "Savol"
         verbose_name_plural = "Savollar"
+        indexes = [
+            models.Index(fields=["test"]),
+        ]
 
 
 class Option(BaseModel):
@@ -151,6 +176,10 @@ class Option(BaseModel):
     class Meta:
         verbose_name = "Variant"
         verbose_name_plural = "Variantlar"
+        indexes = [
+            models.Index(fields=["question"]),
+            models.Index(fields=["is_correct"]),
+        ]
 
 
 class TestAttempt(BaseModel):
@@ -172,6 +201,13 @@ class TestAttempt(BaseModel):
     class Meta:
         verbose_name = "Test Urinishi"
         verbose_name_plural = "Test Urinishlari"
+        indexes = [
+            models.Index(fields=["user"]),
+            models.Index(fields=["test"]),
+            models.Index(fields=["started_at"]),
+            models.Index(fields=["finished_at"]),
+            models.Index(fields=["score"]),
+        ]
 
 
 class Answer(BaseModel):
@@ -186,3 +222,9 @@ class Answer(BaseModel):
     class Meta:
         verbose_name = "Javob"
         verbose_name_plural = "Javoblar"
+        indexes = [
+            models.Index(fields=["attempt"]),
+            models.Index(fields=["question"]),
+            models.Index(fields=["selected_option"]),
+            models.Index(fields=["is_correct"]),
+        ]
