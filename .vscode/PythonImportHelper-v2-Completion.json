@@ -1094,7 +1094,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases",
+        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\"\n]\n# Database",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1103,7 +1103,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases\nDATABASES = {",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1175,7 +1175,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True",
+        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1184,7 +1184,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1193,7 +1193,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",",
+        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1202,7 +1202,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",",
+        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1211,7 +1211,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1220,7 +1220,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]",
+        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1229,16 +1229,16 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },
     {
-        "label": "CORS_ALLOW_ALL_ORIGINS",
+        "label": "CORS_ALLOWED_ORIGINS",
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n# ]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {",
+        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish",
         "detail": "config.settings",
         "documentation": {}
     },
