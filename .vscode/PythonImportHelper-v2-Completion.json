@@ -1094,7 +1094,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\"\n]\n# Database",
+        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh/\"",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1103,7 +1103,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\"\n]\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh/\"\n]",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1220,7 +1220,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]",
+        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n    \"http://test-platform.surge.sh\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1229,7 +1229,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\n# CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh\"",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1238,7 +1238,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish",
+        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    \"http://localhost:3000\",\n    \"http://127.0.0.1:3000\",\n    \"https://myfrontend.com\",\n    \"http://localhost:5173\",\n    \"http://192.168.1.132:5173\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh\"\n]\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },

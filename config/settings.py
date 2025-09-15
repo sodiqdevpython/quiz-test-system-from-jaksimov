@@ -116,7 +116,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",      # local dev
     "http://127.0.0.1:8000",       # local dev
     "http://127.0.0.1:5173",
-    "http://localhost:5173/"
+    "http://localhost:5173/",
+    "http://test-platform.surge.sh",
+    "https://test-platform.surge.sh/"
 ]
 
 
@@ -183,6 +185,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://myfrontend.com",
     "http://localhost:5173",
     "http://192.168.1.132:5173",
+    "http://test-platform.surge.sh",
+    "https://test-platform.surge.sh"
 ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
