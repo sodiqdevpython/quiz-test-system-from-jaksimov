@@ -1,0 +1,1 @@
+from . import tasks  # bu orqali Celery task faylini doim yuklaydi

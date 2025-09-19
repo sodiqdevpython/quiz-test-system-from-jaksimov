@@ -26,6 +26,7 @@ urlpatterns = [
 
 	path('', include('mainApp.urls')),
     path('statistics/', include('statistic.urls')),
+    path('auth/', include('customAuth.urls')),
     path("ckeditor/", include("ckeditor_uploader.urls")),
 
 	path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

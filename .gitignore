@@ -3,3 +3,5 @@ options
 profile_photo
 questions
 test_imports
+db.sqlite3
+__pycache__

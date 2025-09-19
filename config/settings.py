@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     
     #! local
     'mainApp',
+    'customAuth',
     'statistic'
 ]
 
@@ -119,6 +120,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173/",
     "http://test-platform.surge.sh",
     "https://test-platform.surge.sh/"
+    "http://192.168.1.133:5173/"
 ]
 
 
@@ -127,11 +129,23 @@ CSRF_TRUSTED_ORIGINS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "quizdb",
+        "USER": "quizuser",
+        "PASSWORD": "sodiq2005.py",
+        "HOST": "db",
+        "PORT": 5432,
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -176,18 +190,19 @@ AUTH_USER_MODEL = 'mainApp.User'
 
 CORS_ALLOW_CREDENTIALS = True
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://myfrontend.com",
-    "http://localhost:5173",
-    "http://192.168.1.132:5173",
-    "http://test-platform.surge.sh",
-    "https://test-platform.surge.sh"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+#     "https://myfrontend.com",
+#     "http://localhost:5173",
+#     "http://192.168.1.132:5173",
+#     "http://test-platform.surge.sh",
+#     "https://test-platform.surge.sh"
+#     "http://192.168.1.133:5173"
+# ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 SIMPLE_JWT = {
@@ -214,3 +229,14 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "sodiqdevpython@gmail.com"
+EMAIL_HOST_PASSWORD = "lttckvmvqzsqbbga"
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"

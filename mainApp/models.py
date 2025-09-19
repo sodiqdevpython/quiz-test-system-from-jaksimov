@@ -22,6 +22,7 @@ class Group(BaseModel):
 
 
 class User(BaseModel, AbstractUser):
+    email = models.EmailField(null=True, blank=True, verbose_name="Email")
     profile_photo = models.ImageField(upload_to="profile_photo", null=True, blank=True)
     role = models.CharField(max_length=50, choices=[
         ("student", "Talaba"),
@@ -46,6 +47,13 @@ class User(BaseModel, AbstractUser):
             models.Index(fields=["group"]),
             models.Index(fields=["average_score"]),
             models.Index(fields=["total_attempts"]),
+        ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["email"],
+                name="unique_email_not_null",
+                condition=~models.Q(email=None)  # faqat email mavjud bo‘lsa unique bo'lsin
+            )
         ]
 
 

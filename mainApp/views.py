@@ -41,6 +41,7 @@ class LoginView(APIView):
         return Response({"detail": "Invalid credentials"}, status=400)
 
 class GroupListView(generics.ListAPIView):
+    permission_classes = [AllowAny]
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     search_fields = ["name", "kurs"]
@@ -87,7 +88,7 @@ class SubjectListView(generics.ListAPIView):
 
         elif user.role == "student":
             if user.group:
-                return Subject.objects.filter(groups=user.group)
+                return Subject.objects.filter(groups__name=user.group.name)
             return Subject.objects.none()
 
         return Subject.objects.none()
