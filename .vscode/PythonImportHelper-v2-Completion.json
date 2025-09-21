@@ -33,6 +33,30 @@
         "documentation": {}
     },
     {
+        "label": "shared_task",
+        "importPath": "celery",
+        "description": "celery",
+        "isExtraImport": true,
+        "detail": "celery",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
         "label": "settings",
         "importPath": "django.conf",
         "description": "django.conf",
@@ -62,6 +86,47 @@
         "description": "django.conf",
         "isExtraImport": true,
         "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "pathlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
         "documentation": {}
     },
     {
@@ -78,6 +143,22 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
         "documentation": {}
     },
     {
@@ -153,11 +234,35 @@
         "documentation": {}
     },
     {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
         "label": "static",
         "importPath": "django.conf.urls.static",
         "description": "django.conf.urls.static",
         "isExtraImport": true,
         "detail": "django.conf.urls.static",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "require_GET",
+        "importPath": "django.views.decorators.http",
+        "description": "django.views.decorators.http",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.http",
         "documentation": {}
     },
     {
@@ -265,6 +370,30 @@
         "documentation": {}
     },
     {
+        "label": "permissions",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "serializers",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
+        "label": "generics",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "get_schema_view",
         "importPath": "drf_yasg.views",
         "description": "drf_yasg.views",
@@ -289,6 +418,287 @@
         "documentation": {}
     },
     {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "AppConfig",
         "importPath": "django.apps",
         "description": "django.apps",
@@ -313,239 +723,63 @@
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
         "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "get_user_model",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "get_user_model",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "authenticate",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "login",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
+        "detail": "django.apps",
         "documentation": {}
     },
     {
         "label": "Group",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Group",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Theme",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
+        "label": "Test",
         "importPath": "mainApp.models",
         "description": "mainApp.models",
         "isExtraImport": true,
@@ -641,6 +875,47 @@
         "documentation": {}
     },
     {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "authenticate",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
         "label": "ValidationError",
         "importPath": "rest_framework.validators",
         "description": "rest_framework.validators",
@@ -654,6 +929,14 @@
         "description": "django.core.mail",
         "isExtraImport": true,
         "detail": "django.core.mail",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
         "documentation": {}
     },
     {
@@ -770,6 +1053,120 @@
         "documentation": {}
     },
     {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
         "label": "django.contrib.auth.models",
         "kind": 6,
         "isExtraImport": true,
@@ -810,15 +1207,6 @@
         "description": "django.core.validators",
         "isExtraImport": true,
         "detail": "django.core.validators",
-        "documentation": {}
-    },
-    {
-        "label": "django.db.models.deletion",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "django.db.models.deletion",
-        "description": "django.db.models.deletion",
-        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
@@ -886,6 +1274,14 @@
         "description": "django.contrib.auth.forms",
         "isExtraImport": true,
         "detail": "django.contrib.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "utils.models",
+        "description": "utils.models",
+        "isExtraImport": true,
+        "detail": "utils.models",
         "documentation": {}
     },
     {
@@ -1050,6 +1446,22 @@
         "documentation": {}
     },
     {
+        "label": "post_save",
+        "importPath": "django.db.models.signals",
+        "description": "django.db.models.signals",
+        "isExtraImport": true,
+        "detail": "django.db.models.signals",
+        "documentation": {}
+    },
+    {
+        "label": "receiver",
+        "importPath": "django.dispatch",
+        "description": "django.dispatch",
+        "isExtraImport": true,
+        "detail": "django.dispatch",
+        "documentation": {}
+    },
+    {
         "label": "receiver",
         "importPath": "django.dispatch",
         "description": "django.dispatch",
@@ -1147,6 +1559,30 @@
         "documentation": {}
     },
     {
+        "label": "DeviceToken",
+        "importPath": "notifications.models",
+        "description": "notifications.models",
+        "isExtraImport": true,
+        "detail": "notifications.models",
+        "documentation": {}
+    },
+    {
+        "label": "send_push_fcm",
+        "importPath": "utils.push_fcm",
+        "description": "utils.push_fcm",
+        "isExtraImport": true,
+        "detail": "utils.push_fcm",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
         "label": "method_decorator",
         "importPath": "django.utils.decorators",
         "description": "django.utils.decorators",
@@ -1163,62 +1599,85 @@
         "documentation": {}
     },
     {
-        "label": "sys",
+        "label": "json",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "sys",
-        "description": "sys",
-        "detail": "sys",
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
         "documentation": {}
     },
     {
-        "label": "docx",
+        "label": "webpush",
+        "importPath": "pywebpush",
+        "description": "pywebpush",
+        "isExtraImport": true,
+        "detail": "pywebpush",
+        "documentation": {}
+    },
+    {
+        "label": "WebPushException",
+        "importPath": "pywebpush",
+        "description": "pywebpush",
+        "isExtraImport": true,
+        "detail": "pywebpush",
+        "documentation": {}
+    },
+    {
+        "label": "serialization",
+        "importPath": "cryptography.hazmat.primitives",
+        "description": "cryptography.hazmat.primitives",
+        "isExtraImport": true,
+        "detail": "cryptography.hazmat.primitives",
+        "documentation": {}
+    },
+    {
+        "label": "serialization",
+        "importPath": "cryptography.hazmat.primitives",
+        "description": "cryptography.hazmat.primitives",
+        "isExtraImport": true,
+        "detail": "cryptography.hazmat.primitives",
+        "documentation": {}
+    },
+    {
+        "label": "serialization",
+        "importPath": "cryptography.hazmat.primitives",
+        "description": "cryptography.hazmat.primitives",
+        "isExtraImport": true,
+        "detail": "cryptography.hazmat.primitives",
+        "documentation": {}
+    },
+    {
+        "label": "firebase_admin",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "docx",
-        "description": "docx",
-        "detail": "docx",
+        "importPath": "firebase_admin",
+        "description": "firebase_admin",
+        "detail": "firebase_admin",
         "documentation": {}
     },
     {
-        "label": "CT_P",
-        "importPath": "docx.oxml.text.paragraph",
-        "description": "docx.oxml.text.paragraph",
+        "label": "credentials",
+        "importPath": "firebase_admin",
+        "description": "firebase_admin",
         "isExtraImport": true,
-        "detail": "docx.oxml.text.paragraph",
+        "detail": "firebase_admin",
         "documentation": {}
     },
     {
-        "label": "CT_Tbl",
-        "importPath": "docx.oxml.table",
-        "description": "docx.oxml.table",
+        "label": "messaging",
+        "importPath": "firebase_admin",
+        "description": "firebase_admin",
         "isExtraImport": true,
-        "detail": "docx.oxml.table",
+        "detail": "firebase_admin",
         "documentation": {}
     },
     {
-        "label": "Paragraph",
-        "importPath": "docx.text.paragraph",
-        "description": "docx.text.paragraph",
+        "label": "default_backend",
+        "importPath": "cryptography.hazmat.backends",
+        "description": "cryptography.hazmat.backends",
         "isExtraImport": true,
-        "detail": "docx.text.paragraph",
-        "documentation": {}
-    },
-    {
-        "label": "Table",
-        "importPath": "docx.table",
-        "description": "docx.table",
-        "isExtraImport": true,
-        "detail": "docx.table",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
+        "detail": "cryptography.hazmat.backends",
         "documentation": {}
     },
     {
@@ -1228,6 +1687,14 @@
         "importPath": "base64",
         "description": "base64",
         "detail": "base64",
+        "documentation": {}
+    },
+    {
+        "label": "ec",
+        "importPath": "cryptography.hazmat.primitives.asymmetric",
+        "description": "cryptography.hazmat.primitives.asymmetric",
+        "isExtraImport": true,
+        "detail": "cryptography.hazmat.primitives.asymmetric",
         "documentation": {}
     },
     {
@@ -1325,7 +1792,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "ROOT_URLCONF = 'config.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "peekOfCode": "ROOT_URLCONF = 'config.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [ BASE_DIR / 'templates' ],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1334,7 +1801,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [ BASE_DIR / 'templates' ],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1591,6 +2058,15 @@
         "documentation": {}
     },
     {
+        "label": "service_worker",
+        "kind": 2,
+        "importPath": "config.urls",
+        "description": "config.urls",
+        "peekOfCode": "def service_worker(request):\n    sw_path = Path(settings.BASE_DIR) / \"static\" / \"firebase-messaging-sw.js\"\n    content = sw_path.read_text(encoding=\"utf-8\")\n    return HttpResponse(content, content_type=\"application/javascript\")\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"firebase-messaging-sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),",
+        "detail": "config.urls",
+        "documentation": {}
+    },
+    {
         "label": "schema_view",
         "kind": 5,
         "importPath": "config.urls",
@@ -1604,7 +2080,7 @@
         "kind": 5,
         "importPath": "config.urls",
         "description": "config.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n\tpath('', include('mainApp.urls')),\n    path('statistics/', include('statistic.urls')),\n    path('auth/', include('customAuth.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),\n    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"firebase-messaging-sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),\n    path('auth/', include('customAuth.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),",
         "detail": "config.urls",
         "documentation": {}
     },
@@ -1618,12 +2094,48 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "customAuth.migrations.0001_initial",
+        "description": "customAuth.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        ('mainApp', '0011_alter_user_email'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='StudentExcel',\n            fields=[",
+        "detail": "customAuth.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "customAuth.migrations.0002_studentimport_delete_studentexcel",
+        "description": "customAuth.migrations.0002_studentimport_delete_studentexcel",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('customAuth', '0001_initial'),\n        ('mainApp', '0011_alter_user_email'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='StudentImport',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),",
+        "detail": "customAuth.migrations.0002_studentimport_delete_studentexcel",
+        "documentation": {}
+    },
+    {
+        "label": "StudentImportAdmin",
+        "kind": 6,
+        "importPath": "customAuth.admin",
+        "description": "customAuth.admin",
+        "peekOfCode": "class StudentImportAdmin(admin.ModelAdmin):\n    list_display = (\"group\", \"file\", \"created_at\")\n    readonly_fields = (\"created_at\",)",
+        "detail": "customAuth.admin",
+        "documentation": {}
+    },
+    {
         "label": "CustomauthConfig",
         "kind": 6,
         "importPath": "customAuth.apps",
         "description": "customAuth.apps",
         "peekOfCode": "class CustomauthConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'customAuth'",
         "detail": "customAuth.apps",
+        "documentation": {}
+    },
+    {
+        "label": "StudentImport",
+        "kind": 6,
+        "importPath": "customAuth.models",
+        "description": "customAuth.models",
+        "peekOfCode": "class StudentImport(models.Model):\n    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name=\"Guruh\")\n    file = models.FileField(upload_to=\"imports/\", verbose_name=\"Excel fayl\")\n    created_at = models.DateTimeField(auto_now_add=True)\n    def __str__(self):\n        return f\"Import - {self.group.name} ({self.created_at:%Y-%m-%d %H:%M})\"\n    def save(self, *args, **kwargs):\n        super().save(*args, **kwargs)\n        df = pd.read_excel(self.file.path)\n        for _, row in df.iterrows():",
+        "detail": "customAuth.models",
         "documentation": {}
     },
     {
@@ -1750,6 +2262,60 @@
         "description": "customAuth.views",
         "peekOfCode": "User = get_user_model()\nclass RegisterView(generics.CreateAPIView):\n    permission_classes = [AllowAny]\n    queryset = User.objects.all()\n    serializer_class = RegisterSerializer\nclass ChangePasswordView(generics.UpdateAPIView):\n    serializer_class = ChangePasswordSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_object(self):\n        return self.request.user",
         "detail": "customAuth.views",
+        "documentation": {}
+    },
+    {
+        "label": "firestore_adminCallTransformer",
+        "kind": 6,
+        "importPath": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "peekOfCode": "class firestore_adminCallTransformer(cst.CSTTransformer):\n    CTRL_PARAMS: Tuple[str] = ('retry', 'timeout', 'metadata')\n    METHOD_TO_PARAMS: Dict[str, Tuple[str]] = {\n        'bulk_delete_documents': ('name', 'collection_ids', 'namespace_ids', ),\n        'create_backup_schedule': ('parent', 'backup_schedule', ),\n        'create_database': ('parent', 'database', 'database_id', ),\n        'create_index': ('parent', 'index', ),\n        'create_user_creds': ('parent', 'user_creds', 'user_creds_id', ),\n        'delete_backup': ('name', ),\n        'delete_backup_schedule': ('name', ),",
+        "detail": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "documentation": {}
+    },
+    {
+        "label": "partition",
+        "kind": 2,
+        "importPath": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "peekOfCode": "def partition(\n    predicate: Callable[[Any], bool],\n    iterator: Sequence[Any]\n) -> Tuple[List[Any], List[Any]]:\n    \"\"\"A stable, out-of-place partition.\"\"\"\n    results = ([], [])\n    for i in iterator:\n        results[int(predicate(i))].append(i)\n    # Returns trueList, falseList\n    return results[1], results[0]",
+        "detail": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "documentation": {}
+    },
+    {
+        "label": "fix_files",
+        "kind": 2,
+        "importPath": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "peekOfCode": "def fix_files(\n    in_dir: pathlib.Path,\n    out_dir: pathlib.Path,\n    *,\n    transformer=firestore_adminCallTransformer(),\n):\n    \"\"\"Duplicate the input dir to the output dir, fixing file method calls.\n    Preconditions:\n    * in_dir is a real directory\n    * out_dir is a real, empty directory",
+        "detail": "env.Scripts.fixup_firestore_admin_v1_keywords",
+        "documentation": {}
+    },
+    {
+        "label": "firestoreCallTransformer",
+        "kind": 6,
+        "importPath": "env.Scripts.fixup_firestore_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_v1_keywords",
+        "peekOfCode": "class firestoreCallTransformer(cst.CSTTransformer):\n    CTRL_PARAMS: Tuple[str] = ('retry', 'timeout', 'metadata')\n    METHOD_TO_PARAMS: Dict[str, Tuple[str]] = {\n        'batch_get_documents': ('database', 'documents', 'mask', 'transaction', 'new_transaction', 'read_time', ),\n        'batch_write': ('database', 'writes', 'labels', ),\n        'begin_transaction': ('database', 'options', ),\n        'commit': ('database', 'writes', 'transaction', ),\n        'create_document': ('parent', 'collection_id', 'document', 'document_id', 'mask', ),\n        'delete_document': ('name', 'current_document', ),\n        'get_document': ('name', 'mask', 'transaction', 'read_time', ),",
+        "detail": "env.Scripts.fixup_firestore_v1_keywords",
+        "documentation": {}
+    },
+    {
+        "label": "partition",
+        "kind": 2,
+        "importPath": "env.Scripts.fixup_firestore_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_v1_keywords",
+        "peekOfCode": "def partition(\n    predicate: Callable[[Any], bool],\n    iterator: Sequence[Any]\n) -> Tuple[List[Any], List[Any]]:\n    \"\"\"A stable, out-of-place partition.\"\"\"\n    results = ([], [])\n    for i in iterator:\n        results[int(predicate(i))].append(i)\n    # Returns trueList, falseList\n    return results[1], results[0]",
+        "detail": "env.Scripts.fixup_firestore_v1_keywords",
+        "documentation": {}
+    },
+    {
+        "label": "fix_files",
+        "kind": 2,
+        "importPath": "env.Scripts.fixup_firestore_v1_keywords",
+        "description": "env.Scripts.fixup_firestore_v1_keywords",
+        "peekOfCode": "def fix_files(\n    in_dir: pathlib.Path,\n    out_dir: pathlib.Path,\n    *,\n    transformer=firestoreCallTransformer(),\n):\n    \"\"\"Duplicate the input dir to the output dir, fixing file method calls.\n    Preconditions:\n    * in_dir is a real directory\n    * out_dir is a real, empty directory",
+        "detail": "env.Scripts.fixup_firestore_v1_keywords",
         "documentation": {}
     },
     {
@@ -2027,7 +2593,7 @@
         "kind": 6,
         "importPath": "mainApp.apps",
         "description": "mainApp.apps",
-        "peekOfCode": "class MainappConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'mainApp'\n    def ready(self):\n        import mainApp.signals",
+        "peekOfCode": "class MainappConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'mainApp'\n    def ready(self):\n        import mainApp.signals\n        print(\">>> notifications.signals LOADED\")",
         "detail": "mainApp.apps",
         "documentation": {}
     },
@@ -2716,6 +3282,96 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "notifications.migrations.0001_initial",
+        "description": "notifications.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='PushSubscription',\n            fields=[\n                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),",
+        "detail": "notifications.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "notifications.migrations.0002_devicetoken_delete_pushsubscription",
+        "description": "notifications.migrations.0002_devicetoken_delete_pushsubscription",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('notifications', '0001_initial'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='DeviceToken',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),",
+        "detail": "notifications.migrations.0002_devicetoken_delete_pushsubscription",
+        "documentation": {}
+    },
+    {
+        "label": "NotificationsConfig",
+        "kind": 6,
+        "importPath": "notifications.apps",
+        "description": "notifications.apps",
+        "peekOfCode": "class NotificationsConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'notifications'\n    def ready(self):\n        import notifications.signals",
+        "detail": "notifications.apps",
+        "documentation": {}
+    },
+    {
+        "label": "DeviceToken",
+        "kind": 6,
+        "importPath": "notifications.models",
+        "description": "notifications.models",
+        "peekOfCode": "class DeviceToken(models.Model):\n    user = models.ForeignKey(User, on_delete=models.CASCADE)\n    token = models.TextField(unique=True)\n    created_at = models.DateTimeField(auto_now_add=True)\n    def __str__(self):\n        return f\"DeviceToken({self.user.username})\"",
+        "detail": "notifications.models",
+        "documentation": {}
+    },
+    {
+        "label": "DeviceTokenSerializer",
+        "kind": 6,
+        "importPath": "notifications.serializers",
+        "description": "notifications.serializers",
+        "peekOfCode": "class DeviceTokenSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = DeviceToken\n        fields = [\"token\"]",
+        "detail": "notifications.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "notify_new_theme",
+        "kind": 2,
+        "importPath": "notifications.signals",
+        "description": "notifications.signals",
+        "peekOfCode": "def notify_new_theme(sender, instance, created, **kwargs):\n    if not created:\n        return\n    subject = instance.subject\n    groups = subject.groups.all()\n    # Guruh talabalari va authorlari\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)\n    user_ids = list(receivers.values_list(\"id\", flat=True))",
+        "detail": "notifications.signals",
+        "documentation": {}
+    },
+    {
+        "label": "notify_new_test",
+        "kind": 2,
+        "importPath": "notifications.signals",
+        "description": "notifications.signals",
+        "peekOfCode": "def notify_new_test(sender, instance, created, **kwargs):\n    if not created:\n        return\n    subject = instance.theme.subject\n    groups = subject.groups.all()\n    # Guruh talabalari va authorlari\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)\n    user_ids = list(receivers.values_list(\"id\", flat=True))",
+        "detail": "notifications.signals",
+        "documentation": {}
+    },
+    {
+        "label": "send_push_to_users",
+        "kind": 2,
+        "importPath": "notifications.tasks",
+        "description": "notifications.tasks",
+        "peekOfCode": "def send_push_to_users(user_ids, title, body):\n    from mainApp.models import User  # ichida import qilamiz\n    users = User.objects.filter(id__in=user_ids)\n    for user in users:\n        for dev in DeviceToken.objects.filter(user=user):\n            send_push_fcm(dev.token, title, body)",
+        "detail": "notifications.tasks",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "notifications.urls",
+        "description": "notifications.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"save-token/\", SaveTokenView.as_view(), name=\"save_token\"),\n    path(\"push-test/\", TemplateView.as_view(template_name=\"push-test.html\")),\n]",
+        "detail": "notifications.urls",
+        "documentation": {}
+    },
+    {
+        "label": "SaveTokenView",
+        "kind": 6,
+        "importPath": "notifications.views",
+        "description": "notifications.views",
+        "peekOfCode": "class SaveTokenView(generics.CreateAPIView):\n    serializer_class = DeviceTokenSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def perform_create(self, serializer):\n        token = serializer.validated_data[\"token\"]\n        DeviceToken.objects.update_or_create(\n            user=self.request.user,\n            token=token,\n            defaults={\"user\": self.request.user}\n        )",
+        "detail": "notifications.views",
+        "documentation": {}
+    },
+    {
         "label": "StatisticConfig",
         "kind": 6,
         "importPath": "statistic.apps",
@@ -2896,6 +3552,87 @@
         "documentation": {}
     },
     {
+        "label": "send_push",
+        "kind": 2,
+        "importPath": "utils.push",
+        "description": "utils.push",
+        "peekOfCode": "def send_push(user, title, body):\n    payload = {\"title\": title, \"body\": body}\n    for sub in user.pushsubscription_set.all():\n        try:\n            webpush(\n                subscription_info={\n                    \"endpoint\": sub.endpoint,\n                    \"keys\": {\"p256dh\": sub.p256dh, \"auth\": sub.auth},\n                },\n                data=json.dumps(payload),",
+        "detail": "utils.push",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "utils.push",
+        "description": "utils.push",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parents[1]\n# 1) private.pem ni BEVOSITA fayldan o‘qiymiz (settings’dan OLMAYMIZ!)\n_RAW_PEM = (BASE_DIR / \"private.pem\").read_text(encoding=\"utf-8\").strip()\n# 2) PEM ni load qilib, kanonik PKCS8 PEM sifatida qayta eksport qilamiz\n_priv_obj = serialization.load_pem_private_key(_RAW_PEM.encode(\"utf-8\"), password=None)\n_VAPID_PRIVATE_PEM = _priv_obj.private_bytes(\n    encoding=serialization.Encoding.PEM,\n    format=serialization.PrivateFormat.PKCS8,\n    encryption_algorithm=serialization.NoEncryption(),\n).decode(\"utf-8\")",
+        "detail": "utils.push",
+        "documentation": {}
+    },
+    {
+        "label": "_RAW_PEM",
+        "kind": 5,
+        "importPath": "utils.push",
+        "description": "utils.push",
+        "peekOfCode": "_RAW_PEM = (BASE_DIR / \"private.pem\").read_text(encoding=\"utf-8\").strip()\n# 2) PEM ni load qilib, kanonik PKCS8 PEM sifatida qayta eksport qilamiz\n_priv_obj = serialization.load_pem_private_key(_RAW_PEM.encode(\"utf-8\"), password=None)\n_VAPID_PRIVATE_PEM = _priv_obj.private_bytes(\n    encoding=serialization.Encoding.PEM,\n    format=serialization.PrivateFormat.PKCS8,\n    encryption_algorithm=serialization.NoEncryption(),\n).decode(\"utf-8\")\ndef send_push(user, title, body):\n    payload = {\"title\": title, \"body\": body}",
+        "detail": "utils.push",
+        "documentation": {}
+    },
+    {
+        "label": "_priv_obj",
+        "kind": 5,
+        "importPath": "utils.push",
+        "description": "utils.push",
+        "peekOfCode": "_priv_obj = serialization.load_pem_private_key(_RAW_PEM.encode(\"utf-8\"), password=None)\n_VAPID_PRIVATE_PEM = _priv_obj.private_bytes(\n    encoding=serialization.Encoding.PEM,\n    format=serialization.PrivateFormat.PKCS8,\n    encryption_algorithm=serialization.NoEncryption(),\n).decode(\"utf-8\")\ndef send_push(user, title, body):\n    payload = {\"title\": title, \"body\": body}\n    for sub in user.pushsubscription_set.all():\n        try:",
+        "detail": "utils.push",
+        "documentation": {}
+    },
+    {
+        "label": "_VAPID_PRIVATE_PEM",
+        "kind": 5,
+        "importPath": "utils.push",
+        "description": "utils.push",
+        "peekOfCode": "_VAPID_PRIVATE_PEM = _priv_obj.private_bytes(\n    encoding=serialization.Encoding.PEM,\n    format=serialization.PrivateFormat.PKCS8,\n    encryption_algorithm=serialization.NoEncryption(),\n).decode(\"utf-8\")\ndef send_push(user, title, body):\n    payload = {\"title\": title, \"body\": body}\n    for sub in user.pushsubscription_set.all():\n        try:\n            webpush(",
+        "detail": "utils.push",
+        "documentation": {}
+    },
+    {
+        "label": "send_push_fcm",
+        "kind": 2,
+        "importPath": "utils.push_fcm",
+        "description": "utils.push_fcm",
+        "peekOfCode": "def send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )\n    return messaging.send(message)",
+        "detail": "utils.push_fcm",
+        "documentation": {}
+    },
+    {
+        "label": "cred_path",
+        "kind": 5,
+        "importPath": "utils.push_fcm",
+        "description": "utils.push_fcm",
+        "peekOfCode": "cred_path = Path(__file__).resolve().parent.parent / \"serviceAccount.json\"\ncred = credentials.Certificate(str(cred_path))\n# initialize faqat 1 marta bo‘lishi kerak\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )",
+        "detail": "utils.push_fcm",
+        "documentation": {}
+    },
+    {
+        "label": "cred",
+        "kind": 5,
+        "importPath": "utils.push_fcm",
+        "description": "utils.push_fcm",
+        "peekOfCode": "cred = credentials.Certificate(str(cred_path))\n# initialize faqat 1 marta bo‘lishi kerak\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )\n    return messaging.send(message)",
+        "detail": "utils.push_fcm",
+        "documentation": {}
+    },
+    {
+        "label": "load_vapid_public_key_base64url",
+        "kind": 2,
+        "importPath": "utils.vapid",
+        "description": "utils.vapid",
+        "peekOfCode": "def load_vapid_public_key_base64url(pem_path: str) -> str:\n    with open(pem_path, \"rb\") as f:\n        public_key = serialization.load_pem_public_key(f.read(), backend=default_backend())\n    der = public_key.public_bytes(\n        encoding=serialization.Encoding.X962,\n        format=serialization.PublicFormat.UncompressedPoint\n    )\n    return base64.urlsafe_b64encode(der).decode(\"utf-8\").rstrip(\"=\")",
+        "detail": "utils.vapid",
+        "documentation": {}
+    },
+    {
         "label": "main",
         "kind": 2,
         "importPath": "manage",
@@ -2905,20 +3642,38 @@
         "documentation": {}
     },
     {
-        "label": "WordTestReader",
-        "kind": 6,
+        "label": "b64url",
+        "kind": 2,
         "importPath": "test",
         "description": "test",
-        "peekOfCode": "class WordTestReader:\n    def __init__(self):\n        self.questions = []\n    def read_test_file(self, file_path):\n        \"\"\"\n        Word faylini o'qish va test savollarini ajratib olish\n        Args:\n            file_path (str): Word fayl manzili\n        Returns:\n            dict: Test savollari va variantlari",
+        "peekOfCode": "def b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key\nprivate_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))\nprint(\"VAPID_PUBLIC_KEY=\", b64url(public_key))",
         "detail": "test",
         "documentation": {}
     },
     {
-        "label": "main",
-        "kind": 2,
+        "label": "private_key",
+        "kind": 5,
         "importPath": "test",
         "description": "test",
-        "peekOfCode": "def main():\n    # Word test faylini o'qish\n    reader = WordTestReader()\n    # Fayl manzilini kiriting\n    file_path = input(\"Word fayl manzilini kiriting: \").strip()\n    if not os.path.exists(file_path):\n        print(\"Fayl topilmadi!\")\n        return\n    # Faylni o'qish\n    print(\"Fayl o'qilmoqda...\")",
+        "peekOfCode": "private_key = ec.generate_private_key(ec.SECP256R1())\n# Public key (Uncompressed Point, X9.62 formatida)\npublic_key = private_key.public_key().public_bytes(\n    encoding=serialization.Encoding.X962,\n    format=serialization.PublicFormat.UncompressedPoint,\n)\n# base64url funksiyasi\ndef b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "public_key",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "public_key = private_key.public_key().public_bytes(\n    encoding=serialization.Encoding.X962,\n    format=serialization.PublicFormat.UncompressedPoint,\n)\n# base64url funksiyasi\ndef b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key\nprivate_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "private_bytes",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "private_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))\nprint(\"VAPID_PUBLIC_KEY=\", b64url(public_key))",
         "detail": "test",
         "documentation": {}
     }

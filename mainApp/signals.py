@@ -225,4 +225,3 @@ def update_user_stats(sender, instance, created, **kwargs):
         user.total_wrong = total_wrong
         user.average_score = round(avg_score, 2)
         user.save(update_fields=["total_attempts", "total_correct", "total_wrong", "average_score"])
-    

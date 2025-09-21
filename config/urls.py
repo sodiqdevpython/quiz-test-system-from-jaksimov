@@ -4,6 +4,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.http import HttpResponse
+from django.views.decorators.http import require_GET
+from pathlib import Path
+
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -21,10 +25,18 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny]
 )
 
+@require_GET
+def service_worker(request):
+    sw_path = Path(settings.BASE_DIR) / "static" / "firebase-messaging-sw.js"
+    content = sw_path.read_text(encoding="utf-8")
+    return HttpResponse(content, content_type="application/javascript")
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path("firebase-messaging-sw.js", service_worker),
 	path('', include('mainApp.urls')),
+    path('', include('notifications.urls')),
     path('statistics/', include('statistic.urls')),
     path('auth/', include('customAuth.urls')),
     path("ckeditor/", include("ckeditor_uploader.urls")),

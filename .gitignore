@@ -5,3 +5,7 @@ questions
 test_imports
 db.sqlite3
 __pycache__
+.env
+private.pem
+public.pem
+.vscode

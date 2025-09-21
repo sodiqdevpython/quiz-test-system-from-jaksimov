@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <title>Push Test (Firebase)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 1rem;
+    }
+    h1 {
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #console {
+      width: 100%;
+      height: 200px;
+      margin-top: 1rem;
+      padding: 10px;
+      font-family: monospace;
+      background: #000;
+      color: #0f0;
+      border-radius: 8px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Push Notification Test (Firebase)</h1>
+    <input id="jwt" placeholder="JWT Access Token" />
+    <button id="btn">Register & Get FCM Token</button>
+    <div id="console"></div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAd2vyJI_dNy1D0mmPTkRB4u1Tqz-KVylc",
+      authDomain: "notify-89a18.firebaseapp.com",
+      projectId: "notify-89a18",
+      storageBucket: "notify-89a18.appspot.com",  // ✅ to‘g‘ri domen
+      messagingSenderId: "197374439129",
+      appId: "1:197374439129:web:ea78742dbb9bc3af2218c8"
+    };
+
+    const vapidKey = "BHqdFL2wHE8nQNrpauFdM07cqzmPyhPw20tkjhl1zmfu8j1RXdhOjdl2JGScgAWJea18GKFfqRF2H-oX8ASfFWE";
+
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
+
+    // Console chiqishini sahifaga yozib boramiz
+    const consoleBox = document.getElementById("console");
+    function log(msg) {
+      consoleBox.textContent += msg + "\n";
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+      console.log(msg);
+    }
+
+    async function registerAndSubscribe() {
+      const jwt = document.getElementById("jwt").value.trim();
+      if (!jwt) { alert("JWT Access Token kiriting"); return; }
+
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") {
+          alert("Notification permission rad etildi");
+          return;
+        }
+
+        const fcmToken = await getToken(messaging, { vapidKey });
+        log("FCM token: " + fcmToken);
+
+        if (!fcmToken) {
+          alert("FCM token olinmadi!");
+          return;
+        }
+
+        const resp = await fetch("/save-token/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${jwt}`
+          },
+          body: JSON.stringify({ token: fcmToken })
+        });
+
+        if (resp.ok) {
+          log("✅ Token serverga yuborildi");
+          alert("FCM token serverga yuborildi ✅");
+        } else {
+          log("❌ Serverga yuborishda xato");
+          alert("Serverga yuborishda xato ❌");
+        }
+      } catch (err) {
+        log("Xatolik: " + err.message);
+        alert("Token olishda xato ❌");
+      }
+    }
+
+    document.getElementById("btn").addEventListener("click", registerAndSubscribe);
+
+    // Foreground xabar
+    onMessage(messaging, (payload) => {
+      log("Foreground xabar: " + JSON.stringify(payload));
+      const { title, body, image, url } = payload.notification;
+
+      if (Notification.permission === "granted") {
+        navigator.serviceWorker.getRegistration().then((reg) => {
+          if (reg) {
+            reg.showNotification(title, {
+              body,
+              icon: image || "/static/logo.png",
+              image: image || undefined,
+              data: { url: url || "/" }
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

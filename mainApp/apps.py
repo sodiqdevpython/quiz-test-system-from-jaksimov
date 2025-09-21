@@ -7,3 +7,4 @@ class MainappConfig(AppConfig):
 
     def ready(self):
         import mainApp.signals
+        print(">>> notifications.signals LOADED")
