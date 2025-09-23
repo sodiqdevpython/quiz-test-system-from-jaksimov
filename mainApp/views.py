@@ -1,4 +1,3 @@
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, filters
@@ -8,13 +7,13 @@ from .pagination import StandardResultsSetPagination
 from django.db.models.expressions import Window, OrderBy
 from django.core.cache import cache
 from django.db.models.functions import RowNumber
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (
     GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
     CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,
     AttemptFinishResponseSerializer, AttemptResultSerializer, UserProfileSerializer, UserRatingSerializer, UserStatSerializer,
-    ProfilePhotoUpdateSerializer, TopAttemptSerializer
+    ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer
 )
 from django.db.models.functions import TruncDate
 from .models import (
@@ -25,6 +24,7 @@ from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 import random, secrets, datetime, hmac, hashlib
+from rest_framework import generics
 
 
 
@@ -153,7 +153,13 @@ class AttemptStartView(APIView):
         theme = get_object_or_404(Theme, id=theme_id)
         test = Test.objects.filter(theme=theme).order_by("created").first()
         if test is None:
-            test = Test.objects.create(theme=theme, name=f"Auto ({theme.name})")
+            # test = Test.objects.create(theme=theme, name=f"Auto ({theme.name})")
+            return Response(
+                {
+                    'status': 404,
+                    'message': "Bu mavzuda test yo'q"
+                }
+            , status=404)
 
         active_attempt = TestAttempt.objects.filter(
             test=test, user=request.user, finished_at__isnull=True
@@ -691,3 +697,11 @@ class ThemeTopUsersView(ListAPIView):
             ranked.filter(rn=1)
             .order_by("-correct_count", "duration", "-score", "finished_at")
         )
+        
+class CreateTheme(CreateAPIView):
+    queryset = Theme.objects.all()
+    serializer_class = ThemeSerializer
+    
+class CreateSubject(CreateAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = CreateSubjectSerializer

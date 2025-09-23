@@ -10,7 +10,7 @@ from django.db.models.functions import TruncDate
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['id','name']
 
 class AuthorInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,7 +21,6 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = "__all__"
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -434,3 +433,7 @@ class TopAttemptSerializer(serializers.ModelSerializer):
         return round((obj.correct_count / tq) * 100, 2) if tq else 0.0
 
 
+class CreateSubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = '__all__'

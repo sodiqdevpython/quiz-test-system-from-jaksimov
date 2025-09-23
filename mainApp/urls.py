@@ -10,7 +10,7 @@ from .views import (
     AttemptStateView, TestAttemptResultsView, MyProfileView,
     UserProfileView, UserActivityStatsView, UserRatingListView,
     ThemeStatsView, SubjectStatsView, ProfilePhotoUpdateView,
-    ThemeStatsView
+    ThemeStatsView, CreateTheme, CreateSubject
 )
 
 
@@ -32,6 +32,7 @@ urlpatterns = [
     # Subject
     path("subjects/", SubjectListView.as_view(), name="subject-list"),
     path("subjects/<uuid:pk>/", SubjectDetailView.as_view(), name="subject-detail"),
+    path('subjects/create/', CreateSubject.as_view(), name='create-subject'),
 
     # Theme
     path("themes/", ThemeListView.as_view(), name="theme-list"),
@@ -56,4 +57,5 @@ urlpatterns = [
     
     path("themes/<uuid:theme_id>/stats", ThemeStatsView.as_view(), name="theme-stats"),
     path("themes/<uuid:theme_id>/top-users", ThemeTopUsersView.as_view(), name="theme-top-users"),
+    path('themes/create/', CreateTheme.as_view(), name='create-theme')
 ]

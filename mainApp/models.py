@@ -52,7 +52,7 @@ class User(BaseModel, AbstractUser):
             models.UniqueConstraint(
                 fields=["email"],
                 name="unique_email_not_null",
-                condition=~models.Q(email=None)  # faqat email mavjud bo‘lsa unique bo'lsin
+                condition=~models.Q(email=None) & ~models.Q(email="") # NULL ham, "" ham chiqarib tashlanadi
             )
         ]
 

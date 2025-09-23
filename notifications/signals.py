@@ -30,7 +30,7 @@ def notify_new_theme(sender, instance, created, **kwargs):
 def notify_new_test(sender, instance, created, **kwargs):
     if not created:
         return
-
+    print("keldi")
     subject = instance.theme.subject
     groups = subject.groups.all()
 
