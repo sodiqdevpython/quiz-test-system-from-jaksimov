@@ -77,7 +77,7 @@ class AnswerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-ALLOWED_COUNTS = (5, 10, 20, 25, 30)
+ALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)
 
 def _abs_url(request, f):
     if not f:

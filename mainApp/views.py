@@ -138,7 +138,6 @@ def _now():
 def _expires(started_at, minutes):
     return started_at + datetime.timedelta(minutes=minutes)
 
-
 class AttemptStartView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -150,17 +149,19 @@ class AttemptStartView(APIView):
         mode  = q.validated_data["mode"]
         custom_duration = q.validated_data.get("duration")
 
+        # ✅ Yangi parametr
+        scope = request.query_params.get("scope", "theme")  
+        # default = "theme" (faqat bitta mavzu)
+
         theme = get_object_or_404(Theme, id=theme_id)
         test = Test.objects.filter(theme=theme).order_by("created").first()
         if test is None:
-            # test = Test.objects.create(theme=theme, name=f"Auto ({theme.name})")
             return Response(
-                {
-                    'status': 404,
-                    'message': "Bu mavzuda test yo'q"
-                }
-            , status=404)
+                {'status': 404, 'message': "Bu mavzuda test yo'q"},
+                status=404
+            )
 
+        # 🔹 Oldingi active attempt ni yopamiz
         active_attempt = TestAttempt.objects.filter(
             test=test, user=request.user, finished_at__isnull=True
         ).order_by("-started_at").first()
@@ -170,27 +171,45 @@ class AttemptStartView(APIView):
             total = active_attempt.answers.count()
             correct = active_attempt.answers.filter(is_correct=True).count()
             active_attempt.score = round((correct / total) * 100, 2) if total else 0.0
-            active_attempt.duration = int((active_attempt.finished_at - active_attempt.started_at).total_seconds() // 60)
+            active_attempt.duration = int(
+                (active_attempt.finished_at - active_attempt.started_at).total_seconds() // 60
+            )
             active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
-        # 🔹 Yangi attempt yaratamiz
-        pool = Question.objects.filter(test__theme=theme).prefetch_related("options").order_by("created")
+        # ====================== 🔥 MUHIM O'ZGARISH ======================
+        if scope == "subject":
+            # Fanning barcha mavzularidagi barcha savollar
+            pool = Question.objects.filter(test__theme__subject=theme.subject).prefetch_related("options")
+        else:
+            # Faqat shu mavzu
+            pool = Question.objects.filter(test__theme=theme).prefetch_related("options")
+
         total = pool.count()
         if total == 0:
-            return Response({"detail": "Bu mavzuda savollar yo‘q"}, status=400)
+            return Response({"detail": "Savollar topilmadi"}, status=400)
 
-        n = min(count, total)
+        if count == 0:
+            n = total   # hammasini olamiz
+        else:
+            n = min(count, total)
+
         if order == "random":
             ids = list(pool.values_list("id", flat=True))
             chosen_ids = set(random.sample(ids, n))
             questions = [q for q in pool if q.id in chosen_ids]
         else:
             questions = list(pool[:n])
+        # ===============================================================
 
         attempt = TestAttempt.objects.create(test=test, user=request.user, mode=mode)
         Answer.objects.bulk_create([Answer(attempt=attempt, question=qobj) for qobj in questions])
 
-        duration = custom_duration or test.default_duration
+        # ✅ Duration logikasi (har bir savolga 3 minut)
+        if custom_duration:
+            duration = custom_duration
+        else:
+            duration = len(questions) * 2
+
         expires_at = _expires(attempt.started_at, duration)
 
         # 🔹 Secret + salts
@@ -210,6 +229,7 @@ class AttemptStartView(APIView):
             "attempt_id": attempt.id,
             "theme_id": str(theme.id),
             "test_id": str(test.id),
+            "scope": scope,
             "count": len(questions),
             "order": order,
             "mode": mode,
@@ -276,8 +296,7 @@ class SubmitAnswerView(APIView):
             "option_id": oid,
             "is_correct": is_correct,
             "current_idx": meta["current_idx"],
-            "total": len(meta["order_ids"]),
-            "remaining_seconds": max(0, int((expires_at - _now()).total_seconds()))
+            "total": len(meta["order_ids"])
         }, status=200)
 
     def _finish_and_response(self, attempt):
@@ -445,17 +464,27 @@ class UserRatingListView(ListAPIView):
         group_id = self.request.query_params.get("group_id")
         test_id = self.request.query_params.get("test_id")
         theme_id = self.request.query_params.get("theme_id")
+        subject_id = self.request.query_params.get("subject_id")
 
-        # qs = User.objects.filter(role="student")
-        qs = User.objects.all()
+        qs = User.objects.filter(role="student")
 
+        # Guruh bo‘yicha filter
         if group_id:
             qs = qs.filter(group_id=group_id)
+
+        # Test bo‘yicha filter
         if test_id:
             qs = qs.filter(attempts__test_id=test_id)
+
+        # Mavzu bo‘yicha filter
         if theme_id:
             qs = qs.filter(attempts__test__theme_id=theme_id)
 
+        # Fan bo‘yicha filter 🔥
+        if subject_id:
+            qs = qs.filter(attempts__test__theme__subject_id=subject_id)
+
+        # Sortlash turlari
         if filter_type == "most_attempts":
             qs = qs.order_by("-total_attempts")
         elif filter_type == "least_attempts":

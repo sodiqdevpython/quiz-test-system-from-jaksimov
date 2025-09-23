@@ -2468,7 +2468,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class TestAttemptSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = TestAttempt\n        fields = \"__all__\"\nclass AnswerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Answer\n        fields = \"__all__\"\nALLOWED_COUNTS = (5, 10, 20, 25, 30)\ndef _abs_url(request, f):",
+        "peekOfCode": "class TestAttemptSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = TestAttempt\n        fields = \"__all__\"\nclass AnswerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Answer\n        fields = \"__all__\"\nALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)\ndef _abs_url(request, f):",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2477,7 +2477,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AnswerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Answer\n        fields = \"__all__\"\nALLOWED_COUNTS = (5, 10, 20, 25, 30)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url",
+        "peekOfCode": "class AnswerSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Answer\n        fields = \"__all__\"\nALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2648,7 +2648,7 @@
         "kind": 5,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "ALLOWED_COUNTS = (5, 10, 20, 25, 30)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url\n# --------- Start: query params\nclass AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)",
+        "peekOfCode": "ALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url\n# --------- Start: query params\nclass AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2828,7 +2828,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class AttemptStartView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data[\"count\"]\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        theme = get_object_or_404(Theme, id=theme_id)",
+        "peekOfCode": "class AttemptStartView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data[\"count\"]\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        # ✅ Yangi parametr",
         "detail": "mainApp.views",
         "documentation": {}
     },
