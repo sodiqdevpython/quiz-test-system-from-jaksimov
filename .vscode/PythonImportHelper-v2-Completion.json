@@ -1229,6 +1229,14 @@
         "documentation": {}
     },
     {
+        "label": "TokenObtainPairSerializer",
+        "importPath": "rest_framework_simplejwt.serializers",
+        "description": "rest_framework_simplejwt.serializers",
+        "isExtraImport": true,
+        "detail": "rest_framework_simplejwt.serializers",
+        "documentation": {}
+    },
+    {
         "label": "post_save",
         "importPath": "django.db.models.signals",
         "description": "django.db.models.signals",
@@ -1278,6 +1286,14 @@
     },
     {
         "label": "TokenRefreshView",
+        "importPath": "rest_framework_simplejwt.views",
+        "description": "rest_framework_simplejwt.views",
+        "isExtraImport": true,
+        "detail": "rest_framework_simplejwt.views",
+        "documentation": {}
+    },
+    {
+        "label": "TokenObtainPairView",
         "importPath": "rest_framework_simplejwt.views",
         "description": "rest_framework_simplejwt.views",
         "isExtraImport": true,
@@ -2374,6 +2390,15 @@
         "documentation": {}
     },
     {
+        "label": "CustomTokenObtainPairSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):\n    @classmethod\n    def get_token(cls, user):\n        token = super().get_token(user)\n        # Token ichiga role qo'shib qo'yish\n        token['role'] = user.role  \n        return token\n    def validate(self, attrs):\n        data = super().validate(attrs)\n        # Javobga ham role qo'shib yuboramiz",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
         "label": "CategorySerializer",
         "kind": 6,
         "importPath": "mainApp.serializers",
@@ -2414,7 +2439,16 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class SubjectSerializer(serializers.ModelSerializer):\n    category = CategorySerializer()\n    authors = AuthorInfoSerializer(many=True, read_only=True)\n    class Meta:\n        model = Subject\n        fields = ['id', 'name', 'category', 'theme_count', 'authors', 'description']\nclass ThemeListSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id','name', 'duration']",
+        "peekOfCode": "class SubjectSerializer(serializers.ModelSerializer):\n    category = CategorySerializer()\n    authors = AuthorInfoSerializer(many=True, read_only=True)\n    class Meta:\n        model = Subject\n        fields = ['id', 'name', 'category', 'theme_count', 'authors', 'description']\nclass SubjectBasicSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = ['id', 'name']",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "SubjectBasicSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class SubjectBasicSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = ['id', 'name']\nclass ThemeListSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id','name', 'duration']\nclass ThemeSerializer(serializers.ModelSerializer):\n    subject = SubjectSerializer()",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2639,7 +2673,16 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class CreateSubjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = '__all__'",
+        "peekOfCode": "class CreateSubjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = '__all__'\n# Top list\nclass ThemeBasicInfoSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id', 'name']",
+        "detail": "mainApp.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "ThemeBasicInfoSerializer",
+        "kind": 6,
+        "importPath": "mainApp.serializers",
+        "description": "mainApp.serializers",
+        "peekOfCode": "class ThemeBasicInfoSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id', 'name']",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2720,16 +2763,16 @@
         "kind": 5,
         "importPath": "mainApp.urls",
         "description": "mainApp.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"login/\", TokenObtainPairView.as_view(), name=\"token_obtain_pair\"),\n    path(\"token/refresh/\", TokenRefreshView.as_view(), name=\"token_refresh\"),\n    path(\"logout/\", LogoutView.as_view(), name=\"token_logout\"),\n    # Group\n    path(\"groups/\", GroupListView.as_view(), name=\"group-list\"),\n    path(\"groups/<uuid:pk>/\", GroupDetailView.as_view(), name=\"group-detail\"),\n    # User\n    path(\"users/\", UserListView.as_view(), name=\"user-list\"),\n    path(\"users/<uuid:pk>/\", UserDetailView.as_view(), name=\"user-detail\"),",
+        "peekOfCode": "urlpatterns = [\n    path(\"login/\", CustomTokenObtainPairView.as_view(), name=\"token_obtain_pair\"),\n    path(\"token/refresh/\", TokenRefreshView.as_view(), name=\"token_refresh\"),\n    path(\"logout/\", LogoutView.as_view(), name=\"token_logout\"),\n    # Group\n    path(\"groups/\", GroupListView.as_view(), name=\"group-list\"),\n    path(\"groups/<uuid:pk>/\", GroupDetailView.as_view(), name=\"group-detail\"),\n    # User\n    path(\"users/\", UserListView.as_view(), name=\"user-list\"),\n    path(\"users/<uuid:pk>/\", UserDetailView.as_view(), name=\"user-detail\"),",
         "detail": "mainApp.urls",
         "documentation": {}
     },
     {
-        "label": "LoginView",
+        "label": "CustomTokenObtainPairView",
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class LoginView(APIView):\n    permission_classes = [AllowAny]\n    def post(self, request):\n        username = request.data.get(\"username\")\n        password = request.data.get(\"password\")\n        user = authenticate(username=username, password=password)\n        if user is not None:\n            login(request, user)\n            return Response({\"detail\": \"Login successful\"})\n        return Response({\"detail\": \"Invalid credentials\"}, status=400)",
+        "peekOfCode": "class CustomTokenObtainPairView(TokenObtainPairView):\n    serializer_class = CustomTokenObtainPairSerializer\nclass GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2900,7 +2943,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    filter_backends = [filters.SearchFilter]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        test_id = self.request.query_params.get(\"test_id\")\n        theme_id = self.request.query_params.get(\"theme_id\")",
+        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    filter_backends = [filters.SearchFilter]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        subject_id = self.request.query_params.get(\"subject_id\")  # 🔥 qo‘shildi\n        theme_id = self.request.query_params.get(\"theme_id\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2954,7 +2997,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CreateTheme(CreateAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer",
+        "peekOfCode": "class CreateTheme(CreateAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\n# Top list\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2963,7 +3006,25 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer",
+        "peekOfCode": "class CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\n# Top list\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        group_id = self.kwargs[\"group_id\"]\n        return Theme.objects.filter(subject__groups__id=group_id)",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "GroupThemesView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        group_id = self.kwargs[\"group_id\"]\n        return Theme.objects.filter(subject__groups__id=group_id)\nclass GroupSubjectsView(ListAPIView):\n    serializer_class = SubjectBasicSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):",
+        "detail": "mainApp.views",
+        "documentation": {}
+    },
+    {
+        "label": "GroupSubjectsView",
+        "kind": 6,
+        "importPath": "mainApp.views",
+        "description": "mainApp.views",
+        "peekOfCode": "class GroupSubjectsView(ListAPIView):\n    serializer_class = SubjectBasicSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        group_id = self.kwargs[\"group_id\"]\n        return Subject.objects.filter(groups__id=group_id)",
         "detail": "mainApp.views",
         "documentation": {}
     },

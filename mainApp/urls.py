@@ -1,8 +1,8 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import (
-    GroupListView, GroupDetailView,
-    UserListView, UserDetailView,
+    CustomTokenObtainPairView, GroupListView, GroupDetailView,
+    UserListView, UserDetailView,GroupSubjectsView,
     CategoryListView,ThemeTopUsersView,
     SubjectListView, SubjectDetailView,
     ThemeListView, ThemeDetailView, LogoutView,
@@ -10,12 +10,12 @@ from .views import (
     AttemptStateView, TestAttemptResultsView, MyProfileView,
     UserProfileView, UserActivityStatsView, UserRatingListView,
     ThemeStatsView, SubjectStatsView, ProfilePhotoUpdateView,
-    ThemeStatsView, CreateTheme, CreateSubject
+    ThemeStatsView, CreateTheme, CreateSubject, GroupThemesView
 )
 
 
 urlpatterns = [
-    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("login/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("logout/", LogoutView.as_view(), name="token_logout"),
     # Group
@@ -50,6 +50,7 @@ urlpatterns = [
     path("users/<uuid:user_id>/activity", UserActivityStatsView.as_view(), name="user-activity"),
     
     path("ratings", UserRatingListView.as_view(), name="user-ratings"),
+
     
     path("subjects/<uuid:subject_id>/stats", SubjectStatsView.as_view(), name="subject-stats"),
     
@@ -57,5 +58,8 @@ urlpatterns = [
     
     path("themes/<uuid:theme_id>/stats", ThemeStatsView.as_view(), name="theme-stats"),
     path("themes/<uuid:theme_id>/top-users", ThemeTopUsersView.as_view(), name="theme-top-users"),
-    path('themes/create/', CreateTheme.as_view(), name='create-theme')
+    path('themes/create/', CreateTheme.as_view(), name='create-theme'),
+    
+    path("groups/<uuid:group_id>/themes/", GroupThemesView.as_view(), name="group-themes"),
+    path("groups/<uuid:group_id>/subjects/", GroupSubjectsView.as_view(), name="group-subjects"),
 ]

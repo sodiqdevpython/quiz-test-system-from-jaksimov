@@ -7,6 +7,23 @@ import hmac, hashlib, random
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Token ichiga role qo'shib qo'yish
+        token['role'] = user.role  
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        # Javobga ham role qo'shib yuboramiz
+        data['role'] = self.user.role  
+        return data
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -33,6 +50,11 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ['id', 'name', 'category', 'theme_count', 'authors', 'description']
+
+class SubjectBasicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'name']
 
 class ThemeListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -437,3 +459,11 @@ class CreateSubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = '__all__'
+        
+        
+# Top list
+
+class ThemeBasicInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Theme
+        fields = ['id', 'name']

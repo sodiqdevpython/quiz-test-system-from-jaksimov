@@ -10,10 +10,10 @@ from django.db.models.functions import RowNumber
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (
-    GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
-    CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,
+    CustomTokenObtainPairSerializer, GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
+    CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,SubjectBasicSerializer,
     AttemptFinishResponseSerializer, AttemptResultSerializer, UserProfileSerializer, UserRatingSerializer, UserStatSerializer,
-    ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer
+    ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer, ThemeBasicInfoSerializer
 )
 from django.db.models.functions import TruncDate
 from .models import (
@@ -25,20 +25,10 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404
 import random, secrets, datetime, hmac, hashlib
 from rest_framework import generics
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-
-
-class LoginView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return Response({"detail": "Login successful"})
-        return Response({"detail": "Invalid credentials"}, status=400)
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 class GroupListView(generics.ListAPIView):
     permission_classes = [AllowAny]
@@ -122,9 +112,6 @@ class LogoutView(APIView):
             return Response({"detail": "Logout qilindi"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"detail": "Refresh token kerak"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
 
 
 CACHE_PREFIX = "attempt_meta:"
@@ -452,7 +439,6 @@ class UserActivityStatsView(APIView):
         ]
         return Response(data, status=200)
 
-
 class UserRatingListView(ListAPIView):
     serializer_class = UserRatingSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -462,36 +448,31 @@ class UserRatingListView(ListAPIView):
     def get_queryset(self):
         filter_type = self.request.query_params.get("filter", "best_avg")
         group_id = self.request.query_params.get("group_id")
-        test_id = self.request.query_params.get("test_id")
+        subject_id = self.request.query_params.get("subject_id")  # 🔥 qo‘shildi
         theme_id = self.request.query_params.get("theme_id")
-        subject_id = self.request.query_params.get("subject_id")
 
-        qs = User.objects.filter(role="student")
+        qs = User.objects.all()
 
         # Guruh bo‘yicha filter
         if group_id:
             qs = qs.filter(group_id=group_id)
 
-        # Test bo‘yicha filter
-        if test_id:
-            qs = qs.filter(attempts__test_id=test_id)
+        # Fan bo‘yicha filter 🔥
+        if subject_id:
+            qs = qs.filter(attempts__test__theme__subject_id=subject_id)
 
         # Mavzu bo‘yicha filter
         if theme_id:
             qs = qs.filter(attempts__test__theme_id=theme_id)
 
-        # Fan bo‘yicha filter 🔥
-        if subject_id:
-            qs = qs.filter(attempts__test__theme__subject_id=subject_id)
-
-        # Sortlash turlari
+        # Saralash
         if filter_type == "most_attempts":
             qs = qs.order_by("-total_attempts")
         elif filter_type == "least_attempts":
             qs = qs.order_by("total_attempts")
         elif filter_type == "worst_avg":
             qs = qs.order_by("average_score")
-        else:
+        else:  # default: best_avg
             qs = qs.order_by("-average_score")
 
         return qs.distinct()
@@ -734,3 +715,23 @@ class CreateTheme(CreateAPIView):
 class CreateSubject(CreateAPIView):
     queryset = Subject.objects.all()
     serializer_class = CreateSubjectSerializer
+    
+    
+    
+# Top list
+
+class GroupThemesView(ListAPIView):
+    serializer_class = ThemeBasicInfoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        group_id = self.kwargs["group_id"]
+        return Theme.objects.filter(subject__groups__id=group_id)
+
+class GroupSubjectsView(ListAPIView):
+    serializer_class = SubjectBasicSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        group_id = self.kwargs["group_id"]
+        return Subject.objects.filter(groups__id=group_id)
