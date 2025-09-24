@@ -49,11 +49,12 @@ def process_student_import(import_id):
                 "email": "",
             }
         )
-        if created:
-            user.set_password(passport)
-            user.role = "student"
-            user.group = student_import.group
-            user.save()
-            count += 1
+
+        user.set_password(passport)
+        user.role = "student"
+        user.group = student_import.group
+        user.save()
+        count += 1
 
     return f"{count} ta yangi user yaratildi"
+

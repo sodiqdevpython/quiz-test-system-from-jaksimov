@@ -1836,7 +1836,7 @@
         "kind": 2,
         "importPath": "config.urls",
         "description": "config.urls",
-        "peekOfCode": "def service_worker(request):\n    sw_path = Path(settings.BASE_DIR) / \"static\" / \"firebase-messaging-sw.js\"\n    content = sw_path.read_text(encoding=\"utf-8\")\n    return HttpResponse(content, content_type=\"application/javascript\")\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"firebase-messaging-sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),",
+        "peekOfCode": "def service_worker(request):\n    sw_path = Path(settings.BASE_DIR) / \"static\" / \"sw.js\"\n    content = sw_path.read_text(encoding=\"utf-8\")\n    return HttpResponse(content, content_type=\"application/javascript\")\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),",
         "detail": "config.urls",
         "documentation": {}
     },
@@ -1854,7 +1854,7 @@
         "kind": 5,
         "importPath": "config.urls",
         "description": "config.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"firebase-messaging-sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),\n    path('auth/', include('customAuth.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),\n    path('auth/', include('customAuth.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),\n    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),",
         "detail": "config.urls",
         "documentation": {}
     },

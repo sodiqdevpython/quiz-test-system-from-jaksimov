@@ -27,14 +27,14 @@ schema_view = get_schema_view(
 
 @require_GET
 def service_worker(request):
-    sw_path = Path(settings.BASE_DIR) / "static" / "firebase-messaging-sw.js"
+    sw_path = Path(settings.BASE_DIR) / "static" / "sw.js"
     content = sw_path.read_text(encoding="utf-8")
     return HttpResponse(content, content_type="application/javascript")
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("firebase-messaging-sw.js", service_worker),
+    path("sw.js", service_worker),
 	path('', include('mainApp.urls')),
     path('', include('notifications.urls')),
     path('statistics/', include('statistic.urls')),
