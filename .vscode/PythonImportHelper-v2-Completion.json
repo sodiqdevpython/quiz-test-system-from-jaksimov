@@ -1068,44 +1068,11 @@
         "documentation": {}
     },
     {
-        "label": "UserAdmin",
-        "importPath": "django.contrib.auth.admin",
-        "description": "django.contrib.auth.admin",
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
         "isExtraImport": true,
-        "detail": "django.contrib.auth.admin",
-        "documentation": {}
-    },
-    {
-        "label": "UserCreationForm",
-        "importPath": "django.contrib.auth.forms",
-        "description": "django.contrib.auth.forms",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.forms",
-        "documentation": {}
-    },
-    {
-        "label": "UserChangeForm",
-        "importPath": "django.contrib.auth.forms",
-        "description": "django.contrib.auth.forms",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth.forms",
-        "documentation": {}
-    },
-    {
-        "label": "PageNumberPagination",
-        "importPath": "rest_framework.pagination",
-        "description": "rest_framework.pagination",
-        "isExtraImport": true,
-        "detail": "rest_framework.pagination",
-        "documentation": {}
-    },
-    {
-        "label": "hmac,",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "hmac.",
-        "description": "hmac.",
-        "detail": "hmac.",
+        "detail": "django.db.models",
         "documentation": {}
     },
     {
@@ -1202,6 +1169,47 @@
         "description": "django.db.models",
         "isExtraImport": true,
         "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "UserAdmin",
+        "importPath": "django.contrib.auth.admin",
+        "description": "django.contrib.auth.admin",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.admin",
+        "documentation": {}
+    },
+    {
+        "label": "UserCreationForm",
+        "importPath": "django.contrib.auth.forms",
+        "description": "django.contrib.auth.forms",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "UserChangeForm",
+        "importPath": "django.contrib.auth.forms",
+        "description": "django.contrib.auth.forms",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "PageNumberPagination",
+        "importPath": "rest_framework.pagination",
+        "description": "rest_framework.pagination",
+        "isExtraImport": true,
+        "detail": "rest_framework.pagination",
+        "documentation": {}
+    },
+    {
+        "label": "hmac,",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hmac.",
+        "description": "hmac.",
+        "detail": "hmac.",
         "documentation": {}
     },
     {
@@ -2151,7 +2159,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class ThemeInline(admin.TabularInline):\n    model = Theme\n    extra = 0\n    fields = ['name', 'duration', 'created']\n    readonly_fields = ['created']\n@admin.register(Subject)\nclass SubjectAdmin(admin.ModelAdmin):\n    list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']\n    list_filter = ['category', 'created']\n    search_fields = ['name', 'category__name']",
+        "peekOfCode": "class ThemeInline(admin.TabularInline):\n    model = Theme\n    extra = 0\n    fields = ['name', 'duration', 'created']\n    readonly_fields = ['created']\n@admin.register(Subject)\nclass SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]                # autocomplete_fields talab qiladi!\n    filter_horizontal = [\"authors\", \"groups\"]",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2160,7 +2168,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']\n    list_filter = ['category', 'created']\n    search_fields = ['name', 'category__name']\n    filter_horizontal = ['authors', 'groups']\n    inlines = [ThemeInline]\n    def authors_list(self, obj):\n        return \", \".join([author.username for author in obj.authors.all()[:3]])\n    authors_list.short_description = 'Mualliflar'\n# -----------------------",
+        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]                # autocomplete_fields talab qiladi!\n    filter_horizontal = [\"authors\", \"groups\"]\n    def get_queryset(self, request):\n        qs = super().get_queryset(request)\n        if request.user.is_superuser:\n            return qs\n        # Faqat shu user muallifi bo‘lgan fanlar\n        return qs.filter(authors=request.user).distinct()",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2187,7 +2195,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class ThemeAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subject', 'duration', 'tests_count', 'created']\n    list_filter = ['subject', 'duration', 'created']\n    search_fields = ['name', 'subject__name']\n    inlines = [TestImportFileInline, TestInline]\n    def tests_count(self, obj):\n        return obj.tests.count()\n    tests_count.short_description = 'Testlar soni'\n@admin.register(TestImportFile)\nclass TestImportFileAdmin(admin.ModelAdmin):",
+        "peekOfCode": "class ThemeAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subject', 'duration', 'tests_count', 'created']\n    list_filter = ['subject', 'duration', 'created']\n    search_fields = ['name', 'subject__name']\n    autocomplete_fields = ['subject']  # Select2\n    inlines = [TestImportFileInline,]\n    def tests_count(self, obj):\n        return obj.tests.count()\n    tests_count.short_description = 'Testlar soni'\n    def get_queryset(self, request):",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2196,7 +2204,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class TestImportFileAdmin(admin.ModelAdmin):\n    list_display = ['theme', 'file', 'created']\n    list_filter = ['created', 'theme__subject']\n    search_fields = ['theme__name', 'file']\n# -----------------------\n# 4) Test, Question, Option\n# -----------------------\nclass OptionInline(admin.TabularInline):\n    model = Option\n    extra = 4",
+        "peekOfCode": "class TestImportFileAdmin(admin.ModelAdmin):\n    list_display = ['theme', 'file', 'created']\n    list_filter = ['created', 'theme__subject']\n    search_fields = ['theme__name', 'file']\n    # faqat superuser ko‘radi\n    def has_module_permission(self, request):\n        return request.user.is_superuser\n    def has_view_permission(self, request, obj=None):\n        return request.user.is_superuser\n    def has_add_permission(self, request):",
         "detail": "mainApp.admin",
         "documentation": {}
     },

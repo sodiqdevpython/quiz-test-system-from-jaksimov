@@ -5,6 +5,7 @@ from .models import (
     TestImportFile, Test, Question, Option, 
     TestAttempt, Answer
 )
+from django.db.models import Q
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
@@ -81,16 +82,23 @@ class ThemeInline(admin.TabularInline):
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'category', 'theme_count', 'authors_list', 'created']
-    list_filter = ['category', 'created']
-    search_fields = ['name', 'category__name']
-    filter_horizontal = ['authors', 'groups']
-    inlines = [ThemeInline]
-    
-    def authors_list(self, obj):
-        return ", ".join([author.username for author in obj.authors.all()[:3]])
-    authors_list.short_description = 'Mualliflar'
+    list_display = ["name", "category", "theme_count"]
+    search_fields = ["name"]                # autocomplete_fields talab qiladi!
+    filter_horizontal = ["authors", "groups"]
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # Faqat shu user muallifi bo‘lgan fanlar
+        return qs.filter(authors=request.user).distinct()
+
+    # Select2 qidirish ham shu yerda cheklanadi
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        if not request.user.is_superuser:
+            queryset = queryset.filter(authors=request.user).distinct()
+        return queryset, use_distinct
 
 # -----------------------
 # 3) Theme va TestImportFile
@@ -114,11 +122,38 @@ class ThemeAdmin(admin.ModelAdmin):
     list_display = ['name', 'subject', 'duration', 'tests_count', 'created']
     list_filter = ['subject', 'duration', 'created']
     search_fields = ['name', 'subject__name']
-    inlines = [TestImportFileInline, TestInline]
-    
+    autocomplete_fields = ['subject']  # Select2
+    inlines = [TestImportFileInline,]
+
     def tests_count(self, obj):
         return obj.tests.count()
     tests_count.short_description = 'Testlar soni'
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # Faqat user muallifi bo‘lgan fanlardagi mavzular
+        return qs.filter(subject__authors=request.user).distinct()
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "subject" and not request.user.is_superuser:
+            # Faqat user muallifi bo‘lgan fanlar
+            qs = Subject.objects.filter(authors=request.user)
+
+            # Tahrirlashda mavjud subject’ni ham ruxsat beramiz (xato chiqmasin)
+            obj_id = request.resolver_match.kwargs.get("object_id")
+            if obj_id:
+                try:
+                    current = Theme.objects.get(pk=obj_id)
+                    qs = Subject.objects.filter(
+                        Q(authors=request.user) | Q(pk=current.subject_id)
+                    )
+                except Theme.DoesNotExist:
+                    pass
+
+            kwargs["queryset"] = qs.distinct()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(TestImportFile)
@@ -126,6 +161,22 @@ class TestImportFileAdmin(admin.ModelAdmin):
     list_display = ['theme', 'file', 'created']
     list_filter = ['created', 'theme__subject']
     search_fields = ['theme__name', 'file']
+
+    # faqat superuser ko‘radi
+    def has_module_permission(self, request):
+        return request.user.is_superuser
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
 
 
 # -----------------------
@@ -163,23 +214,30 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ['test', 'created']
     search_fields = ['text', 'test__name']
     inlines = [OptionInline]
-    
+
     def text_preview(self, obj):
         if obj.text:
             return obj.text[:50] + '...' if len(obj.text) > 50 else obj.text
         return "Rasm"
     text_preview.short_description = 'Savol'
-    
+
     def has_image(self, obj):
         return format_html(
             '<span style="color: green;">✓</span>' if obj.image else 
             '<span style="color: red;">✗</span>'
         )
     has_image.short_description = 'Rasm'
-    
+
     def options_count(self, obj):
         return obj.options.count()
     options_count.short_description = 'Variantlar'
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # faqat request.user muallif bo'lgan Subject dagi Question lar
+        return qs.filter(test__theme__subject__authors=request.user).distinct()
 
 
 @admin.register(Option)
@@ -187,19 +245,28 @@ class OptionAdmin(admin.ModelAdmin):
     list_display = ['id', 'question', 'text_preview', 'has_image', 'is_correct']
     list_filter = ['is_correct', 'question__test', 'created']
     search_fields = ['text', 'question__text']
-    
+
     def text_preview(self, obj):
         if obj.text:
             return obj.text[:50] + '...' if len(obj.text) > 50 else obj.text
         return "Rasm"
     text_preview.short_description = 'Variant'
-    
+
     def has_image(self, obj):
         return format_html(
             '<span style="color: green;">✓</span>' if obj.image else 
             '<span style="color: red;">✗</span>'
         )
     has_image.short_description = 'Rasm'
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # faqat user muallifi bo‘lgan fanlardagi Option lar
+        return qs.filter(
+            question__test__theme__subject__authors=request.user
+        ).distinct()
 
 
 # -----------------------
