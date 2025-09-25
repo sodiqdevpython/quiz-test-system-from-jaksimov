@@ -1,14 +1,6 @@
-try:
-    import docx
-    from docx.oxml.text.paragraph import CT_P
-    from docx.oxml.table import CT_Tbl
-    from docx.text.paragraph import Paragraph
-    from docx.table import Table
+import docx
 
-    DOCX_AVAILABLE = True
-except ImportError:
-    DOCX_AVAILABLE = False
-
+DOCX_AVAILABLE = True
 
 class WordTestReader:
     def __init__(self):
@@ -44,7 +36,6 @@ class WordTestReader:
         return questions
 
     def _parse_table_with_precise_images(self, table, table_idx):
-        """Har bir katakdan aniq rasm ajratish"""
         questions = []
 
         try:
@@ -52,32 +43,32 @@ class WordTestReader:
                 f"Jadval {table_idx} - {len(table.rows)} qator x {len(table.rows[0].cells) if table.rows else 0} ustun")
 
             for row_idx, row in enumerate(table.rows):
-                if row_idx == 0:  # Header qatorini o'tkazish
+                if row_idx == 0:
                     continue
 
                 print(f"\nQator {row_idx} tahlil qilinmoqda...")
                 cells = row.cells
 
                 if len(cells) >= 5:
-                    # Har bir katakdan matn va rasmni ajratish
+                    # Har bitta katakdan rasm bilan text ni ajratib oldin
                     question_cell = cells[1]
                     option_a_cell = cells[2]
                     option_b_cell = cells[3]
                     option_c_cell = cells[4]
                     option_d_cell = cells[5] if len(cells) > 5 else None
 
-                    # Savol uchun matn va rasm
+                    # Savolga matn bilan rasmnni olganim
                     question_text, question_image = self._extract_text_and_image(question_cell, "Savol")
                     if not question_text:
                         continue
 
-                    # A variant uchun matn va rasm
+                    # A variant
                     option_a_text, option_a_image = self._extract_text_and_image(option_a_cell, "A")
-                    # B variant uchun matn va rasm
+                    # B variant
                     option_b_text, option_b_image = self._extract_text_and_image(option_b_cell, "B")
-                    # C variant uchun matn va rasm
+                    # C variant
                     option_c_text, option_c_image = self._extract_text_and_image(option_c_cell, "C")
-                    # D variant uchun matn va rasm
+                    # D variant
                     option_d_text, option_d_image = None, None
                     if option_d_cell:
                         option_d_text, option_d_image = self._extract_text_and_image(option_d_cell, "D")
@@ -95,38 +86,35 @@ class WordTestReader:
                     }
                     questions.append(question)
 
-                    # Debug chiqarish
-                    print(f"  Savol yaratildi: '{question_text[:50]}...'")
+                    # Debug agar xato chiqsa o'qishimga o'zimga
+                    print(f"Savol yaratildi: '{question_text[:50]}...'")
                     if question_image:
-                        print(f"    Savolda rasm: {question_image['extension']} ({len(question_image['data'])} bayt)")
+                        print(f"Savolda rasm: {question_image['extension']} ({len(question_image['data'])} bayt)")
 
                     for i, opt in enumerate(question['options']):
                         opt_letter = chr(65 + i)  # A, B, C, D
                         print(f"    {opt_letter}) '{opt['text'][:30]}...' {'✓' if opt['is_correct'] else '✗'}")
                         if opt['image_data']:
                             print(
-                                f"        Rasm: {opt['image_data']['extension']} ({len(opt['image_data']['data'])} bayt)")
+                                f"Rasm: {opt['image_data']['extension']} ({len(opt['image_data']['data'])} bayt)")
 
         except Exception as e:
-            print(f"Jadval parse qilishda xatolik: {e}")
+            print(f"Jadval parse qilishda xato: {e}")
             import traceback
             traceback.print_exc()
 
         return questions
 
     def _extract_text_and_image(self, cell, cell_name):
-        """Bir katakdan matn va rasmni aniq ajratish"""
         text = cell.text.strip()
         image = None
 
         try:
-            print(f"    {cell_name} katakchasi: '{text[:30]}...'")
+            print(f"{cell_name} katakchasi: '{text[:30]}...'")
 
-            # Katakdagi paragraflarni tekshirish
             for para_idx, paragraph in enumerate(cell.paragraphs):
                 for run_idx, run in enumerate(paragraph.runs):
                     if hasattr(run, '_element'):
-                        # Drawing elementlarini qidirish
                         drawings = run._element.xpath('.//w:drawing')
                         for drawing in drawings:
                             blips = drawing.xpath('.//a:blip', namespaces={
@@ -141,13 +129,14 @@ class WordTestReader:
                                     if hasattr(image_part, 'blob'):
                                         image_data = image_part.blob
 
-                                        # Format aniqlash
                                         if image_data.startswith(b'\xff\xd8'):
                                             ext = 'jpg'
                                         elif image_data.startswith(b'\x89PNG'):
                                             ext = 'png'
                                         elif image_data.startswith(b'GIF'):
                                             ext = 'gif'
+                                        elif image_data.startswith(b'RIFF') and b'WEBP' in image_data[8:16]:
+                                            ext = 'webp' #! buni yangi qo'shdim hali testlab ko'rmadim lekin ishlashi kerak
                                         else:
                                             ext = 'jpg'
 
@@ -158,12 +147,10 @@ class WordTestReader:
                                             'rId': rId
                                         }
 
-                                        print(f"      RASM TOPILDI: {ext} format, {len(image_data)} bayt, rId: {rId}")
-                                        return text, image  # Birinchi rasmni qaytarish
+                                        print(f"RASM TOPILDI: {ext} format, {len(image_data)} bayt, rId: {rId}")
+                                        return text, image
 
-            # Agar drawing orqali topilmasa, boshqa usullarni sinash
             if not image:
-                # Pic elementlarini qidirish
                 for paragraph in cell.paragraphs:
                     for run in paragraph.runs:
                         if hasattr(run, '_element'):
@@ -188,6 +175,8 @@ class WordTestReader:
                                                 ext = 'jpg'
                                             elif image_data.startswith(b'\x89PNG'):
                                                 ext = 'png'
+                                            elif image_data.startswith(b'RIFF') and b'WEBP' in image_data[8:16]:
+                                                ext = 'webp' #! buni yangi qo'shdim hali testlab ko'rmadim lekin ishlashi kerak
                                             else:
                                                 ext = 'jpg'
 
@@ -198,22 +187,20 @@ class WordTestReader:
                                                 'rId': rId
                                             }
 
-                                            print(f"      PIC RASM: {ext}, {len(image_data)} bayt, rId: {rId}")
+                                            print(f" PIC RASM: {ext}, {len(image_data)} bayt, rId: {rId}")
                                             return text, image
 
-            # Rasm topilmasa
             if not image:
-                print(f"      Rasm topilmadi")
+                print(f"Rasm topilmadi")
 
             return text, image
 
         except Exception as e:
-            print(f"      {cell_name} katakda xatolik: {e}")
+            print(f"{cell_name} katakda xatolik: {e}")
             return text, None
 
     def debug_all_images(self):
-        """Dokument ichidagi barcha rasmlarni debug qilish"""
-        print("\n=== BARCHA RASMLAR DEBUG ===")
+        print("\n=== BARCHA RASMLARGA DEBUG ===")
         for part_id, part in self.document.part.related_parts.items():
             if hasattr(part, 'blob'):
                 blob = part.blob
@@ -241,14 +228,14 @@ def save_image_to_django(image_data, extension, prefix="question"):
         return django_file
 
     except Exception as e:
-        print(f"Rasm saqlashda xatolik: {e}")
+        print(f"Rasm saqlashda xato: {e}")
         return None
 
 
 def parse_word_file_advanced(file_path):
     """Django signals uchun parser funksiya"""
     print(f"=== WORD FAYL PARSE QILISH BOSHLANDI ===")
-    print(f"Fayl yo'li: {file_path}")
+    print(f"File path: {file_path}")
 
     try:
         if not DOCX_AVAILABLE:
@@ -271,7 +258,6 @@ def parse_word_file_advanced(file_path):
 
             print(f"\nMuvaffaqiyatli parse qilindi: {len(questions_data)} ta savol")
 
-            # Qisqacha debug
             for i, q_data in enumerate(questions_data[:2]):
                 print(f"\nSavol {i + 1}: {q_data['text'][:70]}...")
                 if q_data.get('image_data'):
@@ -296,7 +282,6 @@ def parse_word_file_advanced(file_path):
 
 
 def debug_word_images(file_path):
-    """Debug funksiya"""
     try:
         reader = WordTestReader()
         reader.document = docx.Document(file_path)
@@ -305,14 +290,11 @@ def debug_word_images(file_path):
         print(f"Debug xatolik: {e}")
 
 
-# Eski funksiyalar
 def debug_word_file(file_path):
     debug_word_images(file_path)
 
-
 def parse_word_file_simple(file_path):
     return parse_word_file_advanced(file_path)
-
 
 def test_parsing(file_path):
     return parse_word_file_advanced(file_path)

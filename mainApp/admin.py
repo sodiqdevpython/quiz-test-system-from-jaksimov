@@ -10,15 +10,12 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
-# -----------------------
-# 1) Basic modellar
-# -----------------------
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['name', 'kurs', 'created']
     list_filter = ['kurs', 'created']
     search_fields = ['name']
-
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -70,9 +67,6 @@ class CategoryAdmin(admin.ModelAdmin):
     subjects_count.short_description = 'Fanlar soni'
 
 
-# -----------------------
-# 2) Subject va Theme
-# -----------------------
 class ThemeInline(admin.TabularInline):
     model = Theme
     extra = 0
@@ -83,26 +77,21 @@ class ThemeInline(admin.TabularInline):
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ["name", "category", "theme_count"]
-    search_fields = ["name"]                # autocomplete_fields talab qiladi!
+    search_fields = ["name"]
     filter_horizontal = ["authors", "groups"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        # Faqat shu user muallifi bo‘lgan fanlar
         return qs.filter(authors=request.user).distinct()
 
-    # Select2 qidirish ham shu yerda cheklanadi
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
         if not request.user.is_superuser:
             queryset = queryset.filter(authors=request.user).distinct()
         return queryset, use_distinct
 
-# -----------------------
-# 3) Theme va TestImportFile
-# -----------------------
 class TestImportFileInline(admin.TabularInline):
     model = TestImportFile
     extra = 1
@@ -122,7 +111,7 @@ class ThemeAdmin(admin.ModelAdmin):
     list_display = ['name', 'subject', 'duration', 'tests_count', 'created']
     list_filter = ['subject', 'duration', 'created']
     search_fields = ['name', 'subject__name']
-    autocomplete_fields = ['subject']  # Select2
+    autocomplete_fields = ['subject']
     inlines = [TestImportFileInline,]
 
     def tests_count(self, obj):
@@ -133,15 +122,12 @@ class ThemeAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        # Faqat user muallifi bo‘lgan fanlardagi mavzular
         return qs.filter(subject__authors=request.user).distinct()
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "subject" and not request.user.is_superuser:
-            # Faqat user muallifi bo‘lgan fanlar
             qs = Subject.objects.filter(authors=request.user)
 
-            # Tahrirlashda mavjud subject’ni ham ruxsat beramiz (xato chiqmasin)
             obj_id = request.resolver_match.kwargs.get("object_id")
             if obj_id:
                 try:
@@ -162,7 +148,6 @@ class TestImportFileAdmin(admin.ModelAdmin):
     list_filter = ['created', 'theme__subject']
     search_fields = ['theme__name', 'file']
 
-    # faqat superuser ko‘radi
     def has_module_permission(self, request):
         return request.user.is_superuser
 
@@ -179,9 +164,6 @@ class TestImportFileAdmin(admin.ModelAdmin):
         return request.user.is_superuser
 
 
-# -----------------------
-# 4) Test, Question, Option
-# -----------------------
 class OptionInline(admin.TabularInline):
     model = Option
     extra = 4
@@ -236,7 +218,6 @@ class QuestionAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        # faqat request.user muallif bo'lgan Subject dagi Question lar
         return qs.filter(test__theme__subject__authors=request.user).distinct()
 
 
@@ -263,21 +244,15 @@ class OptionAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        # faqat user muallifi bo‘lgan fanlardagi Option lar
         return qs.filter(
             question__test__theme__subject__authors=request.user
         ).distinct()
 
-
-# -----------------------
-# 5) TestAttempt va Answer
-# -----------------------
 class AnswerInline(admin.TabularInline):
     model = Answer
     extra = 0
     fields = ['question', 'selected_option', 'is_correct']
     readonly_fields = ['question', 'selected_option', 'is_correct']
-
 
 @admin.register(TestAttempt)
 class TestAttemptAdmin(admin.ModelAdmin):
@@ -286,7 +261,6 @@ class TestAttemptAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'test__name']
     inlines = [AnswerInline]
     readonly_fields = ['started_at', 'finished_at', 'score', 'duration']
-
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):

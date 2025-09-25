@@ -4,7 +4,6 @@ from .serializers import DeviceTokenSerializer
 
 class SaveTokenView(generics.CreateAPIView):
     serializer_class = DeviceTokenSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         token = serializer.validated_data["token"]

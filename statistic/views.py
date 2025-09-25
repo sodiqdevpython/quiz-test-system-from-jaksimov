@@ -14,7 +14,7 @@ from .serializers import (
 )
 
 
-@method_decorator(cache_page(60 * 1), name="dispatch")
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class UserFullStatsView(APIView):
 
     def get(self, request):
@@ -54,7 +54,7 @@ class UserFullStatsView(APIView):
 
         return Response(data)
     
-# @method_decorator(cache_page(60 * 1), name="dispatch")
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class TestStatsView(APIView):
 
     def get(self, request):
@@ -66,7 +66,6 @@ class TestStatsView(APIView):
         total_attempts = attempts.count()
         avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
 
-        # Javoblar statistikasi
         total_answers = answers.count()
         correct_answers = answers.filter(is_correct=True).count()
         wrong_answers = total_answers - correct_answers
@@ -83,12 +82,8 @@ class TestStatsView(APIView):
         return Response(data)
     
 
-
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class SubjectThemeStatsView(ListAPIView):
-    """
-    GET /subjects/<subject_id>/stats
-    GET /subjects/<subject_id>/themes/<theme_id>/stats
-    """
 
     def get_queryset(self):
         subject_id = self.kwargs.get("subject_id")
@@ -152,7 +147,7 @@ class SubjectThemeStatsView(ListAPIView):
         data["leaderboard"] = response.data
         return Response(data)
 
-
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class SubjectStatView(generics.RetrieveAPIView):
     serializer_class = SubjectStatSerializer
 
@@ -166,7 +161,6 @@ class SubjectStatView(generics.RetrieveAPIView):
             attempts__test__theme__subject=subject,
         )
 
-        # student uchun cheklov
         if user.role == "student" and user.group:
             qs = qs.filter(group__kurs=user.group.kurs)
 
@@ -181,10 +175,7 @@ class SubjectStatView(generics.RetrieveAPIView):
             **stats,
         }
 
-
-# --------------------------
-# Subject bo‘yicha guruhlar statistikasi
-# --------------------------
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class GroupStatInSubjectView(generics.ListAPIView):
     serializer_class = GroupStatInSubjectSerializer
 
@@ -210,9 +201,7 @@ class GroupStatInSubjectView(generics.ListAPIView):
         )
 
 
-# --------------------------
-# Subject + Guruh bo‘yicha foydalanuvchilar statistikasi
-# --------------------------
+@method_decorator(cache_page(60 * 5), name="dispatch")
 class GroupUserStatInSubjectView(generics.ListAPIView):
     serializer_class = UserStatSerializer
 

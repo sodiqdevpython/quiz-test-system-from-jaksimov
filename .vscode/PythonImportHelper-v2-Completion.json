@@ -604,6 +604,14 @@
         "documentation": {}
     },
     {
+        "label": "User",
+        "importPath": "mainApp.models",
+        "description": "mainApp.models",
+        "isExtraImport": true,
+        "detail": "mainApp.models",
+        "documentation": {}
+    },
+    {
         "label": "Group",
         "importPath": "mainApp.models",
         "description": "mainApp.models",
@@ -717,22 +725,6 @@
     },
     {
         "label": "get_user_model",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "authenticate",
-        "importPath": "django.contrib.auth",
-        "description": "django.contrib.auth",
-        "isExtraImport": true,
-        "detail": "django.contrib.auth",
-        "documentation": {}
-    },
-    {
-        "label": "login",
         "importPath": "django.contrib.auth",
         "description": "django.contrib.auth",
         "isExtraImport": true,
@@ -1430,6 +1422,15 @@
         "documentation": {}
     },
     {
+        "label": "docx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "docx",
+        "description": "docx",
+        "detail": "docx",
+        "documentation": {}
+    },
+    {
         "label": "firebase_admin",
         "kind": 6,
         "isExtraImport": true,
@@ -1452,31 +1453,6 @@
         "description": "firebase_admin",
         "isExtraImport": true,
         "detail": "firebase_admin",
-        "documentation": {}
-    },
-    {
-        "label": "ec",
-        "importPath": "cryptography.hazmat.primitives.asymmetric",
-        "description": "cryptography.hazmat.primitives.asymmetric",
-        "isExtraImport": true,
-        "detail": "cryptography.hazmat.primitives.asymmetric",
-        "documentation": {}
-    },
-    {
-        "label": "serialization",
-        "importPath": "cryptography.hazmat.primitives",
-        "description": "cryptography.hazmat.primitives",
-        "isExtraImport": true,
-        "detail": "cryptography.hazmat.primitives",
-        "documentation": {}
-    },
-    {
-        "label": "base64",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "base64",
-        "description": "base64",
-        "detail": "base64",
         "documentation": {}
     },
     {
@@ -2033,7 +2009,7 @@
         "kind": 6,
         "importPath": "customAuth.views",
         "description": "customAuth.views",
-        "peekOfCode": "class ResetPasswordView(APIView):\n    permission_classes = [permissions.AllowAny]\n    def post(self, request):\n        serializer = ResetPasswordSerializer(data=request.data)\n        serializer.is_valid(raise_exception=True)\n        token = serializer.validated_data[\"token\"]\n        new_password = serializer.validated_data[\"new_password\"]\n        user_id = cache.get(token)\n        if not user_id:\n            return Response({\"detail\": \"Token noto‘g‘ri yoki muddati o‘tgan.\"}, status=status.HTTP_400_BAD_REQUEST)",
+        "peekOfCode": "class ResetPasswordView(APIView):\n    permission_classes = [permissions.AllowAny]\n    def post(self, request):\n        serializer = ResetPasswordSerializer(data=request.data)\n        serializer.is_valid(raise_exception=True)\n        token = serializer.validated_data[\"token\"]\n        new_password = serializer.validated_data[\"new_password\"]\n        user_id = cache.get(token)\n        if not user_id:\n            return Response({\"detail\": \"Token noto'g'ri yoki muddati o'tgan.\"}, status=status.HTTP_400_BAD_REQUEST)",
         "detail": "customAuth.views",
         "documentation": {}
     },
@@ -2150,7 +2126,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class CategoryAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subjects_count', 'created']\n    search_fields = ['name']\n    def subjects_count(self, obj):\n        return obj.subjects.count()\n    subjects_count.short_description = 'Fanlar soni'\n# -----------------------\n# 2) Subject va Theme\n# -----------------------\nclass ThemeInline(admin.TabularInline):",
+        "peekOfCode": "class CategoryAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subjects_count', 'created']\n    search_fields = ['name']\n    def subjects_count(self, obj):\n        return obj.subjects.count()\n    subjects_count.short_description = 'Fanlar soni'\nclass ThemeInline(admin.TabularInline):\n    model = Theme\n    extra = 0\n    fields = ['name', 'duration', 'created']",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2159,7 +2135,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class ThemeInline(admin.TabularInline):\n    model = Theme\n    extra = 0\n    fields = ['name', 'duration', 'created']\n    readonly_fields = ['created']\n@admin.register(Subject)\nclass SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]                # autocomplete_fields talab qiladi!\n    filter_horizontal = [\"authors\", \"groups\"]",
+        "peekOfCode": "class ThemeInline(admin.TabularInline):\n    model = Theme\n    extra = 0\n    fields = ['name', 'duration', 'created']\n    readonly_fields = ['created']\n@admin.register(Subject)\nclass SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]\n    filter_horizontal = [\"authors\", \"groups\"]",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2168,7 +2144,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]                # autocomplete_fields talab qiladi!\n    filter_horizontal = [\"authors\", \"groups\"]\n    def get_queryset(self, request):\n        qs = super().get_queryset(request)\n        if request.user.is_superuser:\n            return qs\n        # Faqat shu user muallifi bo‘lgan fanlar\n        return qs.filter(authors=request.user).distinct()",
+        "peekOfCode": "class SubjectAdmin(admin.ModelAdmin):\n    list_display = [\"name\", \"category\", \"theme_count\"]\n    search_fields = [\"name\"]\n    filter_horizontal = [\"authors\", \"groups\"]\n    def get_queryset(self, request):\n        qs = super().get_queryset(request)\n        if request.user.is_superuser:\n            return qs\n        return qs.filter(authors=request.user).distinct()\n    def get_search_results(self, request, queryset, search_term):",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2195,7 +2171,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class ThemeAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subject', 'duration', 'tests_count', 'created']\n    list_filter = ['subject', 'duration', 'created']\n    search_fields = ['name', 'subject__name']\n    autocomplete_fields = ['subject']  # Select2\n    inlines = [TestImportFileInline,]\n    def tests_count(self, obj):\n        return obj.tests.count()\n    tests_count.short_description = 'Testlar soni'\n    def get_queryset(self, request):",
+        "peekOfCode": "class ThemeAdmin(admin.ModelAdmin):\n    list_display = ['name', 'subject', 'duration', 'tests_count', 'created']\n    list_filter = ['subject', 'duration', 'created']\n    search_fields = ['name', 'subject__name']\n    autocomplete_fields = ['subject']\n    inlines = [TestImportFileInline,]\n    def tests_count(self, obj):\n        return obj.tests.count()\n    tests_count.short_description = 'Testlar soni'\n    def get_queryset(self, request):",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2204,7 +2180,7 @@
         "kind": 6,
         "importPath": "mainApp.admin",
         "description": "mainApp.admin",
-        "peekOfCode": "class TestImportFileAdmin(admin.ModelAdmin):\n    list_display = ['theme', 'file', 'created']\n    list_filter = ['created', 'theme__subject']\n    search_fields = ['theme__name', 'file']\n    # faqat superuser ko‘radi\n    def has_module_permission(self, request):\n        return request.user.is_superuser\n    def has_view_permission(self, request, obj=None):\n        return request.user.is_superuser\n    def has_add_permission(self, request):",
+        "peekOfCode": "class TestImportFileAdmin(admin.ModelAdmin):\n    list_display = ['theme', 'file', 'created']\n    list_filter = ['created', 'theme__subject']\n    search_fields = ['theme__name', 'file']\n    def has_module_permission(self, request):\n        return request.user.is_superuser\n    def has_view_permission(self, request, obj=None):\n        return request.user.is_superuser\n    def has_add_permission(self, request):\n        return request.user.is_superuser",
         "detail": "mainApp.admin",
         "documentation": {}
     },
@@ -2285,7 +2261,7 @@
         "kind": 6,
         "importPath": "mainApp.apps",
         "description": "mainApp.apps",
-        "peekOfCode": "class MainappConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'mainApp'\n    def ready(self):\n        import mainApp.signals\n        print(\">>> notifications.signals LOADED\")",
+        "peekOfCode": "class MainappConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'mainApp'\n    def ready(self):\n        import mainApp.signals",
         "detail": "mainApp.apps",
         "documentation": {}
     },
@@ -2339,7 +2315,7 @@
         "kind": 6,
         "importPath": "mainApp.models",
         "description": "mainApp.models",
-        "peekOfCode": "class TestImportFile(BaseModel):\n    \"\"\"Theme ga bog'langan test import fayl (Word)\"\"\"\n    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, related_name=\"import_files\", verbose_name=\"Mavzu\")\n    file = models.FileField(\n        upload_to=\"test_imports/\",\n        validators=[FileExtensionValidator(allowed_extensions=['doc', 'docx'])],\n        verbose_name=\"Test fayli\",\n        help_text=\"Doc yoki docx formatdagi faylni yuklang\"\n    )\n    def __str__(self):",
+        "peekOfCode": "class TestImportFile(BaseModel):\n    theme = models.ForeignKey(Theme, on_delete=models.CASCADE, related_name=\"import_files\", verbose_name=\"Mavzu\")\n    file = models.FileField(\n        upload_to=\"test_imports/\",\n        validators=[FileExtensionValidator(allowed_extensions=['doc', 'docx'])],\n        verbose_name=\"Test fayli\",\n        help_text=\"Doc yoki docx formatdagi faylni yuklang\"\n    )\n    def __str__(self):\n        return f\"{self.theme.name} -> {self.file.name}\"",
         "detail": "mainApp.models",
         "documentation": {}
     },
@@ -2402,7 +2378,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):\n    @classmethod\n    def get_token(cls, user):\n        token = super().get_token(user)\n        # Token ichiga role qo'shib qo'yish\n        token['role'] = user.role  \n        return token\n    def validate(self, attrs):\n        data = super().validate(attrs)\n        # Javobga ham role qo'shib yuboramiz",
+        "peekOfCode": "class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):\n    @classmethod\n    def get_token(cls, user):\n        token = super().get_token(user)\n        token['role'] = user.role  \n        return token\n    def validate(self, attrs):\n        data = super().validate(attrs)\n        data['role'] = self.user.role  \n        return data",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2528,7 +2504,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)\n    mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)\n    duration = serializers.IntegerField(required=False, min_value=1, max_value=240)\n    def validate_count(self, v):\n        if v not in ALLOWED_COUNTS:\n            raise serializers.ValidationError(f\"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak\")\n        return v\n# --------- Start: outward packet",
+        "peekOfCode": "class AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)\n    mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)\n    duration = serializers.IntegerField(required=False, min_value=1, max_value=240)\n    def validate_count(self, v):\n        if v not in ALLOWED_COUNTS:\n            raise serializers.ValidationError(f\"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak\")\n        return v\nclass AttemptOptionOutSerializer(serializers.ModelSerializer):",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2555,7 +2531,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptStartResponseSerializer(serializers.Serializer):\n    attempt_id = serializers.UUIDField()\n    theme_id   = serializers.UUIDField()\n    test_id    = serializers.UUIDField()\n    count      = serializers.IntegerField()\n    order      = serializers.CharField()\n    mode       = serializers.CharField()\n    duration   = serializers.IntegerField()\n    expires_at = serializers.DateTimeField()\n    questions  = AttemptQuestionOutSerializer(many=True)",
+        "peekOfCode": "class AttemptStartResponseSerializer(serializers.Serializer):\n    attempt_id = serializers.UUIDField()\n    theme_id = serializers.UUIDField()\n    test_id = serializers.UUIDField()\n    count = serializers.IntegerField()\n    order = serializers.CharField()\n    mode = serializers.CharField()\n    duration = serializers.IntegerField()\n    expires_at = serializers.DateTimeField()\n    questions = AttemptQuestionOutSerializer(many=True)",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2564,7 +2540,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class SubmitAnswerWithTagSerializer(serializers.Serializer):\n    question_id = serializers.UUIDField()\n    option_id   = serializers.UUIDField()\n    verdict     = serializers.BooleanField()\n    tag         = serializers.CharField()\n# --------- State\nclass AttemptStateSerializer(serializers.Serializer):\n    attempt_id   = serializers.UUIDField()\n    started_at   = serializers.DateTimeField()\n    expires_at   = serializers.DateTimeField()",
+        "peekOfCode": "class SubmitAnswerWithTagSerializer(serializers.Serializer):\n    question_id = serializers.UUIDField()\n    option_id   = serializers.UUIDField()\n    verdict     = serializers.BooleanField()\n    tag         = serializers.CharField()\nclass AttemptStateSerializer(serializers.Serializer):\n    attempt_id   = serializers.UUIDField()\n    started_at   = serializers.DateTimeField()\n    expires_at   = serializers.DateTimeField()\n    finished_at  = serializers.DateTimeField(allow_null=True)",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2681,7 +2657,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class CreateSubjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = '__all__'\n# Top list\nclass ThemeBasicInfoSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id', 'name']",
+        "peekOfCode": "class CreateSubjectSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Subject\n        fields = '__all__'\nclass ThemeBasicInfoSerializer(serializers.ModelSerializer):\n    class Meta:\n        model = Theme\n        fields = ['id', 'name']",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2699,7 +2675,7 @@
         "kind": 5,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "ALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url\n# --------- Start: query params\nclass AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)",
+        "peekOfCode": "ALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)\ndef _abs_url(request, f):\n    if not f:\n        return None\n    url = f.url\n    return request.build_absolute_uri(url) if request else url\nclass AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)\n    mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2708,7 +2684,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def parse_test_file_on_save(sender, instance, created, **kwargs):\n    \"\"\"TestImportFile saqlanganda avtomatik parse qilish\"\"\"\n    # Faqat yangi fayl create qilinganda ishlaydi\n    if not created:\n        return\n    # Ikki marta parse qilishni oldini olish\n    file_key = f\"{instance.id}_{instance.file.name}\"\n    if file_key in _currently_parsing:\n        print(f\"Parse jarayonida: {instance.file.name}\")\n        return",
+        "peekOfCode": "def parse_test_file_on_save(sender, instance, created, **kwargs):\n    if not created:\n        return\n    file_key = f\"{instance.id}_{instance.file.name}\"\n    if file_key in _currently_parsing:\n        print(f\"Parse jarayonida: {instance.file.name}\")\n        return\n    _currently_parsing.add(file_key)\n    try:\n        print(f\"Signal ishga tushdi (yangi fayl): {instance.file.name}\")",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2717,7 +2693,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_test_question_count(sender, instance, created, **kwargs):\n    \"\"\"Test da savollar soni yangilanganda - faqat manual yaratilganda\"\"\"\n    # Agar parse jarayonida bo'lsa, signal ishlamasin\n    if any(str(instance.test.theme.id) in key for key in _currently_parsing):\n        return\n    test = instance.test\n    test.question_count = test.questions.count()\n    test.save()\n@receiver(post_delete, sender=Question)\ndef update_test_question_count_on_delete(sender, instance, **kwargs):",
+        "peekOfCode": "def update_test_question_count(sender, instance, created, **kwargs):\n    if any(str(instance.test.theme.id) in key for key in _currently_parsing):\n        return\n    test = instance.test\n    test.question_count = test.questions.count()\n    test.save()\n@receiver(post_delete, sender=Question)\ndef update_test_question_count_on_delete(sender, instance, **kwargs):\n    test = instance.test\n    test.question_count = test.questions.count()",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2726,7 +2702,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_test_question_count_on_delete(sender, instance, **kwargs):\n    \"\"\"Savol o'chirilganda test dagi sonni yangilash\"\"\"\n    test = instance.test\n    test.question_count = test.questions.count()\n    test.save()\n@receiver(post_save, sender=Theme)\ndef update_subject_theme_count(sender, instance, **kwargs):\n    \"\"\"Subject da mavzular soni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()",
+        "peekOfCode": "def update_test_question_count_on_delete(sender, instance, **kwargs):\n    test = instance.test\n    test.question_count = test.questions.count()\n    test.save()\n@receiver(post_save, sender=Theme)\ndef update_subject_theme_count(sender, instance, **kwargs):\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_delete, sender=Theme)",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2735,7 +2711,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_subject_theme_count(sender, instance, **kwargs):\n    \"\"\"Subject da mavzular soni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_delete, sender=Theme)\ndef update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    \"\"\"Mavzu o'chirilganda fan dagi sonni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()",
+        "peekOfCode": "def update_subject_theme_count(sender, instance, **kwargs):\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_delete, sender=Theme)\ndef update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_save, sender=TestAttempt)",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2744,7 +2720,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    \"\"\"Mavzu o'chirilganda fan dagi sonni yangilash\"\"\"\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_save, sender=TestAttempt)\ndef update_user_stats(sender, instance, created, **kwargs):\n    \"\"\"\n    Har safar TestAttempt tugasa (finished_at != None),\n    foydalanuvchi umumiy statistikasi qayta hisoblanadi.",
+        "peekOfCode": "def update_subject_theme_count_on_delete(sender, instance, **kwargs):\n    subject = instance.subject\n    subject.theme_count = subject.themes.count()\n    subject.save()\n@receiver(post_save, sender=TestAttempt)\ndef update_user_stats(sender, instance, created, **kwargs):\n    if instance.finished_at:\n        user = instance.user\n        attempts = user.attempts.filter(finished_at__isnull=False)\n        total_attempts = attempts.count()",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2753,7 +2729,7 @@
         "kind": 2,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "def update_user_stats(sender, instance, created, **kwargs):\n    \"\"\"\n    Har safar TestAttempt tugasa (finished_at != None),\n    foydalanuvchi umumiy statistikasi qayta hisoblanadi.\n    \"\"\"\n    if instance.finished_at:  # faqat tugallanganda\n        user = instance.user\n        # Barcha attemptlarini olib qayta hisoblash\n        attempts = user.attempts.filter(finished_at__isnull=False)\n        total_attempts = attempts.count()",
+        "peekOfCode": "def update_user_stats(sender, instance, created, **kwargs):\n    if instance.finished_at:\n        user = instance.user\n        attempts = user.attempts.filter(finished_at__isnull=False)\n        total_attempts = attempts.count()\n        total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()\n        total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()\n        avg_score = attempts.aggregate(avg=models.Avg(\"score\"))[\"avg\"] or 0.0\n        user.total_attempts = total_attempts\n        user.total_correct = total_correct",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2762,7 +2738,7 @@
         "kind": 5,
         "importPath": "mainApp.signals",
         "description": "mainApp.signals",
-        "peekOfCode": "_currently_parsing = set()\n@receiver(post_save, sender=TestImportFile)\ndef parse_test_file_on_save(sender, instance, created, **kwargs):\n    \"\"\"TestImportFile saqlanganda avtomatik parse qilish\"\"\"\n    # Faqat yangi fayl create qilinganda ishlaydi\n    if not created:\n        return\n    # Ikki marta parse qilishni oldini olish\n    file_key = f\"{instance.id}_{instance.file.name}\"\n    if file_key in _currently_parsing:",
+        "peekOfCode": "_currently_parsing = set()\n@receiver(post_save, sender=TestImportFile)\ndef parse_test_file_on_save(sender, instance, created, **kwargs):\n    if not created:\n        return\n    file_key = f\"{instance.id}_{instance.file.name}\"\n    if file_key in _currently_parsing:\n        print(f\"Parse jarayonida: {instance.file.name}\")\n        return\n    _currently_parsing.add(file_key)",
         "detail": "mainApp.signals",
         "documentation": {}
     },
@@ -2789,7 +2765,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n# 🔹 User\nclass UserListView(generics.ListAPIView):",
+        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):\n    queryset = User.objects.all()",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2798,7 +2774,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n# 🔹 User\nclass UserListView(generics.ListAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"role\"]\nclass UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()",
+        "peekOfCode": "class GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"role\"]\nclass UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2807,7 +2783,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserListView(generics.ListAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"role\"]\nclass UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n# 🔹 Category (faqat list)\nclass CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()",
+        "peekOfCode": "class UserListView(generics.ListAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"role\"]\nclass UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\nclass CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2816,7 +2792,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\n# 🔹 Category (faqat list)\nclass CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\n# 🔹 Subject\nclass SubjectListView(generics.ListAPIView):",
+        "peekOfCode": "class UserDetailView(generics.RetrieveAPIView):\n    queryset = User.objects.all()\n    serializer_class = UserSerializer\nclass CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\nclass SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2825,7 +2801,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\n# 🔹 Subject\nclass SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):",
+        "peekOfCode": "class CategoryListView(generics.ListAPIView):\n    queryset = Category.objects.all()\n    serializer_class = CategorySerializer\n    search_fields = [\"name\"]\nclass SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    def get_queryset(self):\n        user = self.request.user\n        if user.role == \"admin\":",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2834,7 +2810,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        user = self.request.user\n        if user.role == \"admin\":\n            return Subject.objects.all()\n        elif user.role == \"teacher\":\n            return Subject.objects.filter(authors=user)",
+        "peekOfCode": "class SubjectListView(generics.ListAPIView):\n    serializer_class = SubjectSerializer\n    search_fields = [\"name\"]\n    def get_queryset(self):\n        user = self.request.user\n        if user.role == \"admin\":\n            return Subject.objects.all()\n        elif user.role == \"teacher\":\n            return Subject.objects.filter(authors=user)\n        elif user.role == \"student\":",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2843,7 +2819,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class SubjectDetailView(generics.RetrieveAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = SubjectSerializer\n# 🔹 Theme\nclass ThemeListView(generics.ListAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeListSerializer\n    search_fields = [\"name\"]\n    filterset_fields = [\"subject__name\"]\nclass ThemeDetailView(generics.RetrieveAPIView):",
+        "peekOfCode": "class SubjectDetailView(generics.RetrieveAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = SubjectSerializer\nclass ThemeListView(generics.ListAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeListSerializer\n    search_fields = [\"name\"]\n    filterset_fields = [\"subject__name\"]\nclass ThemeDetailView(generics.RetrieveAPIView):\n    queryset = Theme.objects.all()",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2861,7 +2837,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ThemeDetailView(generics.RetrieveAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass LogoutView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        try:\n            refresh_token = request.data[\"refresh\"]\n            token = RefreshToken(refresh_token)\n            token.blacklist()  # tokenni blacklist qiladi",
+        "peekOfCode": "class ThemeDetailView(generics.RetrieveAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass LogoutView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        try:\n            refresh_token = request.data[\"refresh\"]\n            token = RefreshToken(refresh_token)\n            token.blacklist()",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2870,7 +2846,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class LogoutView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        try:\n            refresh_token = request.data[\"refresh\"]\n            token = RefreshToken(refresh_token)\n            token.blacklist()  # tokenni blacklist qiladi\n            return Response({\"detail\": \"Logout qilindi\"}, status=status.HTTP_200_OK)\n        except Exception as e:\n            return Response({\"detail\": \"Refresh token kerak\"}, status=status.HTTP_400_BAD_REQUEST)",
+        "peekOfCode": "class LogoutView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        try:\n            refresh_token = request.data[\"refresh\"]\n            token = RefreshToken(refresh_token)\n            token.blacklist()\n            return Response({\"detail\": \"Logout qilindi\"}, status=status.HTTP_200_OK)\n        except Exception as e:\n            return Response({\"detail\": \"Refresh token kerak\"}, status=status.HTTP_400_BAD_REQUEST)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2879,7 +2855,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class AttemptStartView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data[\"count\"]\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        # ✅ Yangi parametr",
+        "peekOfCode": "class AttemptStartView(APIView):\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data[\"count\"]\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        scope = request.query_params.get(\"scope\", \"theme\")  \n        theme = get_object_or_404(Theme, id=theme_id)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2888,7 +2864,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class SubmitAnswerView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        meta = cache.get(_cache_key(attempt_id))\n        if not meta:\n            return Response({\"detail\": \"Attempt meta topilmadi yoki muddati o‘tgan\"}, status=400)\n        expires_at = datetime.datetime.fromisoformat(meta[\"expires_at\"])\n        if _now() >= expires_at:\n            return self._finish_and_response(attempt)",
+        "peekOfCode": "class SubmitAnswerView(APIView):\n    def post(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        meta = cache.get(_cache_key(attempt_id))\n        if not meta:\n            return Response({\"detail\": \"Attempt meta topilmadi yoki muddati o'tgan\"}, status=400)\n        expires_at = datetime.datetime.fromisoformat(meta[\"expires_at\"])\n        if _now() >= expires_at:\n            return self._finish_and_response(attempt)\n        ser = SubmitAnswerWithTagSerializer(data=request.data)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2897,7 +2873,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class AttemptStateView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        meta = cache.get(_cache_key(attempt_id))\n        if meta:\n            expires_at = datetime.datetime.fromisoformat(meta[\"expires_at\"])\n            if _now() >= expires_at and not attempt.finished_at:\n                # ❗ Tugaganini belgilaymiz\n                attempt.finished_at = _now()",
+        "peekOfCode": "class AttemptStateView(APIView):\n    def get(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        meta = cache.get(_cache_key(attempt_id))\n        if meta:\n            expires_at = datetime.datetime.fromisoformat(meta[\"expires_at\"])\n            if _now() >= expires_at and not attempt.finished_at:\n                attempt.finished_at = _now()\n                total = attempt.answers.count()\n                correct = attempt.answers.filter(is_correct=True).count()",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2906,7 +2882,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class AttemptFinishView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        total = attempt.answers.count()\n        correct = attempt.answers.filter(is_correct=True).count()\n        score = round((correct / total) * 100, 2) if total else 0.0\n        if not attempt.finished_at:\n            attempt.finished_at = _now()\n            attempt.duration = int((attempt.finished_at - attempt.started_at).total_seconds() // 60)",
+        "peekOfCode": "class AttemptFinishView(APIView):\n    def post(self, request, attempt_id):\n        attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)\n        total = attempt.answers.count()\n        correct = attempt.answers.filter(is_correct=True).count()\n        score = round((correct / total) * 100, 2) if total else 0.0\n        if not attempt.finished_at:\n            attempt.finished_at = _now()\n            attempt.duration = int((attempt.finished_at - attempt.started_at).total_seconds() // 60)\n            attempt.score = score",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2924,7 +2900,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class MyProfileView(APIView):\n    \"\"\"\n    GET /me/profile\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request):\n        ser = UserProfileSerializer(request.user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserProfileView(APIView):\n    \"\"\"",
+        "peekOfCode": "class MyProfileView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request):\n        ser = UserProfileSerializer(request.user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserProfileView(APIView):\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        ser = UserProfileSerializer(user, context={\"request\": request})\n        return Response(ser.data, status=200)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2933,7 +2909,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserProfileView(APIView):\n    \"\"\"\n    GET /users/<uuid:user_id>/profile\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]  # yoki admin-only qilish mumkin\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        ser = UserProfileSerializer(user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserActivityStatsView(APIView):",
+        "peekOfCode": "class UserProfileView(APIView):\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        ser = UserProfileSerializer(user, context={\"request\": request})\n        return Response(ser.data, status=200)\nclass UserActivityStatsView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        stats = (",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2942,7 +2918,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserActivityStatsView(APIView):\n    \"\"\"\n    GET /users/<uuid:user_id>/activity\n    Shu userning har kuni nechta attempt qilganini qaytaradi\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        # Kun bo‘yicha guruhlash\n        stats = (",
+        "peekOfCode": "class UserActivityStatsView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, user_id):\n        user = get_object_or_404(User, id=user_id)\n        stats = (\n            TestAttempt.objects\n            .filter(user=user)\n            .annotate(day=TruncDate(\"started_at\"))\n            .values(\"day\")\n            .annotate(attempts=Count(\"id\"))",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2951,7 +2927,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    filter_backends = [filters.SearchFilter]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        subject_id = self.request.query_params.get(\"subject_id\")  # 🔥 qo‘shildi\n        theme_id = self.request.query_params.get(\"theme_id\")",
+        "peekOfCode": "class UserRatingListView(ListAPIView):\n    serializer_class = UserRatingSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    search_fields = [\"username\", \"first_name\", \"last_name\", \"email\"]\n    filter_backends = [filters.SearchFilter]\n    def get_queryset(self):\n        filter_type = self.request.query_params.get(\"filter\", \"best_avg\")\n        group_id = self.request.query_params.get(\"group_id\")\n        subject_id = self.request.query_params.get(\"subject_id\")\n        theme_id = self.request.query_params.get(\"theme_id\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2960,7 +2936,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class SubjectStatsView(APIView):\n    \"\"\"\n    GET /subjects/<uuid:subject_id>/stats?page=1&page_size=10\n    Fan bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, subject_id):\n        subject = get_object_or_404(Subject, id=subject_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme__subject=subject,",
+        "peekOfCode": "class SubjectStatsView(APIView):\n    def get(self, request, subject_id):\n        subject = get_object_or_404(Subject, id=subject_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme__subject=subject,\n            finished_at__isnull=False\n        )\n        activity = (\n            attempts.annotate(day=TruncDate(\"started_at\"))\n            .values(\"day\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2969,7 +2945,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ThemeStatsView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/stats?page=1&page_size=10\n    Mavzu bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,",
+        "peekOfCode": "class ThemeStatsView(APIView):\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,\n            finished_at__isnull=False\n        )\n        activity = (\n            attempts.annotate(day=TruncDate(\"started_at\"))\n            .values(\"day\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2978,7 +2954,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ProfilePhotoUpdateView(APIView):\n    \"\"\"\n    POST /me/profile/photo  → profil rasmini yangilash\n    DELETE /me/profile/photo → profil rasmini o‘chirish\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        serializer = ProfilePhotoUpdateSerializer(\n            request.user, data=request.data, partial=True\n        )",
+        "peekOfCode": "class ProfilePhotoUpdateView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def post(self, request):\n        serializer = ProfilePhotoUpdateSerializer(\n            request.user, data=request.data, partial=True\n        )\n        serializer.is_valid(raise_exception=True)\n        serializer.save()\n        return Response(\n            {",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2987,7 +2963,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ThemeStatsView(APIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/stats\n    Mavzu bo‘yicha umumiy statistika\n    \"\"\"\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,",
+        "peekOfCode": "class ThemeStatsView(APIView):\n    def get(self, request, theme_id):\n        theme = get_object_or_404(Theme, id=theme_id)\n        attempts = TestAttempt.objects.filter(\n            test__theme=theme,\n            finished_at__isnull=False\n        )\n        activity = (\n            attempts.annotate(day=TruncDate(\"started_at\"))\n            .values(\"day\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2996,7 +2972,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class ThemeTopUsersView(ListAPIView):\n    \"\"\"\n    GET /themes/<uuid:theme_id>/top-users?page=1&page_size=10\n    Har bir foydalanuvchining shu mavzudagi ENG YAXSHI attempti bo'yicha top-list (pagination)\n    Reyting: ko'p to'g'ri -> qisqa vaqt -> baland score\n    \"\"\"\n    serializer_class = TopAttemptSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        theme = get_object_or_404(Theme, id=self.kwargs[\"theme_id\"])",
+        "peekOfCode": "class ThemeTopUsersView(ListAPIView):\n    serializer_class = TopAttemptSerializer\n    def get_queryset(self):\n        theme = get_object_or_404(Theme, id=self.kwargs[\"theme_id\"])\n        base = (\n            TestAttempt.objects\n            .filter(test__theme=theme, finished_at__isnull=False)\n            .select_related(\"user\", \"test\")\n            .annotate(\n                correct_count=Count(\"answers\", filter=Q(answers__is_correct=True)),",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -3005,7 +2981,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CreateTheme(CreateAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\n# Top list\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]",
+        "peekOfCode": "class CreateTheme(CreateAPIView):\n    queryset = Theme.objects.all()\n    serializer_class = ThemeSerializer\nclass CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -3014,7 +2990,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\n# Top list\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        group_id = self.kwargs[\"group_id\"]\n        return Theme.objects.filter(subject__groups__id=group_id)",
+        "peekOfCode": "class CreateSubject(CreateAPIView):\n    queryset = Subject.objects.all()\n    serializer_class = CreateSubjectSerializer\nclass GroupThemesView(ListAPIView):\n    serializer_class = ThemeBasicInfoSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def get_queryset(self):\n        group_id = self.kwargs[\"group_id\"]\n        return Theme.objects.filter(subject__groups__id=group_id)\nclass GroupSubjectsView(ListAPIView):",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -3041,7 +3017,7 @@
         "kind": 5,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "CACHE_PREFIX = \"attempt_meta:\"\ndef _cache_key(attempt_id):\n    return f\"{CACHE_PREFIX}{attempt_id}\"\ndef _now():\n    return timezone.now()\ndef _expires(started_at, minutes):\n    return started_at + datetime.timedelta(minutes=minutes)\nclass AttemptStartView(APIView):\n    permission_classes = [permissions.IsAuthenticated]\n    def get(self, request, theme_id):",
+        "peekOfCode": "CACHE_PREFIX = \"attempt_meta:\"\ndef _cache_key(attempt_id):\n    return f\"{CACHE_PREFIX}{attempt_id}\"\ndef _now():\n    return timezone.now()\ndef _expires(started_at, minutes):\n    return started_at + datetime.timedelta(minutes=minutes)\nclass AttemptStartView(APIView):\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -3086,7 +3062,7 @@
         "kind": 2,
         "importPath": "notifications.signals",
         "description": "notifications.signals",
-        "peekOfCode": "def notify_new_theme(sender, instance, created, **kwargs):\n    if not created:\n        return\n    subject = instance.subject\n    groups = subject.groups.all()\n    # Guruh talabalari va authorlari\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)\n    user_ids = list(receivers.values_list(\"id\", flat=True))",
+        "peekOfCode": "def notify_new_theme(sender, instance, created, **kwargs):\n    if not created:\n        return\n    subject = instance.subject\n    groups = subject.groups.all()\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)\n    user_ids = list(receivers.values_list(\"id\", flat=True))\n    send_push_to_users.delay(",
         "detail": "notifications.signals",
         "documentation": {}
     },
@@ -3095,7 +3071,7 @@
         "kind": 2,
         "importPath": "notifications.signals",
         "description": "notifications.signals",
-        "peekOfCode": "def notify_new_test(sender, instance, created, **kwargs):\n    if not created:\n        return\n    print(\"keldi\")\n    subject = instance.theme.subject\n    groups = subject.groups.all()\n    # Guruh talabalari va authorlari\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)",
+        "peekOfCode": "def notify_new_test(sender, instance, created, **kwargs):\n    if not created:\n        return\n    print(\"keldi\")\n    subject = instance.theme.subject\n    groups = subject.groups.all()\n    students = User.objects.filter(group__in=groups, role=\"student\")\n    authors = User.objects.filter(group__in=groups, role=\"teacher\")\n    receivers = students.union(authors)\n    user_ids = list(receivers.values_list(\"id\", flat=True))",
         "detail": "notifications.signals",
         "documentation": {}
     },
@@ -3104,7 +3080,7 @@
         "kind": 2,
         "importPath": "notifications.tasks",
         "description": "notifications.tasks",
-        "peekOfCode": "def send_push_to_users(user_ids, title, body):\n    from mainApp.models import User  # ichida import qilamiz\n    users = User.objects.filter(id__in=user_ids)\n    for user in users:\n        for dev in DeviceToken.objects.filter(user=user):\n            send_push_fcm(dev.token, title, body)",
+        "peekOfCode": "def send_push_to_users(user_ids, title, body):\n    users = User.objects.filter(id__in=user_ids)\n    for user in users:\n        for dev in DeviceToken.objects.filter(user=user):\n            send_push_fcm(dev.token, title, body)",
         "detail": "notifications.tasks",
         "documentation": {}
     },
@@ -3122,7 +3098,7 @@
         "kind": 6,
         "importPath": "notifications.views",
         "description": "notifications.views",
-        "peekOfCode": "class SaveTokenView(generics.CreateAPIView):\n    serializer_class = DeviceTokenSerializer\n    permission_classes = [permissions.IsAuthenticated]\n    def perform_create(self, serializer):\n        token = serializer.validated_data[\"token\"]\n        DeviceToken.objects.update_or_create(\n            user=self.request.user,\n            token=token,\n            defaults={\"user\": self.request.user}\n        )",
+        "peekOfCode": "class SaveTokenView(generics.CreateAPIView):\n    serializer_class = DeviceTokenSerializer\n    def perform_create(self, serializer):\n        token = serializer.validated_data[\"token\"]\n        DeviceToken.objects.update_or_create(\n            user=self.request.user,\n            token=token,\n            defaults={\"user\": self.request.user}\n        )",
         "detail": "notifications.views",
         "documentation": {}
     },
@@ -3194,7 +3170,7 @@
         "kind": 6,
         "importPath": "statistic.views",
         "description": "statistic.views",
-        "peekOfCode": "class TestStatsView(APIView):\n    def get(self, request):\n        attempts = TestAttempt.objects.all()\n        answers = Answer.objects.all()\n        total_tests = Question.objects.count()\n        total_attempts = attempts.count()\n        avg_score = attempts.aggregate(avg=Avg(\"score\"))[\"avg\"] or 0.0\n        # Javoblar statistikasi\n        total_answers = answers.count()\n        correct_answers = answers.filter(is_correct=True).count()",
+        "peekOfCode": "class TestStatsView(APIView):\n    def get(self, request):\n        attempts = TestAttempt.objects.all()\n        answers = Answer.objects.all()\n        total_tests = Question.objects.count()\n        total_attempts = attempts.count()\n        avg_score = attempts.aggregate(avg=Avg(\"score\"))[\"avg\"] or 0.0\n        total_answers = answers.count()\n        correct_answers = answers.filter(is_correct=True).count()\n        wrong_answers = total_answers - correct_answers",
         "detail": "statistic.views",
         "documentation": {}
     },
@@ -3203,7 +3179,7 @@
         "kind": 6,
         "importPath": "statistic.views",
         "description": "statistic.views",
-        "peekOfCode": "class SubjectThemeStatsView(ListAPIView):\n    \"\"\"\n    GET /subjects/<subject_id>/stats\n    GET /subjects/<subject_id>/themes/<theme_id>/stats\n    \"\"\"\n    def get_queryset(self):\n        subject_id = self.kwargs.get(\"subject_id\")\n        theme_id = self.kwargs.get(\"theme_id\")\n        subject_attempts = TestAttempt.objects.filter(test__theme__subject_id=subject_id)\n        qs = User.objects.filter(role=\"student\")",
+        "peekOfCode": "class SubjectThemeStatsView(ListAPIView):\n    def get_queryset(self):\n        subject_id = self.kwargs.get(\"subject_id\")\n        theme_id = self.kwargs.get(\"theme_id\")\n        subject_attempts = TestAttempt.objects.filter(test__theme__subject_id=subject_id)\n        qs = User.objects.filter(role=\"student\")\n        if theme_id:\n            qs = qs.filter(attempts__test__theme_id=theme_id)\n        else:\n            qs = qs.filter(attempts__test__theme__subject_id=subject_id)",
         "detail": "statistic.views",
         "documentation": {}
     },
@@ -3266,7 +3242,7 @@
         "kind": 2,
         "importPath": "utils.parsers",
         "description": "utils.parsers",
-        "peekOfCode": "def parse_word_file_advanced(file_path):\n    \"\"\"Django signals uchun parser funksiya\"\"\"\n    print(f\"=== WORD FAYL PARSE QILISH BOSHLANDI ===\")\n    print(f\"Fayl yo'li: {file_path}\")\n    try:\n        if not DOCX_AVAILABLE:\n            print(\"XATOLIK: python-docx kutubxonasi o'rnatilmagan!\")\n            return []\n        reader = WordTestReader()\n        result = reader.read_test_file(file_path)",
+        "peekOfCode": "def parse_word_file_advanced(file_path):\n    \"\"\"Django signals uchun parser funksiya\"\"\"\n    print(f\"=== WORD FAYL PARSE QILISH BOSHLANDI ===\")\n    print(f\"File path: {file_path}\")\n    try:\n        if not DOCX_AVAILABLE:\n            print(\"XATOLIK: python-docx kutubxonasi o'rnatilmagan!\")\n            return []\n        reader = WordTestReader()\n        result = reader.read_test_file(file_path)",
         "detail": "utils.parsers",
         "documentation": {}
     },
@@ -3275,7 +3251,7 @@
         "kind": 2,
         "importPath": "utils.parsers",
         "description": "utils.parsers",
-        "peekOfCode": "def debug_word_images(file_path):\n    \"\"\"Debug funksiya\"\"\"\n    try:\n        reader = WordTestReader()\n        reader.document = docx.Document(file_path)\n        reader.debug_all_images()\n    except Exception as e:\n        print(f\"Debug xatolik: {e}\")\n# Eski funksiyalar\ndef debug_word_file(file_path):",
+        "peekOfCode": "def debug_word_images(file_path):\n    try:\n        reader = WordTestReader()\n        reader.document = docx.Document(file_path)\n        reader.debug_all_images()\n    except Exception as e:\n        print(f\"Debug xatolik: {e}\")\ndef debug_word_file(file_path):\n    debug_word_images(file_path)\ndef parse_word_file_simple(file_path):",
         "detail": "utils.parsers",
         "documentation": {}
     },
@@ -3307,6 +3283,15 @@
         "documentation": {}
     },
     {
+        "label": "DOCX_AVAILABLE",
+        "kind": 5,
+        "importPath": "utils.parsers",
+        "description": "utils.parsers",
+        "peekOfCode": "DOCX_AVAILABLE = True\nclass WordTestReader:\n    def __init__(self):\n        self.questions = []\n        self.document = None\n    def read_test_file(self, file_path):\n        if not DOCX_AVAILABLE:\n            return {'success': False, 'error': 'python-docx kutubxonasi o\\'rnatilmagan', 'questions': []}\n        try:\n            self.document = docx.Document(file_path)",
+        "detail": "utils.parsers",
+        "documentation": {}
+    },
+    {
         "label": "send_push_fcm",
         "kind": 2,
         "importPath": "utils.push_fcm",
@@ -3320,7 +3305,7 @@
         "kind": 5,
         "importPath": "utils.push_fcm",
         "description": "utils.push_fcm",
-        "peekOfCode": "cred_path = Path(__file__).resolve().parent.parent / \"serviceAccount.json\"\ncred = credentials.Certificate(str(cred_path))\n# initialize faqat 1 marta bo‘lishi kerak\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )",
+        "peekOfCode": "cred_path = Path(__file__).resolve().parent.parent / \"serviceAccount.json\"\ncred = credentials.Certificate(str(cred_path))\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )\n    return messaging.send(message)",
         "detail": "utils.push_fcm",
         "documentation": {}
     },
@@ -3329,7 +3314,7 @@
         "kind": 5,
         "importPath": "utils.push_fcm",
         "description": "utils.push_fcm",
-        "peekOfCode": "cred = credentials.Certificate(str(cred_path))\n# initialize faqat 1 marta bo‘lishi kerak\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )\n    return messaging.send(message)",
+        "peekOfCode": "cred = credentials.Certificate(str(cred_path))\nif not firebase_admin._apps:\n    firebase_admin.initialize_app(cred)\ndef send_push_fcm(token: str, title: str, body: str):\n    message = messaging.Message(\n        notification=messaging.Notification(title=title, body=body),\n        token=token\n    )\n    return messaging.send(message)",
         "detail": "utils.push_fcm",
         "documentation": {}
     },
@@ -3340,42 +3325,6 @@
         "description": "manage",
         "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
         "detail": "manage",
-        "documentation": {}
-    },
-    {
-        "label": "b64url",
-        "kind": 2,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "def b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key\nprivate_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))\nprint(\"VAPID_PUBLIC_KEY=\", b64url(public_key))",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "private_key",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "private_key = ec.generate_private_key(ec.SECP256R1())\n# Public key (Uncompressed Point, X9.62 formatida)\npublic_key = private_key.public_key().public_bytes(\n    encoding=serialization.Encoding.X962,\n    format=serialization.PublicFormat.UncompressedPoint,\n)\n# base64url funksiyasi\ndef b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "public_key",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "public_key = private_key.public_key().public_bytes(\n    encoding=serialization.Encoding.X962,\n    format=serialization.PublicFormat.UncompressedPoint,\n)\n# base64url funksiyasi\ndef b64url(data: bytes) -> str:\n    return base64.urlsafe_b64encode(data).decode().rstrip(\"=\")\n# 32-byte integer sifatida private key\nprivate_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))",
-        "detail": "test",
-        "documentation": {}
-    },
-    {
-        "label": "private_bytes",
-        "kind": 5,
-        "importPath": "test",
-        "description": "test",
-        "peekOfCode": "private_bytes = private_key.private_numbers().private_value.to_bytes(32, \"big\")\nprint(\"VAPID_PRIVATE_KEY=\", b64url(private_bytes))\nprint(\"VAPID_PUBLIC_KEY=\", b64url(public_key))",
-        "detail": "test",
         "documentation": {}
     }
 ]

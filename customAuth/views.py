@@ -76,7 +76,7 @@ class ResetPasswordView(APIView):
 
         user_id = cache.get(token)
         if not user_id:
-            return Response({"detail": "Token noto‘g‘ri yoki muddati o‘tgan."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "Token noto'g'ri yoki muddati o'tgan."}, status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.get(id=user_id)
         user.set_password(new_password)

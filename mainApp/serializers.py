@@ -14,13 +14,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
 
-        # Token ichiga role qo'shib qo'yish
         token['role'] = user.role  
         return token
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        # Javobga ham role qo'shib yuboramiz
         data['role'] = self.user.role  
         return data
 
@@ -108,7 +106,6 @@ def _abs_url(request, f):
     return request.build_absolute_uri(url) if request else url
 
 
-# --------- Start: query params
 class AttemptStartQuerySerializer(serializers.Serializer):
     count = serializers.IntegerField(required=True)
     order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)
@@ -121,7 +118,6 @@ class AttemptStartQuerySerializer(serializers.Serializer):
         return v
 
 
-# --------- Start: outward packet
 class AttemptOptionOutSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     tag_true = serializers.SerializerMethodField()
@@ -166,12 +162,9 @@ class AttemptQuestionOutSerializer(serializers.ModelSerializer):
         return AttemptOptionOutSerializer(options, many=True, context=self.context).data
 
     def get_correct_token(self, obj):
-        """To‘g‘ri variant uchun tag_true qiymatini hisoblaymiz."""
-        # 1) to‘g‘ri optionni topamiz
         correct_opt = obj.options.filter(is_correct=True).first()
         if not correct_opt:
             return None
-        # 2) serverdagi secret+salt bilan xuddi tag_true formulasi
         secret = (self.context or {}).get('attempt_secret')
         salts = (self.context or {}).get('option_salts', {})
         salt = salts.get(str(correct_opt.id))
@@ -181,17 +174,16 @@ class AttemptQuestionOutSerializer(serializers.ModelSerializer):
 
 class AttemptStartResponseSerializer(serializers.Serializer):
     attempt_id = serializers.UUIDField()
-    theme_id   = serializers.UUIDField()
-    test_id    = serializers.UUIDField()
-    count      = serializers.IntegerField()
-    order      = serializers.CharField()
-    mode       = serializers.CharField()
-    duration   = serializers.IntegerField()
+    theme_id = serializers.UUIDField()
+    test_id = serializers.UUIDField()
+    count = serializers.IntegerField()
+    order = serializers.CharField()
+    mode = serializers.CharField()
+    duration = serializers.IntegerField()
     expires_at = serializers.DateTimeField()
-    questions  = AttemptQuestionOutSerializer(many=True)
+    questions = AttemptQuestionOutSerializer(many=True)
 
 
-# --------- Answer
 class SubmitAnswerWithTagSerializer(serializers.Serializer):
     question_id = serializers.UUIDField()
     option_id   = serializers.UUIDField()
@@ -199,7 +191,6 @@ class SubmitAnswerWithTagSerializer(serializers.Serializer):
     tag         = serializers.CharField()
 
 
-# --------- State
 class AttemptStateSerializer(serializers.Serializer):
     attempt_id   = serializers.UUIDField()
     started_at   = serializers.DateTimeField()
@@ -212,7 +203,6 @@ class AttemptStateSerializer(serializers.Serializer):
     score        = serializers.FloatField(allow_null=True)
 
 
-# --------- Finish
 class AttemptFinishResponseSerializer(serializers.Serializer):
     attempt_id = serializers.UUIDField()
     correct    = serializers.IntegerField()
@@ -246,7 +236,6 @@ class AttemptResultSerializer(serializers.ModelSerializer):
 
     def get_total(self, obj):
         return obj.answers.count()
-
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -311,9 +300,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return [{"date": row["day"], "attempts": row["attempts"]} for row in stats]
     
     def get_rank_overall(self, obj):
-        # umumiy reyting bo‘yicha o‘rin
         better_users = User.objects.filter(average_score__gt=obj.average_score).count()
-        return better_users + 1  # 1-o‘rin eng yuqori
+        return better_users + 1
     
     def get_rank_in_group(self, obj):
         if not obj.group:
@@ -459,9 +447,6 @@ class CreateSubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = '__all__'
-        
-        
-# Top list
 
 class ThemeBasicInfoSerializer(serializers.ModelSerializer):
     class Meta:

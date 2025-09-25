@@ -6,9 +6,6 @@ from django.core.validators import FileExtensionValidator
 from ckeditor.fields import RichTextField
 
 
-# -----------------------
-# 1) User va Guruh
-# -----------------------
 class Group(BaseModel):
     name = models.CharField(max_length=255, verbose_name="Guruh nomi")
     kurs = models.PositiveIntegerField(verbose_name="Kurs")
@@ -52,14 +49,11 @@ class User(BaseModel, AbstractUser):
             models.UniqueConstraint(
                 fields=["email"],
                 name="unique_email_not_null",
-                condition=~models.Q(email=None) & ~models.Q(email="") # NULL ham, "" ham chiqarib tashlanadi
+                condition=~models.Q(email=None) & ~models.Q(email="")
             )
         ]
 
 
-# -----------------------
-# 2) Fanlar
-# -----------------------
 class Category(BaseModel):
     name = models.CharField(max_length=255, verbose_name="Kategoriya nomi")
 
@@ -93,9 +87,6 @@ class Subject(BaseModel):
             models.Index(fields=["name"]),
         ]
 
-# -----------------------
-# 3) Mavzular
-# -----------------------
 class Theme(BaseModel):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="themes", verbose_name="Fan")
     name = models.CharField(max_length=255, verbose_name="Mavzu nomi")
@@ -115,7 +106,6 @@ class Theme(BaseModel):
 
 
 class TestImportFile(BaseModel):
-    """Theme ga bog'langan test import fayl (Word)"""
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, related_name="import_files", verbose_name="Mavzu")
     file = models.FileField(
         upload_to="test_imports/",
@@ -132,9 +122,6 @@ class TestImportFile(BaseModel):
         verbose_name_plural = "Test Import Fayllari"
         
 
-# -----------------------
-# 4) Testlar
-# -----------------------
 class Test(BaseModel):
     theme = models.ForeignKey(Theme, on_delete=models.CASCADE, related_name="tests", verbose_name="Mavzu")
     name = models.CharField(max_length=255, verbose_name="Test nomi")

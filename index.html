@@ -9,7 +9,6 @@
 
   <h1>Quiz Test System</h1>
 
-  <!-- Tugmalar -->
   <button onclick="startTest()">Start Test</button>
   <button onclick="resumeTest()">Resume Test</button>
   <button onclick="finishTest()">Finish Test</button>
@@ -18,15 +17,13 @@
   <div id="log" style="margin-top:20px;color:green"></div>
 
   <script>
-    // === Config ===
     const API_BASE = "http://127.0.0.1:8000";
-    const THEME_ID = "2ae1f753-c6d4-4454-8078-14f8ba655c0e"; // o'zingizning theme_id
+    const THEME_ID = "2ae1f753-c6d4-4454-8078-14f8ba655c0e";
     const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU3NTgyODcwLCJpYXQiOjE3NTc0OTY0NzAsImp0aSI6IjI1OTQ0NjZjMmU4NjQ0N2JiNDU3MjU4ZGViOTE5MjNmIiwidXNlcl9pZCI6ImYzZWFjZjY0LTA1ZWYtNDcwZS04M2Y5LTI0MGQ5Yjc2OWY0OCJ9.5izK8-3_bUFjfrgHGnxCP1rYlIF2upwUwDlH3S58GSA"; // JWT token joylang
 
     let attemptId = null;
     let questions = [];
 
-    // === Testni boshlash ===
     async function startTest() {
       try {
         const res = await axios.get(`${API_BASE}/themes/${THEME_ID}/attempts/start`, {
@@ -45,7 +42,6 @@
       }
     }
 
-    // === Savollarni ko'rsatish ===
     function renderQuestions(qs) {
       const div = document.getElementById("quiz");
       div.innerHTML = "";
@@ -68,9 +64,7 @@
       });
     }
 
-    // === Javob yuborish ===
     async function submitAnswer(questionObj, optionObj) {
-      // To'g'ri/noto'g'ri ni aniqlash: tag_true == question.correct_token ?
       const verdict = (optionObj.tag_true === questionObj.correct_token);
       const tag = verdict ? optionObj.tag_true : optionObj.tag_false;
 
@@ -91,10 +85,9 @@
       }
     }
 
-    // === Resume (davom ettirish) ===
     async function resumeTest() {
       if (!attemptId) {
-        log("❌ Attempt ID yo‘q. Avval testni boshlang.");
+        log("❌ Attempt ID yo'q. Avval testni boshlang.");
         return;
       }
       try {
@@ -108,7 +101,6 @@
       }
     }
 
-    // === Finish ===
     async function finishTest() {
       if (!attemptId) {
         log("❌ Attempt ID yo‘q. Avval testni boshlang.");
@@ -125,7 +117,6 @@
       }
     }
 
-    // === Log helper ===
     function log(msg) {
       document.getElementById("log").innerText = msg;
     }

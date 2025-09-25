@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions, filters
-from .models import Group, User, Category, Subject, Theme
+from .models import Group, User, Category, Subject, Theme, Question, Test, TestAttempt, Answer, Option
 from django.db.models import Count, Avg, Q, Count, F
 from .pagination import StandardResultsSetPagination
 from django.db.models.expressions import Window, OrderBy
@@ -16,11 +16,7 @@ from .serializers import (
     ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer, ThemeBasicInfoSerializer
 )
 from django.db.models.functions import TruncDate
-from .models import (
-    Question, Test, TestAttempt, Answer, Option
-)
 from rest_framework.permissions import AllowAny
-from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 import random, secrets, datetime, hmac, hashlib
@@ -36,37 +32,27 @@ class GroupListView(generics.ListAPIView):
     serializer_class = GroupSerializer
     search_fields = ["name", "kurs"]
 
-
 class GroupDetailView(generics.RetrieveAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-
-# 🔹 User
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     search_fields = ["username", "first_name", "last_name", "role"]
 
-
 class UserDetailView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-# 🔹 Category (faqat list)
 class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     search_fields = ["name"]
 
-
-# 🔹 Subject
 class SubjectListView(generics.ListAPIView):
     serializer_class = SubjectSerializer
     search_fields = ["name"]
-    permission_classes = [permissions.IsAuthenticated]
-
     def get_queryset(self):
         user = self.request.user
 
@@ -89,13 +75,11 @@ class SubjectDetailView(generics.RetrieveAPIView):
     serializer_class = SubjectSerializer
 
 
-# 🔹 Theme
 class ThemeListView(generics.ListAPIView):
     queryset = Theme.objects.all()
     serializer_class = ThemeListSerializer
     search_fields = ["name"]
     filterset_fields = ["subject__name"]
-
 
 class ThemeDetailView(generics.RetrieveAPIView):
     queryset = Theme.objects.all()
@@ -108,7 +92,7 @@ class LogoutView(APIView):
         try:
             refresh_token = request.data["refresh"]
             token = RefreshToken(refresh_token)
-            token.blacklist()  # tokenni blacklist qiladi
+            token.blacklist()
             return Response({"detail": "Logout qilindi"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"detail": "Refresh token kerak"}, status=status.HTTP_400_BAD_REQUEST)
@@ -126,8 +110,6 @@ def _expires(started_at, minutes):
     return started_at + datetime.timedelta(minutes=minutes)
 
 class AttemptStartView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
     def get(self, request, theme_id):
         q = AttemptStartQuerySerializer(data=request.query_params)
         q.is_valid(raise_exception=True)
@@ -136,9 +118,7 @@ class AttemptStartView(APIView):
         mode  = q.validated_data["mode"]
         custom_duration = q.validated_data.get("duration")
 
-        # ✅ Yangi parametr
         scope = request.query_params.get("scope", "theme")  
-        # default = "theme" (faqat bitta mavzu)
 
         theme = get_object_or_404(Theme, id=theme_id)
         test = Test.objects.filter(theme=theme).order_by("created").first()
@@ -148,7 +128,7 @@ class AttemptStartView(APIView):
                 status=404
             )
 
-        # 🔹 Oldingi active attempt ni yopamiz
+        #! Oldingi active attempt yopiladi
         active_attempt = TestAttempt.objects.filter(
             test=test, user=request.user, finished_at__isnull=True
         ).order_by("-started_at").first()
@@ -163,12 +143,9 @@ class AttemptStartView(APIView):
             )
             active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
-        # ====================== 🔥 MUHIM O'ZGARISH ======================
         if scope == "subject":
-            # Fanning barcha mavzularidagi barcha savollar
             pool = Question.objects.filter(test__theme__subject=theme.subject).prefetch_related("options")
         else:
-            # Faqat shu mavzu
             pool = Question.objects.filter(test__theme=theme).prefetch_related("options")
 
         total = pool.count()
@@ -176,7 +153,7 @@ class AttemptStartView(APIView):
             return Response({"detail": "Savollar topilmadi"}, status=400)
 
         if count == 0:
-            n = total   # hammasini olamiz
+            n = total
         else:
             n = min(count, total)
 
@@ -186,12 +163,10 @@ class AttemptStartView(APIView):
             questions = [q for q in pool if q.id in chosen_ids]
         else:
             questions = list(pool[:n])
-        # ===============================================================
 
         attempt = TestAttempt.objects.create(test=test, user=request.user, mode=mode)
         Answer.objects.bulk_create([Answer(attempt=attempt, question=qobj) for qobj in questions])
 
-        # ✅ Duration logikasi (har bir savolga 3 minut)
         if custom_duration:
             duration = custom_duration
         else:
@@ -199,7 +174,6 @@ class AttemptStartView(APIView):
 
         expires_at = _expires(attempt.started_at, duration)
 
-        # 🔹 Secret + salts
         secret = secrets.token_hex(16)
         option_salts = {str(o.id): secrets.token_hex(8) for q in questions for o in q.options.all()}
         meta = {
@@ -229,13 +203,12 @@ class AttemptStartView(APIView):
 
 
 class SubmitAnswerView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, attempt_id):
         attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)
         meta = cache.get(_cache_key(attempt_id))
         if not meta:
-            return Response({"detail": "Attempt meta topilmadi yoki muddati o‘tgan"}, status=400)
+            return Response({"detail": "Attempt meta topilmadi yoki muddati o'tgan"}, status=400)
 
         expires_at = datetime.datetime.fromisoformat(meta["expires_at"])
         if _now() >= expires_at:
@@ -247,7 +220,6 @@ class SubmitAnswerView(APIView):
         oid = str(ser.validated_data["option_id"])
         tag = ser.validated_data["tag"]
 
-        # HMAC check
         secret = meta["secret"]
         salt = meta["salts"].get(oid)
         payload_true = f"{qid}:{oid}:1:{salt}".encode()
@@ -268,7 +240,6 @@ class SubmitAnswerView(APIView):
         ans.is_correct = is_correct
         ans.save(update_fields=["selected_option", "is_correct"])
 
-        # progress
         try:
             idx = meta["order_ids"].index(qid)
             if idx + 1 > meta["current_idx"]:
@@ -306,7 +277,6 @@ class SubmitAnswerView(APIView):
 
 
 class AttemptStateView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, attempt_id):
         attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)
@@ -315,7 +285,6 @@ class AttemptStateView(APIView):
         if meta:
             expires_at = datetime.datetime.fromisoformat(meta["expires_at"])
             if _now() >= expires_at and not attempt.finished_at:
-                # ❗ Tugaganini belgilaymiz
                 attempt.finished_at = _now()
                 total = attempt.answers.count()
                 correct = attempt.answers.filter(is_correct=True).count()
@@ -345,7 +314,6 @@ class AttemptStateView(APIView):
 
 
 class AttemptFinishView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, attempt_id):
         attempt = get_object_or_404(TestAttempt, id=attempt_id, user=request.user)
@@ -390,9 +358,6 @@ class TestAttemptResultsView(APIView):
 
 
 class MyProfileView(APIView):
-    """
-    GET /me/profile
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
@@ -401,10 +366,6 @@ class MyProfileView(APIView):
 
 
 class UserProfileView(APIView):
-    """
-    GET /users/<uuid:user_id>/profile
-    """
-    permission_classes = [permissions.IsAuthenticated]  # yoki admin-only qilish mumkin
 
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
@@ -413,16 +374,11 @@ class UserProfileView(APIView):
 
 
 class UserActivityStatsView(APIView):
-    """
-    GET /users/<uuid:user_id>/activity
-    Shu userning har kuni nechta attempt qilganini qaytaradi
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
 
-        # Kun bo‘yicha guruhlash
         stats = (
             TestAttempt.objects
             .filter(user=user)
@@ -432,7 +388,6 @@ class UserActivityStatsView(APIView):
             .order_by("day")
         )
 
-        # JSON ko‘rinishga o‘tkazamiz
         data = [
             {"date": row["day"], "attempts": row["attempts"]}
             for row in stats
@@ -448,42 +403,33 @@ class UserRatingListView(ListAPIView):
     def get_queryset(self):
         filter_type = self.request.query_params.get("filter", "best_avg")
         group_id = self.request.query_params.get("group_id")
-        subject_id = self.request.query_params.get("subject_id")  # 🔥 qo‘shildi
+        subject_id = self.request.query_params.get("subject_id")
         theme_id = self.request.query_params.get("theme_id")
 
         qs = User.objects.all()
 
-        # Guruh bo‘yicha filter
         if group_id:
             qs = qs.filter(group_id=group_id)
 
-        # Fan bo‘yicha filter 🔥
         if subject_id:
             qs = qs.filter(attempts__test__theme__subject_id=subject_id)
 
-        # Mavzu bo‘yicha filter
         if theme_id:
             qs = qs.filter(attempts__test__theme_id=theme_id)
 
-        # Saralash
         if filter_type == "most_attempts":
             qs = qs.order_by("-total_attempts")
         elif filter_type == "least_attempts":
             qs = qs.order_by("total_attempts")
         elif filter_type == "worst_avg":
             qs = qs.order_by("average_score")
-        else:  # default: best_avg
+        else:
             qs = qs.order_by("-average_score")
 
         return qs.distinct()
 
 
 class SubjectStatsView(APIView):
-    """
-    GET /subjects/<uuid:subject_id>/stats?page=1&page_size=10
-    Fan bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)
-    """
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, subject_id):
         subject = get_object_or_404(Subject, id=subject_id)
@@ -493,7 +439,6 @@ class SubjectStatsView(APIView):
             finished_at__isnull=False
         )
 
-        # 🔹 Kunlik activity
         activity = (
             attempts.annotate(day=TruncDate("started_at"))
             .values("day")
@@ -501,7 +446,6 @@ class SubjectStatsView(APIView):
             .order_by("day")
         )
 
-        # 🔹 Umumiy statistika
         total_attempts = attempts.count()
         avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
         avg_duration = attempts.aggregate(avg=Avg("duration"))["avg"] or 0.0
@@ -509,14 +453,12 @@ class SubjectStatsView(APIView):
         total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
         total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
 
-        # 🔹 Top foydalanuvchilar
         top_users_qs = (
             attempts.values("user__id", "user__username")
             .annotate(avg_score=Avg("score"), attempts=Count("id"))
             .order_by("-avg_score")
         )
 
-        # 🔹 Pagination
         paginator = StandardResultsSetPagination()
         page = paginator.paginate_queryset(top_users_qs, request)
         serializer = UserStatSerializer(page, many=True)
@@ -535,11 +477,6 @@ class SubjectStatsView(APIView):
 
 
 class ThemeStatsView(APIView):
-    """
-    GET /themes/<uuid:theme_id>/stats?page=1&page_size=10
-    Mavzu bo‘yicha umumiy statistika + top foydalanuvchilar (pagination bilan)
-    """
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, theme_id):
         theme = get_object_or_404(Theme, id=theme_id)
@@ -549,7 +486,6 @@ class ThemeStatsView(APIView):
             finished_at__isnull=False
         )
 
-        # 🔹 Kunlik activity
         activity = (
             attempts.annotate(day=TruncDate("started_at"))
             .values("day")
@@ -557,7 +493,6 @@ class ThemeStatsView(APIView):
             .order_by("day")
         )
 
-        # 🔹 Umumiy statistika
         total_attempts = attempts.count()
         avg_score = attempts.aggregate(avg=Avg("score"))["avg"] or 0.0
         avg_duration = attempts.aggregate(avg=Avg("duration"))["avg"] or 0.0
@@ -565,14 +500,12 @@ class ThemeStatsView(APIView):
         total_correct = Answer.objects.filter(attempt__in=attempts, is_correct=True).count()
         total_wrong = Answer.objects.filter(attempt__in=attempts, is_correct=False).count()
 
-        # 🔹 Top foydalanuvchilar
         top_users_qs = (
             attempts.values("user__id", "user__username")
             .annotate(avg_score=Avg("score"), attempts=Count("id"))
             .order_by("-avg_score")
         )
 
-        # 🔹 Pagination
         paginator = StandardResultsSetPagination()
         page = paginator.paginate_queryset(top_users_qs, request)
         serializer = UserStatSerializer(page, many=True)
@@ -592,10 +525,6 @@ class ThemeStatsView(APIView):
 
 
 class ProfilePhotoUpdateView(APIView):
-    """
-    POST /me/profile/photo  → profil rasmini yangilash
-    DELETE /me/profile/photo → profil rasmini o‘chirish
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
@@ -616,7 +545,6 @@ class ProfilePhotoUpdateView(APIView):
     def delete(self, request):
         user = request.user
         if user.profile_photo:
-            # faylni ham o‘chirib tashlash (agar saqlangan bo‘lsa)
             user.profile_photo.delete(save=False)
             user.profile_photo = None
             user.save(update_fields=["profile_photo"])
@@ -625,11 +553,6 @@ class ProfilePhotoUpdateView(APIView):
 
 
 class ThemeStatsView(APIView):
-    """
-    GET /themes/<uuid:theme_id>/stats
-    Mavzu bo‘yicha umumiy statistika
-    """
-    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, theme_id):
         theme = get_object_or_404(Theme, id=theme_id)
@@ -667,13 +590,7 @@ class ThemeStatsView(APIView):
 
 
 class ThemeTopUsersView(ListAPIView):
-    """
-    GET /themes/<uuid:theme_id>/top-users?page=1&page_size=10
-    Har bir foydalanuvchining shu mavzudagi ENG YAXSHI attempti bo'yicha top-list (pagination)
-    Reyting: ko'p to'g'ri -> qisqa vaqt -> baland score
-    """
     serializer_class = TopAttemptSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         theme = get_object_or_404(Theme, id=self.kwargs["theme_id"])
@@ -702,7 +619,6 @@ class ThemeTopUsersView(ListAPIView):
             )
         )
 
-        # Faqat eng yaxshilar va umumiy reyting tartibi
         return (
             ranked.filter(rn=1)
             .order_by("-correct_count", "duration", "-score", "finished_at")
@@ -716,9 +632,6 @@ class CreateSubject(CreateAPIView):
     queryset = Subject.objects.all()
     serializer_class = CreateSubjectSerializer
     
-    
-    
-# Top list
 
 class GroupThemesView(ListAPIView):
     serializer_class = ThemeBasicInfoSerializer

@@ -12,7 +12,6 @@ def notify_new_theme(sender, instance, created, **kwargs):
     subject = instance.subject
     groups = subject.groups.all()
 
-    # Guruh talabalari va authorlari
     students = User.objects.filter(group__in=groups, role="student")
     authors = User.objects.filter(group__in=groups, role="teacher")
 
@@ -34,7 +33,6 @@ def notify_new_test(sender, instance, created, **kwargs):
     subject = instance.theme.subject
     groups = subject.groups.all()
 
-    # Guruh talabalari va authorlari
     students = User.objects.filter(group__in=groups, role="student")
     authors = User.objects.filter(group__in=groups, role="teacher")
 
@@ -44,5 +42,5 @@ def notify_new_test(sender, instance, created, **kwargs):
     send_push_to_users.delay(
         user_ids,
         "Yangi test",
-        f"'{instance.name}' testi '{instance.theme.name}' mavzusiga qo‘shildi!"
+        f"'{instance.name}' testi '{instance.theme.name}' mavzusiga qo'shildi!"
     )
