@@ -6,7 +6,10 @@ __pycache__/
 
 # C extensions
 *.so
-
+imports/
+options
+profile_photo
+questions
 # Distribution / packaging
 .Python
 build/
@@ -52,6 +55,7 @@ coverage.xml
 
 # Django stuff:
 staticfiles/
+test_imports/
 
 # Sphinx documentation
 docs/_build/

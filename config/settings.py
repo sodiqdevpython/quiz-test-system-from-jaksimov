@@ -124,7 +124,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://test-platform.surge.sh",
     "https://test-platform.surge.sh/"
     "http://192.168.1.133:5173/",
-"https://oydinov.uz", "https://afu-test.netlify.app", "https://afu-test.vercell.app"
+    "https://oydinov.uz",
+    "https://afu-test.netlify.app",
+    "https://afu-test.vercell.app"
 ]
 
 

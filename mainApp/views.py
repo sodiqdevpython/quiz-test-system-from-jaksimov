@@ -119,6 +119,7 @@ class AttemptStartView(APIView):
         custom_duration = q.validated_data.get("duration")
 
         scope = request.query_params.get("scope", "theme")  
+        case = request.query_params.get("case")  # yangi parametr
 
         theme = get_object_or_404(Theme, id=theme_id)
         test = Test.objects.filter(theme=theme).order_by("created").first()
@@ -143,10 +144,16 @@ class AttemptStartView(APIView):
             )
             active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
+        #! Savollarni olish qismi
         if scope == "subject":
-            pool = Question.objects.filter(test__theme__subject=theme.subject).prefetch_related("options")
+            pool = Question.objects.filter(test__theme__subject=theme.subject)
         else:
-            pool = Question.objects.filter(test__theme=theme).prefetch_related("options")
+            pool = Question.objects.filter(test__theme=theme)
+
+        if case == "underscore4":
+            pool = pool.filter(text__contains="____")
+
+        pool = pool.prefetch_related("options")
 
         total = pool.count()
         if total == 0:
@@ -200,7 +207,6 @@ class AttemptStartView(APIView):
         }
         ser = AttemptStartResponseSerializer(resp, context=ctx)
         return Response(ser.data, status=201)
-
 
 class SubmitAnswerView(APIView):
 
