@@ -1,9 +1,11 @@
 services:
   web:
     build: .
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=4 --timeout=120
+    command: sh -c "python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers=2 --threads=2 --timeout=120"
     volumes:
       - .:/app
+      - ./static:/app/static
+      - ./media:/app/media
     ports:
       - "8000:8000"
     depends_on:
@@ -18,7 +20,7 @@ services:
       POSTGRES_USER: quizuser
       POSTGRES_PASSWORD: sodiq2005.py
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -29,12 +31,14 @@ services:
 
   celery:
     build: .
-    command: celery -A config worker -l info
+    command: celery -A config worker -l info --concurrency=1 -P solo
     volumes:
       - .:/app
+      - ./media:/app/media
     depends_on:
       - db
       - redis
 
 volumes:
   pgdata:
+  static_volume:

@@ -1,3 +1,4 @@
+import os, time
 from django.core.mail import send_mail
 from django.conf import settings
 from celery import shared_task
@@ -28,6 +29,13 @@ def process_student_import(import_id):
         student_import = StudentImport.objects.get(id=import_id)
     except StudentImport.DoesNotExist:
         return "Import topilmadi"
+
+    for _ in range(5):
+        if os.path.exists(student_import.file.path):
+            break
+        time.sleep(1)
+    if not os.path.exists(student_import.file.path):
+        return "Fayl topilmadi"
 
     df = pd.read_excel(student_import.file.path)
     count = 0
