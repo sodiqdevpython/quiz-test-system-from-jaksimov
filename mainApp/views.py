@@ -13,7 +13,7 @@ from .serializers import (
     CustomTokenObtainPairSerializer, GroupSerializer, UserSerializer, AttemptStartQuerySerializer, AttemptStartResponseSerializer,AttemptStateSerializer,
     CategorySerializer, SubjectSerializer, ThemeSerializer, ThemeListSerializer, SubmitAnswerWithTagSerializer,SubjectBasicSerializer,
     AttemptFinishResponseSerializer, AttemptResultSerializer, UserProfileSerializer, UserRatingSerializer, UserStatSerializer,
-    ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer, ThemeBasicInfoSerializer
+    ProfilePhotoUpdateSerializer, TopAttemptSerializer, CreateSubjectSerializer, ThemeBasicInfoSerializer, QuestionCreateSerializer
 )
 from django.db.models.functions import TruncDate
 from rest_framework.permissions import AllowAny
@@ -654,3 +654,20 @@ class GroupSubjectsView(ListAPIView):
     def get_queryset(self):
         group_id = self.kwargs["group_id"]
         return Subject.objects.filter(groups__id=group_id)
+
+
+class QuestionCreateView(APIView):
+    def post(self, request):
+        serializer = QuestionCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            question = serializer.save()
+            return Response(
+                {
+                    "status": 201,
+                    "message": "Savol muvaffaqiyatli yaratildi",
+                    "data": QuestionCreateSerializer(question).data
+                },
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
