@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["oydinov.uz", "www.oydinov.uz", "188.191.147.137", "afu-test.vercel.app", "localhost"]
-CSRF_TRUSTED_ORIGINS = ["https://oydinov.uz", "https://www.oydinov.uz", "https://test-platform-ten.vercel.app", "https://oydinov.uz/swagger/", "http://localhost:8000"]
+ALLOWED_HOSTS = ["oydinov.uz", "www.oydinov.uz", "188.191.147.137", "afu-test.vercel.app", "localhost", "api.oydinov.uz"]
+CSRF_TRUSTED_ORIGINS = ["https://oydinov.uz", "https://www.oydinov.uz", "https://test-platform-ten.vercel.app", "https://oydinov.uz/swagger/", "http://localhost:8000", "https://api.oydinov.uz"]
 
 # Application definition
 
