@@ -226,6 +226,38 @@
         "documentation": {}
     },
     {
+        "label": "handler404",
+        "importPath": "django.conf.urls",
+        "description": "django.conf.urls",
+        "isExtraImport": true,
+        "detail": "django.conf.urls",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "HttpResponse",
         "importPath": "django.http",
         "description": "django.http",
@@ -1357,22 +1389,6 @@
         "documentation": {}
     },
     {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
         "label": "random,",
         "kind": 6,
         "isExtraImport": true,
@@ -1478,7 +1494,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"oydinov.uz\", \"www.oydinov.uz\", \"188.191.147.137\", \"afu-test.vercel.app\", \"localhost\"]\nCSRF_TRUSTED_ORIGINS = [\"https://oydinov.uz\", \"https://www.oydinov.uz\", \"https://test-platform-ten.vercel.app\", \"https://oydinov.uz/swagger/\", \"http://localhost:8000\"]\n# Application definition",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1487,7 +1503,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = False\nALLOWED_HOSTS = [\"oydinov.uz\", \"www.oydinov.uz\", \"188.191.147.137\", \"afu-test.vercel.app\", \"localhost\"]\nCSRF_TRUSTED_ORIGINS = [\"https://oydinov.uz\", \"https://www.oydinov.uz\", \"https://test-platform-ten.vercel.app\", \"https://oydinov.uz/swagger/\", \"http://localhost:8000\"]\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1496,7 +1512,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "peekOfCode": "DEBUG = False\nALLOWED_HOSTS = [\"oydinov.uz\", \"www.oydinov.uz\", \"188.191.147.137\", \"afu-test.vercel.app\", \"localhost\"]\nCSRF_TRUSTED_ORIGINS = [\"https://oydinov.uz\", \"https://www.oydinov.uz\", \"https://test-platform-ten.vercel.app\", \"https://oydinov.uz/swagger/\", \"http://localhost:8000\"]\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1505,7 +1521,16 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "ALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'corsheaders',",
+        "peekOfCode": "ALLOWED_HOSTS = [\"oydinov.uz\", \"www.oydinov.uz\", \"188.191.147.137\", \"afu-test.vercel.app\", \"localhost\"]\nCSRF_TRUSTED_ORIGINS = [\"https://oydinov.uz\", \"https://www.oydinov.uz\", \"https://test-platform-ten.vercel.app\", \"https://oydinov.uz/swagger/\", \"http://localhost:8000\"]\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "detail": "config.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CSRF_TRUSTED_ORIGINS",
+        "kind": 5,
+        "importPath": "config.settings",
+        "description": "config.settings",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\"https://oydinov.uz\", \"https://www.oydinov.uz\", \"https://test-platform-ten.vercel.app\", \"https://oydinov.uz/swagger/\", \"http://localhost:8000\"]\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'corsheaders',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1568,16 +1593,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\nCSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh/\"",
-        "detail": "config.settings",
-        "documentation": {}
-    },
-    {
-        "label": "CSRF_TRUSTED_ORIGINS",
-        "kind": 5,
-        "importPath": "config.settings",
-        "description": "config.settings",
-        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    \"https://*.ngrok-free.app\",   # istalgan ngrok subdomain\n    \"http://82.27.177.165\",       # server IP\n    \"http://localhost:8000\",      # local dev\n    \"http://127.0.0.1:8000\",       # local dev\n    \"http://127.0.0.1:5173\",\n    \"http://localhost:5173/\",\n    \"http://test-platform.surge.sh\",\n    \"https://test-platform.surge.sh/\"\n    \"http://192.168.1.133:5173/\"",
+        "peekOfCode": "WSGI_APPLICATION = 'config.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/5.2/ref/settings/#databases\nDATABASES = {\n    \"default\": {\n        \"ENGINE\": \"django.db.backends.postgresql\",\n        \"NAME\": \"quizdb\",\n        \"USER\": \"quizuser\",\n        \"PASSWORD\": \"sodiq2005.py\",\n        \"HOST\": \"db\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1658,7 +1674,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1667,7 +1683,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",",
+        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1676,7 +1692,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",",
+        "peekOfCode": "MEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1685,7 +1701,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1694,7 +1710,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n#     \"http://test-platform.surge.sh\",",
+        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1703,7 +1719,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n#     \"http://test-platform.surge.sh\",\n#     \"https://test-platform.surge.sh\"",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1712,7 +1728,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\n# CORS_ALLOWED_ORIGINS = [\n#     \"http://localhost:3000\",\n#     \"http://127.0.0.1:3000\",\n#     \"https://myfrontend.com\",\n#     \"http://localhost:5173\",\n#     \"http://192.168.1.132:5173\",\n#     \"http://test-platform.surge.sh\",\n#     \"https://test-platform.surge.sh\"\n#     \"http://192.168.1.133:5173\"",
+        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,\n    \"AUTH_HEADER_TYPES\": (\"Bearer\",),",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1816,11 +1832,20 @@
         "documentation": {}
     },
     {
+        "label": "custom_404",
+        "kind": 2,
+        "importPath": "config.urls",
+        "description": "config.urls",
+        "peekOfCode": "def custom_404(request, exception):\n    return render(request, '404.html', status=404)\nschema_view = get_schema_view(\n   openapi.Info(\n      title=\"Test\",\n      default_version='v1',\n      description=\"Test description\",\n      terms_of_service=\"sodiqdev.netlify.app\",\n      contact=openapi.Contact(email=\"sodiqdevpython@gmail.com\"),\n      license=openapi.License(name=\"BSD License\"),",
+        "detail": "config.urls",
+        "documentation": {}
+    },
+    {
         "label": "service_worker",
         "kind": 2,
         "importPath": "config.urls",
         "description": "config.urls",
-        "peekOfCode": "def service_worker(request):\n    sw_path = Path(settings.BASE_DIR) / \"static\" / \"sw.js\"\n    content = sw_path.read_text(encoding=\"utf-8\")\n    return HttpResponse(content, content_type=\"application/javascript\")\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),",
+        "peekOfCode": "def service_worker(request):\n    sw_path = Path(settings.BASE_DIR) / \"static\" / \"sw.js\"\n    content = sw_path.read_text(encoding=\"utf-8\")\n    return HttpResponse(content, content_type=\"application/javascript\")\nhandler404 = custom_404\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),",
         "detail": "config.urls",
         "documentation": {}
     },
@@ -1830,6 +1855,15 @@
         "importPath": "config.urls",
         "description": "config.urls",
         "peekOfCode": "schema_view = get_schema_view(\n   openapi.Info(\n      title=\"Test\",\n      default_version='v1',\n      description=\"Test description\",\n      terms_of_service=\"sodiqdev.netlify.app\",\n      contact=openapi.Contact(email=\"sodiqdevpython@gmail.com\"),\n      license=openapi.License(name=\"BSD License\"),\n   ),\n   public=True,",
+        "detail": "config.urls",
+        "documentation": {}
+    },
+    {
+        "label": "handler404",
+        "kind": 5,
+        "importPath": "config.urls",
+        "description": "config.urls",
+        "peekOfCode": "handler404 = custom_404\nurlpatterns = [\n    path('admin/', admin.site.urls),\n    path(\"sw.js\", service_worker),\n\tpath('', include('mainApp.urls')),\n    path('', include('notifications.urls')),\n    path('statistics/', include('statistic.urls')),\n    path('auth/', include('customAuth.urls')),\n    path(\"ckeditor/\", include(\"ckeditor_uploader.urls\")),\n\tpath('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),",
         "detail": "config.urls",
         "documentation": {}
     },

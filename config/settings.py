@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ge#zoy!4dh2+tosxq6myd1e7d8!&n4f*90kj+hw1+_fs!k&msv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ["oydinov.uz", "www.oydinov.uz", "188.191.147.137", "afu-test.vercel.app", "localhost"]
+CSRF_TRUSTED_ORIGINS = ["https://oydinov.uz", "https://www.oydinov.uz", "https://test-platform-ten.vercel.app", "https://oydinov.uz/swagger/", "http://localhost:8000"]
 
 # Application definition
 
@@ -113,18 +113,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.ngrok-free.app",   # istalgan ngrok subdomain
-    "http://82.27.177.165",       # server IP
-    "http://localhost:8000",      # local dev
-    "http://127.0.0.1:8000",       # local dev
-    "http://127.0.0.1:5173",
-    "http://localhost:5173/",
-    "http://test-platform.surge.sh",
-    "https://test-platform.surge.sh/"
-    "http://192.168.1.133:5173/"
-]
-
 
 
 # Database
@@ -195,16 +183,6 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-#     "https://myfrontend.com",
-#     "http://localhost:5173",
-#     "http://192.168.1.132:5173",
-#     "http://test-platform.surge.sh",
-#     "https://test-platform.surge.sh"
-#     "http://192.168.1.133:5173"
-# ]
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
 SIMPLE_JWT = {

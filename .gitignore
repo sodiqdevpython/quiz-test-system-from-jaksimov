@@ -11,3 +11,4 @@ public.pem
 .vscode
 serviceAccount.json
 imports
+staticfiles

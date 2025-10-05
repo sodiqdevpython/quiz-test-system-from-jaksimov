@@ -4,6 +4,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.conf.urls import handler404
+from django.shortcuts import render
+
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
 from pathlib import Path
@@ -11,6 +14,9 @@ from pathlib import Path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -31,6 +37,7 @@ def service_worker(request):
     content = sw_path.read_text(encoding="utf-8")
     return HttpResponse(content, content_type="application/javascript")
 
+handler404 = custom_404
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,5 +54,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-	urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-	urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_URL)
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
