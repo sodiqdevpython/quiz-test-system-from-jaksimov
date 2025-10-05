@@ -1566,7 +1566,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MIDDLEWARE = [\n    'corsheaders.middleware.CorsMiddleware',\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]",
+        "peekOfCode": "MIDDLEWARE = [\n    'corsheaders.middleware.CorsMiddleware',\n    'django.middleware.security.SecurityMiddleware',\n    'whitenoise.middleware.WhiteNoiseMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1620,7 +1620,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'uz'\nTIME_ZONE = 'Asia/Tashkent'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'",
+        "peekOfCode": "LANGUAGE_CODE = 'uz'\nTIME_ZONE = 'Asia/Tashkent'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1629,7 +1629,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "TIME_ZONE = 'Asia/Tashkent'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'",
+        "peekOfCode": "TIME_ZONE = 'Asia/Tashkent'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1638,7 +1638,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1647,7 +1647,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.2/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1656,7 +1656,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True",
+        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1665,7 +1665,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True",
+        "peekOfCode": "STATICFILES_DIRS = [ BASE_DIR / 'static' ]\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1674,7 +1674,16 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\nSTATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True",
+        "detail": "config.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATICFILES_STORAGE",
+        "kind": 5,
+        "importPath": "config.settings",
+        "description": "config.settings",
+        "peekOfCode": "STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_FILES_DIRS = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },
