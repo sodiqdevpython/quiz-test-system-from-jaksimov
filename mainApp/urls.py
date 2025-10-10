@@ -10,7 +10,8 @@ from .views import (
     AttemptStateView, TestAttemptResultsView, MyProfileView,
     UserProfileView, UserActivityStatsView, UserRatingListView,
     ThemeStatsView, SubjectStatsView, ProfilePhotoUpdateView,
-    ThemeStatsView, CreateTheme, CreateSubject, GroupThemesView
+    ThemeStatsView, CreateTheme, CreateSubject, GroupThemesView,
+    QuestionCreateView
 )
 
 
@@ -62,4 +63,6 @@ urlpatterns = [
     
     path("groups/<uuid:group_id>/themes/", GroupThemesView.as_view(), name="group-themes"),
     path("groups/<uuid:group_id>/subjects/", GroupSubjectsView.as_view(), name="group-subjects"),
+    
+    path("questions/create/", QuestionCreateView.as_view(), name="question-create"),
 ]

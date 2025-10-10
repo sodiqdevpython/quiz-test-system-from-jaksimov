@@ -452,3 +452,22 @@ class ThemeBasicInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theme
         fields = ['id', 'name']
+        
+class OptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Option
+        fields = ["text", "image", "is_correct"]
+
+class QuestionCreateSerializer(serializers.ModelSerializer):
+    options = OptionSerializer(many=True, required=True)
+
+    class Meta:
+        model = Question
+        fields = ["test", "text", "image", "options"]
+
+    def create(self, validated_data):
+        options_data = validated_data.pop("options")
+        question = Question.objects.create(**validated_data)
+        for opt in options_data:
+            Option.objects.create(question=question, **opt)
+        return question
