@@ -120,7 +120,6 @@ class AttemptStartView(APIView):
 
         a = q.validated_data.get("a")
         b = q.validated_data.get("b")
-
         scope = request.query_params.get("scope", "theme")
 
         theme = get_object_or_404(Theme, id=theme_id)
@@ -146,19 +145,17 @@ class AttemptStartView(APIView):
             )
             active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
+        # Savollarni olish
         if scope == "subject":
-            pool = Question.objects.filter(
-                test__theme__subject=theme.subject
-            ).order_by("created").prefetch_related("options")
+            pool = Question.objects.filter(test__theme__subject=theme.subject).order_by("created").prefetch_related("options")
         else:
-            pool = Question.objects.filter(
-                test__theme=theme
-            ).order_by("created").prefetch_related("options")
+            pool = Question.objects.filter(test__theme=theme).order_by("created").prefetch_related("options")
 
         total = pool.count()
         if total == 0:
             return Response({"detail": "Savollar topilmadi"}, status=400)
 
+        # --- NEW: diapazon logikasi ---
         use_range = (a is not None and b is not None)
         if use_range:
             if a < 1:
@@ -167,24 +164,22 @@ class AttemptStartView(APIView):
                 return Response({"detail": "b a dan katta bo‘lishi kerak"}, status=400)
             if (b - a) < 5:
                 return Response({"detail": "b - a kamida 5 bo‘lishi kerak"}, status=400)
-
             if a > total:
                 return Response({"detail": f"a jami ({total}) dan katta. Mavjud diapazonga moslang."}, status=400)
-            b = min(b, total)
 
+            b = min(b, total)
             start_idx = a - 1
             end_idx = b
             slice_qs = list(pool[start_idx:end_idx])
 
-            if not slice_qs:
-                return Response({"detail": "Diapazonda savollar topilmadi"}, status=400)
-
+            # 👇 Faqat shu joy o‘zgardi
             if order == "random":
                 import random
-                random.shuffle(slice_qs)
+                random.shuffle(slice_qs)  # faqat aralashtiradi, kamaytirmaydi
 
             questions = slice_qs
         else:
+            # Eski count/order logikasi
             if count in (None, 0):
                 n = total
             else:
@@ -203,10 +198,10 @@ class AttemptStartView(APIView):
         attempt = TestAttempt.objects.create(test=test, user=request.user, mode=mode)
         Answer.objects.bulk_create([Answer(attempt=attempt, question=qobj) for qobj in questions])
 
-        # Duration
         duration = custom_duration if custom_duration else len(questions) * 2
         expires_at = _expires(attempt.started_at, duration)
 
+        import secrets
         secret = secrets.token_hex(16)
         option_salts = {str(o.id): secrets.token_hex(8) for q in questions for o in q.options.all()}
         meta = {
