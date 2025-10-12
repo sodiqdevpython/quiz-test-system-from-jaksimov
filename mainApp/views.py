@@ -19,7 +19,7 @@ from django.db.models.functions import TruncDate
 from rest_framework.permissions import AllowAny
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-import random, secrets, datetime, hmac, hashlib
+import secrets, datetime, hmac, hashlib
 from rest_framework import generics
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -113,12 +113,15 @@ class AttemptStartView(APIView):
     def get(self, request, theme_id):
         q = AttemptStartQuerySerializer(data=request.query_params)
         q.is_valid(raise_exception=True)
-        count = q.validated_data["count"]
+        count = q.validated_data.get("count")
         order = q.validated_data["order"]
         mode  = q.validated_data["mode"]
         custom_duration = q.validated_data.get("duration")
 
-        scope = request.query_params.get("scope", "theme")  
+        a = q.validated_data.get("a")
+        b = q.validated_data.get("b")
+
+        scope = request.query_params.get("scope", "theme")
 
         theme = get_object_or_404(Theme, id=theme_id)
         test = Test.objects.filter(theme=theme).order_by("created").first()
@@ -135,43 +138,73 @@ class AttemptStartView(APIView):
 
         if active_attempt:
             active_attempt.finished_at = _now()
-            total = active_attempt.answers.count()
+            total_ans = active_attempt.answers.count()
             correct = active_attempt.answers.filter(is_correct=True).count()
-            active_attempt.score = round((correct / total) * 100, 2) if total else 0.0
+            active_attempt.score = round((correct / total_ans) * 100, 2) if total_ans else 0.0
             active_attempt.duration = int(
                 (active_attempt.finished_at - active_attempt.started_at).total_seconds() // 60
             )
             active_attempt.save(update_fields=["finished_at", "score", "duration"])
 
         if scope == "subject":
-            pool = Question.objects.filter(test__theme__subject=theme.subject).prefetch_related("options")
+            pool = Question.objects.filter(
+                test__theme__subject=theme.subject
+            ).order_by("created").prefetch_related("options")
         else:
-            pool = Question.objects.filter(test__theme=theme).prefetch_related("options")
+            pool = Question.objects.filter(
+                test__theme=theme
+            ).order_by("created").prefetch_related("options")
 
         total = pool.count()
         if total == 0:
             return Response({"detail": "Savollar topilmadi"}, status=400)
 
-        if count == 0:
-            n = total
-        else:
-            n = min(count, total)
+        use_range = (a is not None and b is not None)
+        if use_range:
+            if a < 1:
+                return Response({"detail": "a kamida 1 bo‘lishi kerak"}, status=400)
+            if b <= a:
+                return Response({"detail": "b a dan katta bo‘lishi kerak"}, status=400)
+            if (b - a) < 5:
+                return Response({"detail": "b - a kamida 5 bo‘lishi kerak"}, status=400)
 
-        if order == "random":
-            ids = list(pool.values_list("id", flat=True))
-            chosen_ids = set(random.sample(ids, n))
-            questions = [q for q in pool if q.id in chosen_ids]
-        else:
-            questions = list(pool[:n])
+            if a > total:
+                return Response({"detail": f"a jami ({total}) dan katta. Mavjud diapazonga moslang."}, status=400)
+            b = min(b, total)
 
+            start_idx = a - 1
+            end_idx = b
+            slice_qs = list(pool[start_idx:end_idx])
+
+            if not slice_qs:
+                return Response({"detail": "Diapazonda savollar topilmadi"}, status=400)
+
+            if order == "random":
+                import random
+                random.shuffle(slice_qs)
+
+            questions = slice_qs
+        else:
+            if count in (None, 0):
+                n = total
+            else:
+                n = min(count, total)
+
+            if order == "random":
+                import random
+                ids = list(pool.values_list("id", flat=True))
+                chosen_ids = set(random.sample(ids, n))
+                questions = list(pool.filter(id__in=chosen_ids))
+                random.shuffle(questions)
+            else:
+                questions = list(pool[:n])
+
+        # Attempt yaratish
         attempt = TestAttempt.objects.create(test=test, user=request.user, mode=mode)
         Answer.objects.bulk_create([Answer(attempt=attempt, question=qobj) for qobj in questions])
 
-        if custom_duration:
-            duration = custom_duration
-        else:
-            duration = len(questions) * 2
-
+        # Duration
+        duration = custom_duration if custom_duration else len(questions) * 2
         expires_at = _expires(attempt.started_at, duration)
 
         secret = secrets.token_hex(16)

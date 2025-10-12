@@ -111,11 +111,21 @@ class AttemptStartQuerySerializer(serializers.Serializer):
     order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)
     mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)
     duration = serializers.IntegerField(required=False, min_value=1, max_value=240)
+    
+    a = serializers.IntegerField(required=False)
+    b = serializers.IntegerField(required=False)
 
     def validate_count(self, v):
         if v not in ALLOWED_COUNTS:
             raise serializers.ValidationError(f"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak")
         return v
+    
+    def validate(self, attrs):
+        a = attrs.get("a")
+        b = attrs.get("b")
+        if (a is None) ^ (b is None):
+            raise serializers.ValidationError("a va b birga yuborilishi kerak")
+        return attrs
 
 
 class AttemptOptionOutSerializer(serializers.ModelSerializer):

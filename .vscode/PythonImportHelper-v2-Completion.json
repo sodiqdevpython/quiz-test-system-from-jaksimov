@@ -1398,12 +1398,12 @@
         "documentation": {}
     },
     {
-        "label": "random,",
+        "label": "secrets,",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "random.",
-        "description": "random.",
-        "detail": "random.",
+        "importPath": "secrets.",
+        "description": "secrets.",
+        "detail": "secrets.",
         "documentation": {}
     },
     {
@@ -1692,7 +1692,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
+        "peekOfCode": "STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'\nMEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1701,7 +1701,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {",
+        "peekOfCode": "MEDIA_URL = 'media/'\nMEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1710,7 +1710,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "MEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish",
+        "peekOfCode": "MEDIA_ROOT = BASE_DIR / 'media'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1719,7 +1719,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nAUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1728,7 +1728,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",",
+        "peekOfCode": "AUTH_USER_MODEL = 'mainApp.User'\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1737,7 +1737,7 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -1746,7 +1746,25 @@
         "kind": 5,
         "importPath": "config.settings",
         "description": "config.settings",
-        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,\n    \"AUTH_HEADER_TYPES\": (\"Bearer\",),",
+        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\nDATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",",
+        "detail": "config.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_UPLOAD_MAX_MEMORY_SIZE",
+        "kind": 5,
+        "importPath": "config.settings",
+        "description": "config.settings",
+        "peekOfCode": "DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nFILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,",
+        "detail": "config.settings",
+        "documentation": {}
+    },
+    {
+        "label": "FILE_UPLOAD_MAX_MEMORY_SIZE",
+        "kind": 5,
+        "importPath": "config.settings",
+        "description": "config.settings",
+        "peekOfCode": "FILE_UPLOAD_MAX_MEMORY_SIZE = 104857600 #! 50 MB\nCKEDITOR_UPLOAD_PATH = \"uploads/\"\nSIMPLE_JWT = {\n    \"ACCESS_TOKEN_LIFETIME\": timedelta(days=1),  # Access tokenni 1 kunga qisqartirish\n    \"REFRESH_TOKEN_LIFETIME\": timedelta(days=30),  # Refresh tokenni 30 kun\n    \"ROTATE_REFRESH_TOKENS\": True,  # Xavfsizlik uchun refresh tokenni aylantirish\n    \"BLACKLIST_AFTER_ROTATION\": True,  # Eski refresh tokenlarni qora ro‘yxatga qo‘shish\n    \"ALGORITHM\": \"HS256\",\n    \"SIGNING_KEY\": SECRET_KEY,\n    \"AUTH_HEADER_TYPES\": (\"Bearer\",),",
         "detail": "config.settings",
         "documentation": {}
     },
@@ -2556,7 +2574,7 @@
         "kind": 6,
         "importPath": "mainApp.serializers",
         "description": "mainApp.serializers",
-        "peekOfCode": "class AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)\n    mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)\n    duration = serializers.IntegerField(required=False, min_value=1, max_value=240)\n    def validate_count(self, v):\n        if v not in ALLOWED_COUNTS:\n            raise serializers.ValidationError(f\"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak\")\n        return v\nclass AttemptOptionOutSerializer(serializers.ModelSerializer):",
+        "peekOfCode": "class AttemptStartQuerySerializer(serializers.Serializer):\n    count = serializers.IntegerField(required=True)\n    order = serializers.ChoiceField(choices=('random', 'sequential'), required=True)\n    mode  = serializers.ChoiceField(choices=('sequential', 'all_in_one'), required=True)\n    duration = serializers.IntegerField(required=False, min_value=1, max_value=240)\n    a = serializers.IntegerField(required=False)\n    b = serializers.IntegerField(required=False)\n    def validate_count(self, v):\n        if v not in ALLOWED_COUNTS:\n            raise serializers.ValidationError(f\"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak\")",
         "detail": "mainApp.serializers",
         "documentation": {}
     },
@@ -2925,7 +2943,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class AttemptStartView(APIView):\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data[\"count\"]\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        scope = request.query_params.get(\"scope\", \"theme\")  \n        theme = get_object_or_404(Theme, id=theme_id)",
+        "peekOfCode": "class AttemptStartView(APIView):\n    def get(self, request, theme_id):\n        q = AttemptStartQuerySerializer(data=request.query_params)\n        q.is_valid(raise_exception=True)\n        count = q.validated_data.get(\"count\")\n        order = q.validated_data[\"order\"]\n        mode  = q.validated_data[\"mode\"]\n        custom_duration = q.validated_data.get(\"duration\")\n        a = q.validated_data.get(\"a\")\n        b = q.validated_data.get(\"b\")",
         "detail": "mainApp.views",
         "documentation": {}
     },
