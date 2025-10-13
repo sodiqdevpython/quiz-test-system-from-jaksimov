@@ -96,9 +96,6 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = "__all__"
 
-
-ALLOWED_COUNTS = (5, 10, 20, 25, 30, 0)
-
 def _abs_url(request, f):
     if not f:
         return None
@@ -114,11 +111,6 @@ class AttemptStartQuerySerializer(serializers.Serializer):
     
     a = serializers.IntegerField(required=False)
     b = serializers.IntegerField(required=False)
-
-    def validate_count(self, v):
-        if v not in ALLOWED_COUNTS:
-            raise serializers.ValidationError(f"count {ALLOWED_COUNTS} dan biri bo‘lishi kerak")
-        return v
     
     def validate(self, attrs):
         a = attrs.get("a")
