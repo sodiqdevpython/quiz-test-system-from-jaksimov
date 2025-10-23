@@ -1,4 +1,6 @@
 import docx
+import base64
+from typing import List, Dict, Any, Optional, Tuple
 
 DOCX_AVAILABLE = True
 
@@ -50,6 +52,14 @@ class WordTestReader:
                 cells = row.cells
 
                 if len(cells) >= 5:
+                    # ID ni olish
+                    id_cell = cells[0]
+                    id_text = self._extract_cell_text(id_cell).strip()
+                    
+                    if not id_text:
+                        print("  ID bo'sh - qator tashlandi")
+                        continue
+
                     # Har bitta katakdan rasm bilan text ni ajratib oldin
                     question_cell = cells[1]
                     option_a_cell = cells[2]
@@ -58,45 +68,78 @@ class WordTestReader:
                     option_d_cell = cells[5] if len(cells) > 5 else None
 
                     # Savolga matn bilan rasmnni olganim
-                    question_text, question_image = self._extract_text_and_image(question_cell, "Savol")
-                    if not question_text:
+                    question_text, question_images = self._extract_text_and_images(question_cell, "Savol")
+                    
+                    # Agar savolda na matn na rasm bo'lsa, tashlab ketamiz
+                    if not question_text and not question_images:
+                        print("  Savol katagi butunlay bo'sh - qator tashlandi")
                         continue
 
                     # A variant
-                    option_a_text, option_a_image = self._extract_text_and_image(option_a_cell, "A")
+                    option_a_text, option_a_images = self._extract_text_and_images(option_a_cell, "A")
                     # B variant
-                    option_b_text, option_b_image = self._extract_text_and_image(option_b_cell, "B")
+                    option_b_text, option_b_images = self._extract_text_and_images(option_b_cell, "B")
                     # C variant
-                    option_c_text, option_c_image = self._extract_text_and_image(option_c_cell, "C")
+                    option_c_text, option_c_images = self._extract_text_and_images(option_c_cell, "C")
                     # D variant
-                    option_d_text, option_d_image = None, None
+                    option_d_text, option_d_images = "", []
                     if option_d_cell:
-                        option_d_text, option_d_image = self._extract_text_and_image(option_d_cell, "D")
+                        option_d_text, option_d_images = self._extract_text_and_images(option_d_cell, "D")
+
+                    # Variantlardan kamida bittasida kontent bo'lishi kerak
+                    has_valid_options = any([
+                        option_a_text or option_a_images,
+                        option_b_text or option_b_images, 
+                        option_c_text or option_c_images,
+                        option_d_text or option_d_images
+                    ])
+                    
+                    if not has_valid_options:
+                        print("  Barcha variantlar bo'sh - qator tashlandi")
+                        continue
 
                     question = {
-                        'id': cells[0].text.strip(),
-                        'text': question_text,
-                        'image_data': question_image,
+                        'id': id_text,
+                        'text': question_text or '',
+                        'images': question_images,
+                        'image_data': question_images[0] if question_images else None,  # backward compatibility
                         'options': [
-                            {'text': option_a_text or '', 'is_correct': True, 'image_data': option_a_image},
-                            {'text': option_b_text or '', 'is_correct': False, 'image_data': option_b_image},
-                            {'text': option_c_text or '', 'is_correct': False, 'image_data': option_c_image},
-                            {'text': option_d_text or '', 'is_correct': False, 'image_data': option_d_image}
+                            {
+                                'text': option_a_text or '', 
+                                'is_correct': True, 
+                                'images': option_a_images,
+                                'image_data': option_a_images[0] if option_a_images else None
+                            },
+                            {
+                                'text': option_b_text or '', 
+                                'is_correct': False, 
+                                'images': option_b_images,
+                                'image_data': option_b_images[0] if option_b_images else None
+                            },
+                            {
+                                'text': option_c_text or '', 
+                                'is_correct': False, 
+                                'images': option_c_images,
+                                'image_data': option_c_images[0] if option_c_images else None
+                            },
+                            {
+                                'text': option_d_text or '', 
+                                'is_correct': False, 
+                                'images': option_d_images,
+                                'image_data': option_d_images[0] if option_d_images else None
+                            }
                         ]
                     }
                     questions.append(question)
 
-                    # Debug agar xato chiqsa o'qishimga o'zimga
-                    print(f"Savol yaratildi: '{question_text[:50]}...'")
-                    if question_image:
-                        print(f"Savolda rasm: {question_image['extension']} ({len(question_image['data'])} bayt)")
+                    # Debug
+                    text_preview = question_text[:50] + "..." if question_text else "FAQT RASM"
+                    print(f"Savol yaratildi: '{text_preview}' | Rasmlar: {len(question_images)} ta")
 
                     for i, opt in enumerate(question['options']):
                         opt_letter = chr(65 + i)  # A, B, C, D
-                        print(f"    {opt_letter}) '{opt['text'][:30]}...' {'✓' if opt['is_correct'] else '✗'}")
-                        if opt['image_data']:
-                            print(
-                                f"Rasm: {opt['image_data']['extension']} ({len(opt['image_data']['data'])} bayt)")
+                        text_preview = opt['text'][:30] + "..." if opt['text'] else "FAQT RASM"
+                        print(f"    {opt_letter}) '{text_preview}' {'✓' if opt['is_correct'] else '✗'} | Rasmlar: {len(opt['images'])}")
 
         except Exception as e:
             print(f"Jadval parse qilishda xato: {e}")
@@ -105,17 +148,61 @@ class WordTestReader:
 
         return questions
 
-    def _extract_text_and_image(self, cell, cell_name):
-        text = cell.text.strip()
-        image = None
+    def _extract_cell_text(self, cell):
+        """Katakdan to'liq matnni olish"""
+        text_parts = []
+        
+        # Oddiy paragraphlar
+        for paragraph in cell.paragraphs:
+            if paragraph.text.strip():
+                text_parts.append(paragraph.text.strip())
+        
+        # Textbox lardan matn olish
+        try:
+            cell_xml = cell._tc.xml
+            import xml.etree.ElementTree as ET
+            from io import StringIO
+            
+            namespaces = {
+                'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
+                'v': 'urn:schemas-microsoft-com:vml',
+                'wps': 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape',
+            }
+            
+            root = ET.fromstring(cell_xml)
+            
+            # VML textbox
+            for textbox in root.findall('.//v:textbox//w:t', namespaces):
+                if textbox.text and textbox.text.strip():
+                    text_parts.append(textbox.text.strip())
+            
+            # DrawingML textbox  
+            for textbox in root.findall('.//wps:txbx//w:txbxContent//w:t', namespaces):
+                if textbox.text and textbox.text.strip():
+                    text_parts.append(textbox.text.strip())
+                    
+        except Exception as e:
+            print(f"Textbox matn olishda xato: {e}")
+        
+        return '\n'.join(text_parts) if text_parts else ''
+
+    def _extract_text_and_images(self, cell, cell_name):
+        """Katakdan matn va barcha rasmlarni olish"""
+        text = self._extract_cell_text(cell)
+        images = []
 
         try:
-            print(f"{cell_name} katakchasi: '{text[:30]}...'")
+            print(f"{cell_name} katakchasi: matn='{text[:30]}...'")
 
+            # 1. Run darajasida rasmlarni qidirish
             for para_idx, paragraph in enumerate(cell.paragraphs):
                 for run_idx, run in enumerate(paragraph.runs):
                     if hasattr(run, '_element'):
-                        drawings = run._element.xpath('.//w:drawing')
+                        # Drawing rasmlari
+                        drawings = run._element.xpath('.//w:drawing', namespaces={
+                            'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+                        })
+                        
                         for drawing in drawings:
                             blips = drawing.xpath('.//a:blip', namespaces={
                                 'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'
@@ -125,87 +212,113 @@ class WordTestReader:
                                 rId = blip.get(
                                     '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
                                 if rId and rId in self.document.part.related_parts:
-                                    image_part = self.document.part.related_parts[rId]
-                                    if hasattr(image_part, 'blob'):
-                                        image_data = image_part.blob
+                                    image_data = self._get_image_data(rId)
+                                    if image_data:
+                                        images.append(image_data)
+                                        print(f"  Drawing Rasm: {image_data['extension']}, {len(image_data['data'])} bayt")
 
-                                        if image_data.startswith(b'\xff\xd8'):
-                                            ext = 'jpg'
-                                        elif image_data.startswith(b'\x89PNG'):
-                                            ext = 'png'
-                                        elif image_data.startswith(b'GIF'):
-                                            ext = 'gif'
-                                        elif image_data.startswith(b'RIFF') and b'WEBP' in image_data[8:16]:
-                                            ext = 'webp' #! buni yangi qo'shdim hali testlab ko'rmadim lekin ishlashi kerak
-                                        else:
-                                            ext = 'jpg'
+                        # Picture rasmlari
+                        pics = run._element.xpath('.//pic:pic', namespaces={
+                            'pic': 'http://schemas.openxmlformats.org/drawingml/2006/picture'
+                        })
 
-                                        image = {
-                                            'data': image_data,
-                                            'extension': ext,
-                                            'content_type': f'image/{ext}',
-                                            'rId': rId
-                                        }
-
-                                        print(f"RASM TOPILDI: {ext} format, {len(image_data)} bayt, rId: {rId}")
-                                        return text, image
-
-            if not image:
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        if hasattr(run, '_element'):
-                            pics = run._element.xpath('.//pic:pic', namespaces={
-                                'pic': 'http://schemas.openxmlformats.org/drawingml/2006/picture'
+                        for pic in pics:
+                            blips = pic.xpath('.//a:blip', namespaces={
+                                'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'
                             })
 
-                            for pic in pics:
-                                blips = pic.xpath('.//a:blip', namespaces={
-                                    'a': 'http://schemas.openxmlformats.org/drawingml/2006/main'
-                                })
+                            for blip in blips:
+                                rId = blip.get(
+                                    '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
+                                if rId and rId in self.document.part.related_parts:
+                                    image_data = self._get_image_data(rId)
+                                    if image_data:
+                                        images.append(image_data)
+                                        print(f"  Picture Rasm: {image_data['extension']}, {len(image_data['data'])} bayt")
 
-                                for blip in blips:
-                                    rId = blip.get(
-                                        '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
-                                    if rId and rId in self.document.part.related_parts:
-                                        image_part = self.document.part.related_parts[rId]
-                                        if hasattr(image_part, 'blob'):
-                                            image_data = image_part.blob
+            # 2. Cell darajasida rasmlarni qidirish (VML va boshqalar)
+            try:
+                cell_xml = cell._tc.xml
+                import xml.etree.ElementTree as ET
+                
+                namespaces = {
+                    'v': 'urn:schemas-microsoft-com:vml',
+                    'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
+                }
+                
+                root = ET.fromstring(cell_xml)
+                
+                # VML rasmlari
+                for imagedata in root.findall('.//v:imagedata', namespaces):
+                    rId = imagedata.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')
+                    if rId and rId in self.document.part.related_parts:
+                        image_data = self._get_image_data(rId)
+                        if image_data:
+                            images.append(image_data)
+                            print(f"  VML Rasm: {image_data['extension']}, {len(image_data['data'])} bayt")
+                            
+            except Exception as e:
+                print(f"Cell XML parse xato: {e}")
 
-                                            if image_data.startswith(b'\xff\xd8'):
-                                                ext = 'jpg'
-                                            elif image_data.startswith(b'\x89PNG'):
-                                                ext = 'png'
-                                            elif image_data.startswith(b'RIFF') and b'WEBP' in image_data[8:16]:
-                                                ext = 'webp' #! buni yangi qo'shdim hali testlab ko'rmadim lekin ishlashi kerak
-                                            else:
-                                                ext = 'jpg'
-
-                                            image = {
-                                                'data': image_data,
-                                                'extension': ext,
-                                                'content_type': f'image/{ext}',
-                                                'rId': rId
-                                            }
-
-                                            print(f" PIC RASM: {ext}, {len(image_data)} bayt, rId: {rId}")
-                                            return text, image
-
-            if not image:
-                print(f"Rasm topilmadi")
-
-            return text, image
+            print(f"  {cell_name}: {len(images)} ta rasm topildi")
+            return text, images
 
         except Exception as e:
             print(f"{cell_name} katakda xatolik: {e}")
-            return text, None
+            return text, []
+
+    def _get_image_data(self, rId):
+        """rId orqali rasm ma'lumotlarini olish"""
+        try:
+            if rId in self.document.part.related_parts:
+                image_part = self.document.part.related_parts[rId]
+                if hasattr(image_part, 'blob') and image_part.blob:
+                    image_data = image_part.blob
+                    
+                    # Formatni aniqlash
+                    if image_data.startswith(b'\xff\xd8'):
+                        ext = 'jpg'
+                    elif image_data.startswith(b'\x89PNG'):
+                        ext = 'png'
+                    elif image_data.startswith(b'GIF'):
+                        ext = 'gif'
+                    elif image_data.startswith(b'RIFF') and len(image_data) > 12 and image_data[8:12] == b'WEBP':
+                        ext = 'webp'
+                    elif image_data.startswith(b'BM'):
+                        ext = 'bmp'
+                    else:
+                        ext = 'jpg'  # default
+
+                    return {
+                        'data': image_data,
+                        'data_base64': base64.b64encode(image_data).decode('utf-8'),
+                        'extension': ext,
+                        'content_type': f'image/{ext}',
+                        'rId': rId,
+                        'size': len(image_data)
+                    }
+        except Exception as e:
+            print(f"Rasm olishda xato {rId}: {e}")
+        
+        return None
 
     def debug_all_images(self):
         print("\n=== BARCHA RASMLARGA DEBUG ===")
         for part_id, part in self.document.part.related_parts.items():
-            if hasattr(part, 'blob'):
+            if hasattr(part, 'blob') and part.blob:
                 blob = part.blob
-                if blob.startswith(b'\xff\xd8') or blob.startswith(b'\x89PNG') or blob.startswith(b'GIF'):
-                    print(f"Rasm: {part_id} - {len(blob)} bayt")
+                if len(blob) > 100:  # Faqat haqiqiy rasmlarni ko'rsatish
+                    format_info = "Noma'lum"
+                    if blob.startswith(b'\xff\xd8'):
+                        format_info = "JPEG"
+                    elif blob.startswith(b'\x89PNG'):
+                        format_info = "PNG"
+                    elif blob.startswith(b'GIF'):
+                        format_info = "GIF"
+                    elif blob.startswith(b'RIFF') and len(blob) > 12 and blob[8:12] == b'WEBP':
+                        format_info = "WEBP"
+                    
+                    print(f"Rasm: {part_id} - {len(blob)} bayt - {format_info}")
 
 
 def save_image_to_django(image_data, extension, prefix="question"):
@@ -250,7 +363,9 @@ def parse_word_file_advanced(file_path):
 
             for q in result['questions']:
                 question_data = {
+                    'id': q.get('id', ''),
                     'text': q['text'],
+                    'images': q.get('images', []),
                     'image_data': q.get('image_data'),
                     'options': q['options']
                 }
@@ -258,15 +373,22 @@ def parse_word_file_advanced(file_path):
 
             print(f"\nMuvaffaqiyatli parse qilindi: {len(questions_data)} ta savol")
 
-            for i, q_data in enumerate(questions_data[:2]):
-                print(f"\nSavol {i + 1}: {q_data['text'][:70]}...")
-                if q_data.get('image_data'):
-                    print(f"  Savolda rasm: {q_data['image_data']['extension']}")
+            for i, q_data in enumerate(questions_data):
+                print(f"\nSavol {i + 1} (ID: {q_data['id']}): {q_data['text'][:70] if q_data['text'] else 'FAQT RASM'}...")
+                if q_data.get('images'):
+                    print(f"  Savolda {len(q_data['images'])} ta rasm")
 
                 for j, opt in enumerate(q_data['options']):
-                    has_text = "matn" if opt['text'] else ""
-                    has_image = "rasm" if opt.get('image_data') else ""
-                    content = f"{has_text}+{has_image}" if has_text and has_image else has_text or has_image or "bo'sh"
+                    has_text = bool(opt['text'])
+                    has_image = bool(opt.get('images'))
+                    
+                    content_parts = []
+                    if has_text:
+                        content_parts.append("matn")
+                    if has_image:
+                        content_parts.append(f"{len(opt['images'])} rasm")
+                    
+                    content = "+".join(content_parts) if content_parts else "bo'sh"
                     print(f"  {chr(65 + j)}) {content} ({'✓' if opt['is_correct'] else '✗'})")
 
             return questions_data

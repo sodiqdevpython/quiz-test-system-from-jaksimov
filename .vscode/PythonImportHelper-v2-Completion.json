@@ -1024,6 +1024,46 @@
         "documentation": {}
     },
     {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
         "label": "ckeditor.fields",
         "kind": 6,
         "isExtraImport": true,
@@ -1453,6 +1493,15 @@
         "importPath": "docx",
         "description": "docx",
         "detail": "docx",
+        "documentation": {}
+    },
+    {
+        "label": "base64",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "base64",
+        "description": "base64",
+        "detail": "base64",
         "documentation": {}
     },
     {
@@ -2844,7 +2893,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CustomTokenObtainPairView(TokenObtainPairView):\n    serializer_class = CustomTokenObtainPairSerializer\nclass GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer",
+        "peekOfCode": "class CustomTokenObtainPairView(TokenObtainPairView):\n    serializer_class = CustomTokenObtainPairSerializer\nclass GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\n    pagination_class = None\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2853,7 +2902,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):\n    queryset = User.objects.all()",
+        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\n    pagination_class = None\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):",
         "detail": "mainApp.views",
         "documentation": {}
     },
