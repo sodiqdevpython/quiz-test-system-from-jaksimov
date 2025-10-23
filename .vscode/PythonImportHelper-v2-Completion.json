@@ -2893,7 +2893,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class CustomTokenObtainPairView(TokenObtainPairView):\n    serializer_class = CustomTokenObtainPairSerializer\nclass GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\n    pagination_class = None\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()",
+        "peekOfCode": "class CustomTokenObtainPairView(TokenObtainPairView):\n    serializer_class = CustomTokenObtainPairSerializer\nclass GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer",
         "detail": "mainApp.views",
         "documentation": {}
     },
@@ -2902,7 +2902,7 @@
         "kind": 6,
         "importPath": "mainApp.views",
         "description": "mainApp.views",
-        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\n    pagination_class = None\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):",
+        "peekOfCode": "class GroupListView(generics.ListAPIView):\n    permission_classes = [AllowAny]\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\n    search_fields = [\"name\", \"kurs\"]\nclass GroupDetailView(generics.RetrieveAPIView):\n    queryset = Group.objects.all()\n    serializer_class = GroupSerializer\nclass UserListView(generics.ListAPIView):\n    queryset = User.objects.all()",
         "detail": "mainApp.views",
         "documentation": {}
     },

@@ -31,7 +31,6 @@ class GroupListView(generics.ListAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     search_fields = ["name", "kurs"]
-    pagination_class = None
 
 class GroupDetailView(generics.RetrieveAPIView):
     queryset = Group.objects.all()
